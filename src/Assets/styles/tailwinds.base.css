@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@layer base {
+    body {
+        @apply text-sm font-sans text-gray-850;  
+    }
+}
