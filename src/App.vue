@@ -14,11 +14,11 @@
     import AppSidebar from "@/Views/Layout/AppSidebar.vue";
 
     /* Icons */
-    import "@/assets/icons/bootstrap/icons.css"; /* Bootstrap Icons */
-    import "@/assets/icons/fontawesome/icons.css"; /* FontAwesome Icons */
+    import "@/Assets/icons/bootstrap/icons.css"; /* Bootstrap Icons */
+    import "@/Assets/icons/fontawesome/icons.css"; /* FontAwesome Icons */
     /* CSS */
-    import "@/assets/styles/tailwinds.base.css"; /* Tailwinds Base */
-    import "@/assets/styles/tailwinds.utilities.css"; /* Tailwinds Utilities */
+    import "@/Assets/styles/tailwinds.base.css"; /* Tailwinds Base */
+    import "@/Assets/styles/tailwinds.utilities.css"; /* Tailwinds Utilities */
 
     export default defineComponent({
         components: {
