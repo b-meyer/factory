@@ -13,9 +13,6 @@
     import AppHeader from "@/Views/Layout/AppHeader.vue";
     import AppSidebar from "@/Views/Layout/AppSidebar.vue";
 
-    /* Icons */
-    import "@/Assets/icons/bootstrap/icons.css"; /* Bootstrap Icons */
-    import "@/Assets/icons/fontawesome/icons.css"; /* FontAwesome Icons */
     /* CSS */
     import "@/Assets/styles/tailwinds.base.css"; /* Tailwinds Base */
     import "@/Assets/styles/tailwinds.utilities.css"; /* Tailwinds Utilities */
