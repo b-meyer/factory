@@ -37,22 +37,20 @@
                 }
             }
             // Get Icon Prefixes
-            let prefix = /^i\[class\*=" (.+-)"\], i\[class\^="\1"\]$/;
             let prefixes: string[] = rules 
-                .map(x => GetGroup(prefix, x.selectorText))
+                .map(x => GetGroup(/^i\[class\*=" (.+-)"\], i\[class\^="\1"\]$/, x.selectorText))
                 .filter(x => !!x) as string[];
             //Set List of Icons
-            let icon = /\.([^:]+)::before/g;
             this.Icons = rules
-                .flatMap(x => x.selectorText.match(icon))
+                .flatMap(x => x.selectorText.match(/\.([^:]+)::before/g))
                 .filter(x => !!x && prefixes.some(y => x.startsWith('.' + y)))
-                .map(x => GetGroup(icon, x!))
+                .map(x => GetGroup(/\.([^:]+)::before/g, x!))
                 .filter(x => !!x)
                 .sort() as string[];
         },
         computed: {
             Filtered: function (): string[] {
-                return !this.Search ? this.Icons : this.Icons.filter(x => x.indexOf(this.Search) + 1);
+                return !this.Search ? this.Icons : this.Icons.filter(x => x.toLowerCase().indexOf(this.Search.toLowerCase()) + 1);
             },
         },
     });
