@@ -10,7 +10,11 @@
         </div>
         <div class="flex flex-col flex-auto">
             <div v-for="section in Menu">
-                <div class="flex items-center gap-15 p-15 h-45 hover:bg-primary-650"
+                <a v-if="Array.isArray(section)" v-for="link in section" class="flex items-center gap-15 p-15 h-45 hover:bg-primary-650" :href="link.Link">
+                    <i class="text-[15px]" :class="link.Icon" />
+                    <div v-text="link.Text" />
+                </a>
+                <div v-else class="flex items-center gap-15 p-15 h-45 hover:bg-primary-650"
                     :class="{ 'bg-primary-675': Active === section.Category }"
                     @click="Select(section.Category)">
                     <i class="text-[15px]" :class="section.Icon" />
@@ -32,7 +36,7 @@
     import { mainStore } from '@/Scripts/Store'
 
     enum MenuCategory {
-        LinuxTheme = "LinuxTheme",
+        Linux = "Linux",
     }
 
     export default defineComponent({
@@ -41,12 +45,16 @@
             MenuCategory: MenuCategory,
             Menu: [
                 {
-                    Category: MenuCategory.LinuxTheme,
+                    Category: MenuCategory.Linux,
                     Icon: "fab-linux",
                     Links: [
                         { Text: 'Colors', Link: '/LinuxTheme/Colors' },
                     ]
                 },
+                [
+                    { Icon: "bi-journals", Text: 'Wishlist', Link: '/ProjectTracker' },
+                    { Icon: "bi-lightning-charge", Text: 'Icons', Link: '/Icons' },
+                ]
             ]
         }),
         computed: {

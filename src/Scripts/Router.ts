@@ -17,9 +17,9 @@ export const router = createRouter({
         },
         // Maintenance
         {
-            path: '/maintenance/icons',
-            name: 'maintenance-icons',
-            component: () => import('@/Views/Pages/Maintenance/Icon.vue'),
+            path: '/Icons',
+            name: 'icons',
+            component: () => import('@/Views/Pages/Icons.vue'),
         },
     ],
 });
