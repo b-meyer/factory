@@ -21,7 +21,7 @@
                     <div v-text="section.Category" />
                     <i class="text-[12px] ml-auto" :class=" ['bi-chevron-' + (Active == section.Category ? 'down' : 'left')]" />
                 </div>
-                <a v-for="link in section.Links" v-show="Active == section.Category" class="flex items-center gap-15 p-15 h-45 bg-primary-675 text-[14px] hover:bg-primary-650" :href="link.Link">
+                <a v-for="link in (section as any).Links" v-show="Active == (section as any).Category" class="flex items-center gap-15 p-15 h-45 bg-primary-675 text-[14px] hover:bg-primary-650" :href="link.Link">
                     <div class="pl-30" v-text="link.Text" />
                 </a>
             </div>
