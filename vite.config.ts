@@ -1,22 +1,23 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import checker from 'vite-plugin-checker'
 import { resolve } from 'path'
 import dns from 'dns'
+import tailwindcss from 'tailwindcss'
+import autoprefixer from 'autoprefixer'
+import cssnano from 'cssnano'
 
 dns.setDefaultResultOrder('verbatim')
 
 export default defineConfig(({ command, mode }) => ({
   server: {
-    port: 53333,
+    port: 51234,
     strictPort: true,
   },
   preview: {
-    port: 53333,
+    port: 51234,
   },
   plugins: [
     vue(),
-    checker({ typescript: true })
   ],
   resolve: {
     alias: {
@@ -26,9 +27,9 @@ export default defineConfig(({ command, mode }) => ({
   css: {
     postcss: {
       plugins: [
-        require('tailwindcss')(),
-        require('autoprefixer')(),
-        require('cssnano')()
+        tailwindcss(),
+        autoprefixer(),
+        cssnano()
       ]
     }
   },

@@ -3,9 +3,9 @@
     "target": "esnext",
     "module": "esnext",
     "strict": true,
-    "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
+    "isolatedModules": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
@@ -13,9 +13,7 @@
     "sourceMap": false,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": [ "src/*" ]
     },
     "lib": [
       "esnext",
@@ -24,16 +22,10 @@
   },
   "include": [
     "src/**/*.ts",
-    "src/**/*.tsx",
     "src/**/*.vue"
   ],
   "exclude": [
     "node_modules",
     "dist"
-  ],
-  "plugins": [
-    {
-      "name": "typescript-vue-plugin"
-    }
-  ],
+  ]
 }

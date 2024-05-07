@@ -15,6 +15,12 @@ export const router = createRouter({
             name: 'ProjectTracker',
             component: () => import('@/Views/Pages/ProjectTracker/ProjectTracker.vue'),
         },
+        // ProjectTracker
+        {
+            path: '/motor/mk4',
+            name: 'motor-mk4',
+            component: () => import('@/Views/Pages/Motor/Motor.vue'),
+        },
         // Maintenance
         {
             path: '/Icons',
