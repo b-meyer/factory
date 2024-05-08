@@ -1,17 +1,17 @@
 <template>
     <div class="flex flex-col w-full min-h-full gap-20 p-20">
         <div class="card flex flex-auto gap-20">
-            <div class="flex flex-col flex-auto max-w-[400px] p-40 gap-30">
-                <div class="flex flex-col gap-20">
+            <div class="flex flex-col flex-auto max-w-[300px] p-40 gap-30">
+                <div class="flex flex-col gap-10">
                     <div class="flex items-center justify-between">
                         <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">General</h2>
                         <i class="bi-caret-down-fill"></i>
                     </div>
-                    <div class="flex flex-col gap-20">
+                    <div class="flex flex-col gap-10">
                         <div class="flex gap-10 items-center justify-between">
                             <label>Total Arm Radius:</label>
-                            <div class="max-w-[125px]">
-                                <input type="number" v-model="TotalR" @input="Init"/>
+                            <div class="max-w-[75px]">
+                                <input type="number" class="border-input rounded h-32 w-full px-10" v-model="TotalR" @input="Init"/>
                             </div>
                         </div>
                     </div>
@@ -19,41 +19,41 @@
                         <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">Crank</h2>
                         <i class="bi-caret-down-fill"></i>
                     </div>
-                    <div class="flex flex-col gap-20">
+                    <div class="flex flex-col gap-10">
                         <div class="flex gap-10 items-center justify-between">
                             <label>Magnets:</label>
-                            <div class="max-w-[125px]">
-                                <input type="number" v-model="Crank.Arms" @input="Init"/>
+                            <div class="max-w-[75px]">
+                                <input type="number" class="border-input rounded h-32 w-full px-10" v-model="Crank.Arms" @input="Init"/>
                             </div>
                         </div>
                         <div class="flex gap-10 items-center justify-between">
                             <label>Arm Length:</label>
-                            <div class="max-w-[125px]">
-                                <input type="number" v-model="Crank.ArmLength" @input="Init"/>
+                            <div class="max-w-[75px]">
+                                <input type="number" class="border-input rounded h-32 w-full px-10" v-model="Crank.ArmLength" @input="Init"/>
                             </div>
                         </div>
                         <div class="flex gap-10 items-center justify-between">
                             <label>Magnet Gap:</label>
-                            <div class="max-w-[125px]">
-                                <input type="number" v-model="Crank.ArmBuffer" @input="Init"/>
+                            <div class="max-w-[75px]">
+                                <input type="number" class="border-input rounded h-32 w-full px-10" v-model="Crank.ArmBuffer" @input="Init"/>
                             </div>
                         </div>
                         <div class="flex gap-10 items-center justify-between">
                             <label>Outer Radius:</label>
-                            <div class="max-w-[125px]">
-                                <input type="number" v-model="Crank.TotalR" @input="Init"/>
+                            <div class="max-w-[75px]">
+                                <input type="number" class="border-input rounded h-32 w-full px-10" v-model="Crank.TotalR" @input="Init"/>
                             </div>
                         </div>
                         <div class="flex gap-10 items-center justify-between">
                             <label>Pitch Radius:</label>
-                            <div class="max-w-[125px]">
-                                <input type="number" v-model="Crank.PitchR" @input="Init"/>
+                            <div class="max-w-[75px]">
+                                <input type="number" class="border-input rounded h-32 w-full px-10" v-model="Crank.PitchR" @input="Init"/>
                             </div>
                         </div>
                         <div class="flex gap-10 items-center justify-between">
                             <label>Pin Radius:</label>
-                            <div class="max-w-[125px]">
-                                <input type="number" v-model="Crank.PinR" @input="Init"/>
+                            <div class="max-w-[75px]">
+                                <input type="number" class="border-input rounded h-32 w-full px-10" v-model="Crank.PinR" @input="Init"/>
                             </div>
                         </div>
                     </div>
@@ -61,11 +61,11 @@
                         <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">Rotor</h2>
                         <i class="bi-caret-down-fill"></i>
                     </div>
-                    <div class="flex flex-col gap-20">
+                    <div class="flex flex-col gap-10">
                         <div class="flex gap-10 items-center justify-between">
                             <label>Magnets:</label>
-                            <div class="max-w-[125px]">
-                                <input type="number" v-model="Rotor.Arms" @input="Init"/>
+                            <div class="max-w-[75px]">
+                                <input type="number" class="border-input rounded h-32 w-full px-10" v-model="Rotor.Arms" @input="Init"/>
                             </div>
                         </div>
                     </div>
@@ -87,7 +87,10 @@ export default defineComponent({
     components: { },
     mounted: function() {
         let viewport = document.getElementById("viewport")!;
-        this.surface = new Two({ fitted: true, autostart: true }).appendTo(viewport);
+        this.surface = new Two({ fitted: true, autostart: true });
+        this.surface.appendTo(viewport);
+        this.surface.scene.rotation = Math.PI;
+        this.surface.scene.translation = new Vector(this.surface.width / 2, this.surface.height / 2);
         this.Init();
         this.surface.bind('update', this.Redraw);
         //window.addEventListener('resize', this.Init)
@@ -96,14 +99,12 @@ export default defineComponent({
         //window.removeEventListener('resize', this.Init)
     },
       data: () => reactive({
-        scale: 0,
             surface: {} as Two,
             Arms: [] as Group[],
             RotorG: {} as Group,
             Start: Date.now(),
-            TotalR: 210,
-            FPS: 60,
             SPR: 15,
+            TotalR: 210,
             Crank: {
                 Arms: 23,
                 ArmLength: 60,
@@ -115,15 +116,15 @@ export default defineComponent({
             Rotor: {
                 Arms: 8,
             },
-            Gears: {
-                VS: {
-                    Scale: 0.75,
-                    DAT: 20,
-                    DBT: 12,
-                    RAT: 12,
-                    RBT: 8,
-                }
-            },
+            // Gears: {
+            //     VS: {
+            //         Scale: 0.75,
+            //         DAT: 20,
+            //         DBT: 12,
+            //         RAT: 12,
+            //         RBT: 8,
+            //     }
+            // },
         }),
         computed: {
             MainR: function () {
@@ -135,36 +136,33 @@ export default defineComponent({
             Angle: function () {
                 return 2 * Math.PI / this.Crank.Arms;
             },
+            Scale: function () {
+                return .4 * Math.min(this.surface.width, this.surface.height) / this.TotalR;
+            },
         },
         methods: {
             Init: function() {
                 this.Arms = [];
                 this.surface.clear();
-                let width = this.surface.width;
-                let height = this.surface.height;
-                this.scale = .4 * Math.min(width, height) / this.TotalR;
                 
-                let totalR = this.scale * this.TotalR;
-                let mainR = this.scale * this.MainR;
-                let gear1R = this.scale * this.Gear1R;
-                let gear2R = this.scale * this.Gear1R * 0.75;
-                let crankTotalR = this.scale * this.Crank.TotalR;
-                let crankPitchR = this.scale * this.Crank.PitchR;
-                let crankPinR = this.scale * this.Crank.PinR
-                let crankArmLength = this.scale * this.Crank.ArmLength;
-                let crankArmBuffer = this.scale * this.Crank.ArmBuffer;
+                let totalR = this.Scale * this.TotalR;
+                let mainR = this.Scale * this.MainR;
+                let gear1R = this.Scale * this.Gear1R;
+                let gear2R = this.Scale * this.Gear1R * 0.75;
+                let crankTotalR = this.Scale * this.Crank.TotalR;
+                let crankPitchR = this.Scale * this.Crank.PitchR;
+                let crankPinR = this.Scale * this.Crank.PinR
+                let crankArmLength = this.Scale * this.Crank.ArmLength;
+                let crankArmBuffer = this.Scale * this.Crank.ArmBuffer;
                 let rotorPitchR = totalR - crankPitchR - crankArmLength - crankArmBuffer;
 
                 // Body
-                let stack, all = this.surface.scene;
-                all.translation = new Vector(width / 2, height / 2);
-                all.rotation = Math.PI;
-                all.add(this.surface.makeCircle(0, 0, totalR + 20)); // Body
+                this.surface.makeCircle(0, 0, totalR + 20); // Body
 
                 // Gear/Crank
-                all.add(this.surface.makeCircle(0, 0, mainR)); // Main Gear
+                this.surface.makeCircle(0, 0, mainR); // Main Gear
                 for (let i = 0; i < this.Crank.Arms; i++) { 
-                    stack = this.surface.makeGroup(); 
+                    let stack = this.surface.makeGroup(); 
                     stack.rotation = i * this.Angle;
                     stack.add(this.surface.makeCircle(0, mainR + gear1R, gear1R)); // Gear 1a
                     stack.add(this.surface.makeCircle(0, mainR + gear1R, gear2R)); // Gear 1b
@@ -178,13 +176,13 @@ export default defineComponent({
                     );
                     stack.add(arm);
                     this.Arms.push(arm);
-                    all.add(stack);
                 }
 
+                // Rotor
                 let rotor = this.surface.makeGroup();
-                rotor.add(this.surface.makeCircle(0, 0, rotorPitchR - crankArmBuffer)); // Rotor Body
+                rotor.add(this.surface.makeCircle(0, 0, rotorPitchR - crankPinR)); // Rotor Body
                 for (let i = 0; i < this.Rotor.Arms; i++) { // Rotor Arms
-                    stack = this.surface.makeGroup(); 
+                    let stack = this.surface.makeGroup(); 
                     stack.rotation = 2 * Math.PI * i / this.Rotor.Arms;
                     stack.add(this.surface.makeCircle(0, rotorPitchR, crankPinR));
                     stack.add(this.surface.makeLine(0, 0, 0, rotorPitchR));
@@ -192,13 +190,13 @@ export default defineComponent({
                 }
                 this.RotorG = rotor;
 
-                all.noFill();
+                this.surface.scene.noFill();
             },
             Redraw: function () {
                 let rotation = (Date.now() - this.Start) / (1000 * this.SPR);
-                let totalR = this.scale * this.TotalR;
-                let crankPitchR = this.scale * this.Crank.PitchR;
-                let crankArmLength = this.scale * this.Crank.ArmLength;
+                let totalR = this.Scale * this.TotalR;
+                let crankPitchR = this.Scale * this.Crank.PitchR;
+                let crankArmLength = this.Scale * this.Crank.ArmLength;
                 for(let i = 0; i < this.Arms.length; i++) {
                     let armRotation = this.Rotor.Arms * (rotation - i / this.Crank.Arms);
                     armRotation = armRotation - Math.floor(armRotation);
@@ -208,7 +206,7 @@ export default defineComponent({
                     this.Arms[i].rotation = theta;
                     this.Arms[i].translation = new Vector((totalR - crankArmLength) * Math.sin(theta), totalR * (1 - Math.cos(theta)) - crank.y);
                 }
-                this.RotorG.rotation = rotation * 2*Math.PI;
+                this.RotorG.rotation = rotation * 2 * Math.PI;
             }
         }
 });
