@@ -82,7 +82,7 @@ export default defineComponent({
                 rack.translation = new Vector(rack.rotation * this.R).rotate(rack.rotation);
             }
             for (let i = 0; i < this.N; i++) {
-                tooth.clone(this.Surface).rotation = i * this.TA;
+                tooth.clone(this.Surface.scene as Group).rotation = i * this.TA;
             }
 
             this.Surface.makeCircle(0, 0, this.R - this.A);
