@@ -87,19 +87,19 @@ export default defineComponent({
     components: { },
     mounted: function() {
         let viewport = document.getElementById("viewport")!;
-        this.surface = new Two({ fitted: true, autostart: true });
-        this.surface.appendTo(viewport);
-        this.surface.scene.rotation = Math.PI;
-        this.surface.scene.translation = new Vector(this.surface.width / 2, this.surface.height / 2);
+        this.Surface = new Two({ fitted: true, autostart: true });
+        this.Surface.appendTo(viewport);
+        this.Surface.scene.rotation = Math.PI;
+        this.Surface.scene.translation = new Vector(this.Surface.width / 2, this.Surface.height / 2);
         this.Init();
-        this.surface.bind('update', this.Redraw);
+        this.Surface.bind('update', this.Redraw);
         //window.addEventListener('resize', this.Init)
     },
     beforeDestroy() {
         //window.removeEventListener('resize', this.Init)
     },
       data: () => reactive({
-            surface: {} as Two,
+            Surface: {} as Two,
             Arms: [] as Group[],
             RotorG: {} as Group,
             Start: Date.now(),
@@ -137,13 +137,13 @@ export default defineComponent({
                 return 2 * Math.PI / this.Crank.Arms;
             },
             Scale: function () {
-                return .4 * Math.min(this.surface.width, this.surface.height) / this.TotalR;
+                return .425 * Math.min(this.Surface.width, this.Surface.height) / this.TotalR;
             },
         },
         methods: {
             Init: function() {
                 this.Arms = [];
-                this.surface.clear();
+                this.Surface.clear();
                 
                 let totalR = this.Scale * this.TotalR;
                 let mainR = this.Scale * this.MainR;
@@ -157,40 +157,40 @@ export default defineComponent({
                 let rotorPitchR = totalR - crankPitchR - crankArmLength - crankArmBuffer;
 
                 // Body
-                this.surface.makeCircle(0, 0, totalR + 20); // Body
+                this.Surface.makeCircle(0, 0, totalR + 4 * crankPinR); // Body
 
                 // Gear/Crank
-                this.surface.makeCircle(0, 0, mainR); // Main Gear
+                this.Surface.makeCircle(0, 0, mainR); // Main Gear
                 for (let i = 0; i < this.Crank.Arms; i++) { 
-                    let stack = this.surface.makeGroup(); 
+                    let stack = this.Surface.makeGroup(); 
                     stack.rotation = i * this.Angle;
-                    stack.add(this.surface.makeCircle(0, mainR + gear1R, gear1R)); // Gear 1a
-                    stack.add(this.surface.makeCircle(0, mainR + gear1R, gear2R)); // Gear 1b
-                    stack.add(this.surface.makeCircle(0, totalR, gear2R)); // Gear 2
-                    stack.add(this.surface.makeCircle(0, totalR, crankTotalR)); // Crank Body
-                    stack.add(this.surface.makeLine(0, totalR + crankPitchR - crankArmLength, 0, totalR - crankPitchR - crankArmLength)); // Head Path
-                    let arm = this.surface.makeGroup(
-                        this.surface.makeCircle(0, totalR, crankPinR), // Crank Pin
-                        this.surface.makeCircle(0, totalR - crankArmLength, crankPinR), // Crank Pin
-                        this.surface.makeLine(0, totalR, 0, totalR - crankArmLength) // Crank Arm
+                    stack.add(this.Surface.makeCircle(0, mainR + gear1R, gear1R)); // Gear 1a
+                    stack.add(this.Surface.makeCircle(0, mainR + gear1R, gear2R)); // Gear 1b
+                    stack.add(this.Surface.makeCircle(0, totalR, gear2R)); // Gear 2
+                    stack.add(this.Surface.makeCircle(0, totalR, crankTotalR)); // Crank Body
+                    stack.add(this.Surface.makeLine(0, totalR + crankPitchR - crankArmLength, 0, totalR - crankPitchR - crankArmLength)); // Head Path
+                    let arm = this.Surface.makeGroup(
+                        this.Surface.makeCircle(0, totalR, crankPinR), // Crank Pin
+                        this.Surface.makeCircle(0, totalR - crankArmLength, crankPinR), // Crank Pin
+                        this.Surface.makeLine(0, totalR, 0, totalR - crankArmLength) // Crank Arm
                     );
                     stack.add(arm);
                     this.Arms.push(arm);
                 }
 
                 // Rotor
-                let rotor = this.surface.makeGroup();
-                rotor.add(this.surface.makeCircle(0, 0, rotorPitchR - crankPinR)); // Rotor Body
+                let rotor = this.Surface.makeGroup();
+                rotor.add(this.Surface.makeCircle(0, 0, rotorPitchR - crankPinR)); // Rotor Body
                 for (let i = 0; i < this.Rotor.Arms; i++) { // Rotor Arms
-                    let stack = this.surface.makeGroup(); 
+                    let stack = this.Surface.makeGroup(); 
                     stack.rotation = 2 * Math.PI * i / this.Rotor.Arms;
-                    stack.add(this.surface.makeCircle(0, rotorPitchR, crankPinR));
-                    stack.add(this.surface.makeLine(0, 0, 0, rotorPitchR));
+                    stack.add(this.Surface.makeCircle(0, rotorPitchR, crankPinR));
+                    stack.add(this.Surface.makeLine(0, 0, 0, rotorPitchR));
                     rotor.add(stack);
                 }
                 this.RotorG = rotor;
 
-                this.surface.scene.noFill();
+                this.Surface.scene.noFill();
             },
             Redraw: function () {
                 let rotation = (Date.now() - this.Start) / (1000 * this.SPR);
