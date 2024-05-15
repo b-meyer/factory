@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col w-full min-h-full gap-20 p-20 m-auto">
-        <h1 class="text-[28px] flex justify-center items-center" v-text="'Linux Theme Colors'" />
+        <h1 class="text-[28px] flex justify-center items-center" v-text="'Linux Rice Colors'" />
         <div class="flex flex-auto card p-20 gap-20">
             <div class="flex flex-col gap-10">
                 <div class="flex items-center justify-start gap-15">

@@ -50,7 +50,7 @@
         },
         computed: {
             Filtered: function (): string[] {
-                return !this.Search ? this.Icons : this.Icons.filter(x => x.toLowerCase().indexOf(this.Search.toLowerCase()) + 1);
+                return !this.Search ? this.Icons : this.Icons.filter(x => this.Search.split(" ").every(s => x.toLowerCase().indexOf(s.toLowerCase()) + 1));
             },
         },
     });

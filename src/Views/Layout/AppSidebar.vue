@@ -44,18 +44,19 @@
             Active: null! as MenuCategory,
             MenuCategory: MenuCategory,
             Menu: [
-                {
-                    Category: MenuCategory.Linux,
-                    Icon: "fab-linux",
-                    Links: [
-                        { Text: 'Colors', Link: '/LinuxTheme/Colors' },
-                    ]
-                },
+                // {
+                //     Category: MenuCategory.Linux,
+                //     Icon: "fab-linux",
+                //     Links: [
+                //         { Text: 'Colors', Link: '/LinuxTheme/Colors' },
+                //     ]
+                // },
                 [
                     { Icon: "bi-journals", Text: 'Wishlist', Link: '/ProjectTracker' },
                     { Icon: "bi-lightning-charge", Text: 'Icons', Link: '/Icons' },
+                    { Icon: "fab-linux", Text: 'Colors', Link: '/LinuxTheme/Colors' },
                 ]
-            ]
+            ] as any
         }),
         computed: {
             ...mapStores(mainStore),
