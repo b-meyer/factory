@@ -13,7 +13,16 @@
     <link href="https://icons.bmeyer.xyz/kendo/icons.css" rel="stylesheet" crossorigin="anonymous" />
     <link href="https://icons.bmeyer.xyz/materialdesign/icons.css" rel="stylesheet" crossorigin="anonymous" />
     <link href="https://icons.bmeyer.xyz/microsoft/icons.css" rel="stylesheet" crossorigin="anonymous" />
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module">
+      import { createApp } from 'vue';
+      import { createPinia } from 'pinia';
+      import { router } from '@/Scripts/Router';
+      import App from '@/Views/App/Layout.vue';
+      const app = createApp(App);
+      app.use(createPinia());
+      app.use(router);
+      router.isReady().then(() => app.mount('body'));
+    </script>
   </head>
-  <body/>
+  <body class="text-sm font-sans text-gray-850" />
 </html>

@@ -1,36 +1,20 @@
+import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { resolve } from 'path'
-import dns from 'dns'
-import tailwindcss from 'tailwindcss'
-import autoprefixer from 'autoprefixer'
-import cssnano from 'cssnano'
+import tailwindcss from '@tailwindcss/vite'
 
-dns.setDefaultResultOrder('verbatim')
-
-export default defineConfig(({ command, mode }) => ({
+export default defineConfig({
   server: {
     port: 51234,
     strictPort: true,
   },
-  preview: {
-    port: 51234,
-  },
   plugins: [
     vue(),
+    tailwindcss()
   ],
   resolve: {
     alias: {
-      '@': resolve(__dirname, './src')
-    }
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    },
   },
-  css: {
-    postcss: {
-      plugins: [
-        tailwindcss(),
-        autoprefixer(),
-        cssnano()
-      ]
-    }
-  },
-}));
+})

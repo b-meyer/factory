@@ -21,13 +21,13 @@ export const colorStore = defineStore('color', {
             this.SelectedIndex = null!;
         },
         RGB(color: Models.Color): string {
-            let h = color.Primary ? this.Selected.PrimaryHue : color.H, 
+            const h = color.Primary ? this.Selected.PrimaryHue : color.H, 
                 s = color.S / 100, 
                 l = color.L / 100,
                 a = s * Math.min(l, 1 - l),
                 f = (n: any, k = (n + h / 30) % 12) => l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
             return '#' + [f(0), f(8), f(4)].map(x => {
-                let hex = Math.round(x * 255).toString(16);
+                const hex = Math.round(x * 255).toString(16);
                 return hex.length === 1 ? '0' + hex : hex;
             }).join('');
         }

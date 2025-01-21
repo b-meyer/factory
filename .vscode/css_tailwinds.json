@@ -1,23 +1,23 @@
 {
-    "version": 1.1,
+    "version": 4.0,
     "atDirectives": [
         {
-            "name": "@tailwind",
-            "description": "Use the @tailwind directive to insert Tailwind's base, components, utilities and variants styles into your CSS.",
+            "name": "@utility",
+            "description": "Use the @utility directive to insert a custom Utility into Tailwind.",
             "references": [
                 {
                     "name": "Tailwind Documentation",
-                    "url": "https://tailwindcss.com/docs/functions-and-directives#tailwind"
+                    "url": "https://tailwindcss.com/docs/v4-beta"
                 }
             ]
         },
         {
-            "name": "@layer",
-            "description": "Use the @layer directive to tell Tailwind which “bucket” a set of custom styles belong to. Valid layers are base, components, and utilities.",
+            "name": "@theme",
+            "description": "Use the @theme directive to configure all of your customizations directly in the CSS file.",
             "references": [
                 {
                     "name": "Tailwind Documentation",
-                    "url": "https://tailwindcss.com/docs/functions-and-directives#layer"
+                    "url": "https://tailwindcss.com/docs/v4-beta"
                 }
             ]
         },
@@ -27,7 +27,7 @@
             "references": [
                 {
                     "name": "Tailwind Documentation",
-                    "url": "https://tailwindcss.com/docs/functions-and-directives#apply"
+                    "url": "https://tailwindcss.com/docs/v4-beta"
                 }
             ]
         }

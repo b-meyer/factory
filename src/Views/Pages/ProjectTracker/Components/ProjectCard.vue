@@ -1,17 +1,18 @@
 <template>
-    <div class="card aspect-square flex flex-col justify-center items-center p-10 gap-10"
-            @click="projectTrackerStore.Selected = Project.Id"
-            draggable="true"
-            @dragstart="DragStart"  
-            @dragenter="DragEnter" 
-            @dragover="DragOver"
-            @dragexit="DragEnd"
-            @dragleave="DragEnd"
-            @drop="Drop">
-        <div v-text="Project.Title" />
-        <div class="flex-auto aspect-square bg-no-repeat bg-center bg-contain" :style="`background-image: url('${Project.Image}');`"/>
-        <div v-text="projectTrackerStore.Dollars(Project)" />
-    </div>
+  <div class="card aspect-square flex flex-col justify-center items-center p-10 gap-10"
+       draggable="true"
+       @click="projectTrackerStore.Selected = Project.Id"
+       @dragstart="DragStart"  
+       @dragenter="DragEnter" 
+       @dragover="DragOver"
+       @dragexit="DragEnd"
+       @dragleave="DragEnd"
+       @drop="Drop">
+    <div v-text="Project.Title" />
+    <div class="flex-auto aspect-square bg-no-repeat bg-center bg-contain"
+         :style="`background-image: url('${Project.Image}');`" />
+    <div v-text="projectTrackerStore.Dollars(Project)" />
+  </div>
 </template>
 
 <script lang="ts">
@@ -44,9 +45,9 @@ export default defineComponent({
             e.preventDefault();
         },
         DragOver: function(e: DragEvent) : void {
-            let target = e.target as Element;
-            let left = target.clientWidth / 5.0;
-            let right = target.clientWidth - left;
+            const target = e.target as Element;
+            const left = target.clientWidth / 5.0;
+            const right = target.clientWidth - left;
             if (this.Project.Id == e.dataTransfer?.types[0]) { // Over the currently dragged Item
                 this.DropState = null!;
             } else if (e.offsetX <= left) { // Over the Top part of the target Item

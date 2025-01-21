@@ -1,46 +1,58 @@
 <template>
-    <div class="flex flex-col w-full min-h-full gap-20 p-20 m-auto">
-        <div class="flex flex-auto flex-col card p-20 mt-30 gap-20">
-            <div class="absolute inset-0 h-50">
-                <i v-if="Project" 
-                class="bi-arrow-left-circle absolute left-20 inset-y-0 w-50 flex justify-center items-center text-[24px] hover:font-bold" 
-                @click="projectTrackerStore.SelectParent" 
-                @dragenter.prevent="" 
-                @dragover.prevent=""
-                @drop="DropParent"/>
-                <h1 class="flex justify-center items-center h-50 text-[22px]" v-text="'Project Tracker'" />
+  <div class="flex flex-col w-full min-h-full gap-20 p-20 m-auto">
+    <div class="flex flex-auto flex-col card p-20 mt-30 gap-20">
+      <div class="absolute inset-0 h-50">
+        <i v-if="Project" 
+           class="bi-arrow-left-circle absolute left-20 inset-y-0 w-50 flex justify-center items-center text-[24px] hover:font-bold" 
+           @click="projectTrackerStore.SelectParent" 
+           @dragenter.prevent="" 
+           @dragover.prevent=""
+           @drop="DropParent" />
+        <h1 class="flex justify-center items-center h-50 text-[22px]"
+            v-text="'Project Tracker'" />
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 max-w-[1200px] m-auto gap-10 p-20">
+        <div v-if="Project"
+             class="card col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-6 flex max-sm:flex-col p-20 gap-20">
+          <div class="max-xs:mx-20 max-sm:mx-40 h-full aspect-square bg-no-repeat bg-center bg-contain"
+               :style="`background-image: url('${Project.Image}');`" />
+          <div class="flex flex-auto flex-col gap-10">
+            <div class="flex flex-col gap-5">
+              <label v-text="'Title'" />
+              <input v-model="Project.Title"
+                     class="flex-auto px-15 border-input rounded h-34 text-sm outline-none">
             </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 max-w-[1200px] m-auto gap-10 p-20">
-                <div v-if="Project" class="card col-span-2 sm:col-span-3 md:col-span-4 lg:col-span-6 flex max-sm:flex-col p-20 gap-20">
-                    <div class="max-xs:mx-20 max-sm:mx-40 h-full aspect-square bg-no-repeat bg-center bg-contain" :style="`background-image: url('${Project.Image}');`"/>
-                    <div class="flex flex-auto flex-col gap-10">
-                        <div class="flex flex-col gap-5">
-                            <label v-text="'Title'" />
-                            <input class="flex-auto px-15 border-input rounded h-34 text-sm outline-none" v-model="Project.Title" />
-                        </div>
-                        <div class="flex flex-col gap-5">
-                            <label v-text="'Image'" />
-                            <input class="flex-auto px-15 border-input rounded h-34 text-sm outline-none" v-model="Project.Image" />
-                        </div>
-                        <div class="flex flex-col gap-5">
-                            <label v-text="'Link'" />
-                            <input class="flex-auto px-15 border-input rounded h-34 text-sm outline-none" v-model="Project.Link" />
-                        </div>
-                        <div class="flex flex-col gap-5">
-                            <label v-text="'Price'" />
-                            <input v-if="!Project.Items.length" class="flex-auto px-15 border-input rounded h-34 text-sm outline-none" v-model="Project.Price" />
-                            <div v-else v-text="projectTrackerStore.Dollars(Project)" />
-                        </div>
-                    </div>
-                </div>
-                <app-projectcard v-for="project in Project?.Items || projectTrackerStore.Projects" :Project="project" @dropItem="DropItem"/>
-                <div class="card aspect-square flex flex-col justify-center items-center" @click="projectTrackerStore.AddChild">
-                    <i class="k-i-plus text-[36px]" />
-                    <div v-text="'Add'" />
-                </div>
+            <div class="flex flex-col gap-5">
+              <label v-text="'Image'" />
+              <input v-model="Project.Image"
+                     class="flex-auto px-15 border-input rounded h-34 text-sm outline-none">
             </div>
+            <div class="flex flex-col gap-5">
+              <label v-text="'Link'" />
+              <input v-model="Project.Link"
+                     class="flex-auto px-15 border-input rounded h-34 text-sm outline-none">
+            </div>
+            <div class="flex flex-col gap-5">
+              <label v-text="'Price'" />
+              <input v-if="!Project.Items.length"
+                     v-model="Project.Price"
+                     class="flex-auto px-15 border-input rounded h-34 text-sm outline-none">
+              <div v-else
+                   v-text="projectTrackerStore.Dollars(Project)" />
+            </div>
+          </div>
         </div>
+        <app-projectcard v-for="project in Project?.Items || projectTrackerStore.Projects"
+                         :Project="project"
+                         @drop-item="DropItem" />
+        <div class="card aspect-square flex flex-col justify-center items-center"
+             @click="projectTrackerStore.AddChild">
+          <i class="k-i-plus text-[36px]" />
+          <div v-text="'Add'" />
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -64,11 +76,11 @@ export default defineComponent({
     },
     methods: { 
         DropItem: function(target: string, payload: string, location: string) {
-            let payloadList = this.projectTrackerStore.GetParent(payload)?.Items || this.projectTrackerStore.Projects;
-            let targetList = this.projectTrackerStore.GetParent(target)?.Items  || this.projectTrackerStore.Projects;
-            let payloadIndex: number = payloadList.findIndex(x => x.Id == payload);
-            let payloadItem: Project[] = payloadList.splice(payloadIndex, 1);
-            let targetIndex: number = targetList.findIndex(x => x.Id == target);
+            const payloadList = this.projectTrackerStore.GetParent(payload)?.Items || this.projectTrackerStore.Projects;
+            const targetList = this.projectTrackerStore.GetParent(target)?.Items  || this.projectTrackerStore.Projects;
+            const payloadIndex: number = payloadList.findIndex(x => x.Id == payload);
+            const payloadItem: Project[] = payloadList.splice(payloadIndex, 1);
+            const targetIndex: number = targetList.findIndex(x => x.Id == target);
             switch(location) {
                 case DropState.Left:
                     targetList.splice(targetIndex, 0, ...payloadItem);
@@ -82,7 +94,7 @@ export default defineComponent({
             }
         },
         DropParent: function(e: DragEvent) : void {
-            let payload = e.dataTransfer?.types[0];
+            const payload = e.dataTransfer?.types[0];
             this.DropItem(null!, payload!, DropState.Middle);
         },
     },

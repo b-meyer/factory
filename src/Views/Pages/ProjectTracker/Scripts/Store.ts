@@ -20,7 +20,7 @@ export const projectTrackerStore = defineStore('projectTracker', {
             return (project ? project.Items : this.Projects).reduce<Project | null>((a,b) => a || this.GetProject(guid, b), null);
         },
         GetParent: function(guid: string, project?: Project): Project | null {
-            let items = project?.Items || this.Projects;
+            const items = project?.Items || this.Projects;
             if (items.some(x => x.Id == guid)) return project || null;
             return items.reduce<Project | null>((a,b) => a || this.GetParent(guid, b), null);
         },
@@ -29,7 +29,7 @@ export const projectTrackerStore = defineStore('projectTracker', {
         },
         AddChild: function() {
             if (this.Selected) {
-                let project = this.GetProject(this.Selected);
+                const project = this.GetProject(this.Selected);
                 project?.Items.push(Project.New());
             } else {
                 this.Projects.push(Project.New());

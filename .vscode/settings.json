@@ -1,7 +1,14 @@
 {
     "css.customData": [
-        ".vscode/css_tailwinds.json"
+        ".vscode/css_tailwind.json"
     ],
     "css.validate": true,
-    "editor.mouseWheelZoom": true
+    "editor.mouseWheelZoom": true,
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+      ".env": ".env.*",
+      "package.json": "package-lock.json",
+      "tsconfig.json": "tsconfig.*, env.d.ts",
+      "vite.config.*": "index.html, eslint*"
+    }
 }
