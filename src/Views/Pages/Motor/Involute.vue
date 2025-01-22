@@ -9,7 +9,6 @@
               <input v-model="N"
                      type="number"
                      class="border-input rounded h-32 w-full px-10"
-                     min="1"
                      @input="Init">
             </div>
           </div>

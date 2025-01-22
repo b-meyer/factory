@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent } from 'vue';
 import { mapStores } from 'pinia';
 import { Color } from '../Scripts/Models';
 import { colorStore } from '../Scripts/Store';
@@ -49,7 +49,6 @@ export default defineComponent({
             required: true,
         },
     },
-    data: () => reactive({  }),
     computed: {
         ...mapStores(colorStore),
         backgroundColor() {

@@ -88,7 +88,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent } from 'vue';
 import { mapStores } from 'pinia';
 import PickerHSL from './Components/PickerHSL.vue';
 import { colorStore } from './Scripts/Store';
@@ -96,7 +96,6 @@ export default defineComponent({
     components: {
         'app-picker-hsl': PickerHSL,
     },
-    data: () => reactive({ }),
     computed: {
         ...mapStores(colorStore),
         Background_D():string {

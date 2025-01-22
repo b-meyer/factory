@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { mapStores } from 'pinia';
 import { projectTrackerStore } from '../Scripts/Store';
 import { Project } from '../Scripts/Model'
@@ -30,7 +30,7 @@ export default defineComponent({
         },
     },
     emits: ['dropItem'],
-    data: () => reactive({ 
+    data: () => ({ 
         DropState: null! as DropState
     }),
     computed: {

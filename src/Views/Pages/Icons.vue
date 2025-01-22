@@ -28,9 +28,9 @@
 
 <script lang="ts">
     import { GetGroup } from '@/Scripts/Functions';
-    import { defineComponent, reactive } from 'vue';
+    import { defineComponent } from 'vue';
     export default defineComponent({
-        data: () => reactive({
+        data: () => ({
             Search: '' as string,
             Icons: [] as string[],
         }),

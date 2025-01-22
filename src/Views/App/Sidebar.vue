@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, reactive, } from 'vue';
+  import { defineComponent } from 'vue';
   import { mapStores, } from 'pinia';
   import { mainStore } from '@/Scripts/Store'
 
@@ -56,7 +56,7 @@
   }
 
   export default defineComponent({
-      data: () => reactive({
+      data: () => ({
           Active: null! as MenuCategory,
           MenuCategory: MenuCategory,
           Menu: [
@@ -76,7 +76,6 @@
       }),
       computed: {
           ...mapStores(mainStore),
-          AppVersion: () => import.meta.env.VITE_APP_VERSION,
       },
       methods: {
           Select: function (category: any) {

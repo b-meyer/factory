@@ -56,7 +56,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { defineComponent } from 'vue';
 import { mapStores } from 'pinia';
 import ProjectCard from './Components/ProjectCard.vue';
 import { projectTrackerStore } from './Scripts/Store';
@@ -67,7 +67,6 @@ export default defineComponent({
     components: {
         'app-projectcard': ProjectCard,
     },
-    data: () => reactive({ }),
     computed: {
         ...mapStores(projectTrackerStore),
         Project: function(): Project | null {
