@@ -17,14 +17,14 @@ export const router = createRouter({
         },
         // Motor
         {
-            path: '/motor/gearOutline',
+            path: '/motor/gear',
             name: 'motor-gearoutline',
-            component: () => import('@/Views/Pages/Motor/GearPath.vue'),
+            component: () => import('@/Views/Pages/Motor/Gear.vue'),
         },
         {
-            path: '/motor/involute',
-            name: 'motor-involute',
-            component: () => import('@/Views/Pages/Motor/Involute.vue'),
+            path: '/motor/geart',
+            name: 'motor-geartoutline',
+            component: () => import('@/Views/Pages/Motor/GearT.vue'),
         },
         {
             path: '/motor/mk4',
