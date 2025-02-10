@@ -46,15 +46,6 @@
               </div>
             </div>
             <div class="flex gap-10 items-center justify-between">
-              <label>Magnet Gap:</label>
-              <div class="max-w-[75px]">
-                <input v-model="Crank.ArmBuffer"
-                       type="number"
-                       class="border-input rounded h-32 w-full px-10"
-                       @input="Init">
-              </div>
-            </div>
-            <div class="flex gap-10 items-center justify-between">
               <label>Outer Radius:</label>
               <div class="max-w-[75px]">
                 <input v-model="Crank.TotalR"
@@ -98,6 +89,71 @@
                        @input="Init">
               </div>
             </div>
+            <div class="flex gap-10 items-center justify-between">
+              <label>Magnet Gap:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Rotor.Gap"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
+              Gears
+            </h2>
+            <i class="bi-caret-down-fill" />
+          </div>
+          <div class="flex flex-col gap-10">
+            <div class="flex gap-10 items-center justify-between">
+              <label>GearM N:</label>
+              <div class="w-75" v-text="Gears.N * Rotor.Arms"/>
+            </div>
+            <div class="flex gap-10 items-center justify-between">
+              <label>GearM R:</label>
+              <div class="w-75" v-text="MainR"/>
+            </div>
+            <div class="flex gap-10 items-center justify-between">
+              <label>Gear1 N:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Gears.N"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-10 items-center justify-between">
+              <label>Gear1 R:</label>
+              <div class="w-75" v-text="Gear1R"/>
+            </div>
+            <div class="flex gap-10 items-center justify-between">
+              <label>Gear2 RBN:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Gears.RBN"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-10 items-center justify-between">
+              <label>Gear2 RSN:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Gears.RSN"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-10 items-center justify-between">
+              <label>PA:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Gears.PA_Deg"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -114,37 +170,40 @@ import { Application, Container, Graphics } from 'pixi.js';
 
 const Surface = new Application();
 const Rotor = new Container();
-const Arms = [] as Graphics[];
-const Gear1 = [] as Graphics[];
-const Gear2 = [] as Graphics[];
+const Arms = [] as Container[];
+const Gear1 = [] as Container[];
+const Gear2 = [] as Container[];
+const Heads = [] as Container[];
 
 //ViewModel
 export default defineComponent({
   components: { },
     data: () => ({
       Start: Date.now(),
-      SPR: 15,
+      SPR: 60,
       TotalR: 210,
       Crank: {
         Arms: 23,
         ArmLength: 60,
-        ArmBuffer: 6,
         TotalR: 28,
         PitchR: 24,
-        PinR: 3,
+        PinR: 1.5,
       },
       Rotor: {
         Arms: 8,
+        Gap: 2,
       },
-      // Gears: {
-      //     VS: {
-      //         Scale: 0.75,
-      //         DAT: 20,
-      //         DBT: 12,
-      //         RAT: 12,
-      //         RBT: 8,
-      //     }
-      // },
+      Gears: {
+        N: 18,
+        RBN: 16,
+        RSN: 10,
+        PA_Deg: 25,
+      },
+      Magnets: {
+        Width: 10,
+        Depth: 3,
+        Angle: Math.PI / 4,
+      },
     }),
     computed: {
       MainR: function () {
@@ -159,6 +218,12 @@ export default defineComponent({
       Scale: function () {
         return .425 * Math.min(Surface.screen.width, Surface.screen.height) / this.TotalR;
       },
+      VS: function() {
+        let a = 4 * this.Gears.RSN - 4 * this.Gears.RBN;
+        let b = 2 * this.Gears.RBN - 6 * this.Gears.RSN;
+        let c = 2 * this.Gears.RBN;
+        return (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+      },
     },
     mounted: async function() {
       const viewport = document.getElementById("viewport")!;
@@ -172,10 +237,11 @@ export default defineComponent({
     methods: {
       Init: function() {
         Surface.stage.removeChildren();
+        Rotor.removeChildren();
         Arms.length = 0;
         Gear1.length = 0;
         Gear2.length = 0;
-        Rotor.removeChildren();
+        Heads.length = 0;
         
         const totalR = this.Scale * this.TotalR;
         const mainR = this.Scale * this.MainR;
@@ -185,27 +251,38 @@ export default defineComponent({
         const crankPitchR = this.Scale * this.Crank.PitchR;
         const crankPinR = this.Scale * this.Crank.PinR
         const crankArmLength = this.Scale * this.Crank.ArmLength;
-        const crankArmBuffer = this.Scale * this.Crank.ArmBuffer;
-        const rotorPitchR = totalR - crankPitchR - crankArmLength - crankArmBuffer;
+        const magnetWidth = this.Scale * this.Magnets.Width;
+        const magnetDepth = this.Scale * this.Magnets.Depth;
+        const magnetWidthSin = magnetWidth * Math.sin(this.Magnets.Angle) / 2;
+        const magnetWidthCos = magnetWidth * Math.cos(this.Magnets.Angle) / 2;
+        const magnetDepthSin = magnetDepth * Math.sin(this.Magnets.Angle) / 2;
+        const magnetDepthCos = magnetDepth * Math.cos(this.Magnets.Angle) / 2;
+        const rotorGap = this.Scale * this.Rotor.Gap;
+        const rotorGapSin = (magnetDepth + rotorGap) * Math.sin(this.Magnets.Angle);
+        const rotorGapCos = (magnetDepth + rotorGap) * Math.cos(this.Magnets.Angle);
+        const rotorPitchR = totalR - crankPitchR - crankArmLength - 2 * crankPinR - magnetWidthCos - magnetDepthSin;
 
         // Static Body
-        const body = new Graphics();
-        body.circle(0, 0, totalR + 4 * crankPinR); // Body
+        let body = new Graphics();
+        body.circle(0, 0, totalR + crankTotalR); // Body
         body.stroke({ width: 1, color: 0x000 });
         Surface.stage.addChild(body);
 
         // Main Rotor / Gear
-        const rotor = new Graphics();
-        rotor.poly(GetGear(20 * this.Rotor.Arms, mainR, 25, 1).map(x => Rotate(x, Math.PI / (20 * this.Rotor.Arms))).flat()); // Gear Main        
-        rotor.circle(0, 0, rotorPitchR - crankPinR); // Rotor Body
-        rotor.stroke({ width: 1, color: 0x000 });
-        Rotor.addChild(rotor);
-        for (let i = 0; i < this.Rotor.Arms; i++) {
-          const rotorArm = new Graphics();   
-          rotorArm.circle(0, rotorPitchR, crankPinR); // Rotor Magnet
-          rotorArm.poly([0, 0, 0, rotorPitchR], false); // Rotor Arm
-          rotorArm.rotation = 2 * Math.PI * i / this.Rotor.Arms;
+        let gear = new Graphics();
+        gear.poly(GetGear(this.Gears.N * this.Rotor.Arms, mainR, this.Gears.PA_Deg, 5).map(x => Rotate(x, Math.PI / (this.Gears.N * this.Rotor.Arms))).flat()); // Gear Main        
+        gear.stroke({ width: 1, color: 0x000 });
+        Rotor.addChild(gear);
+        for (let i = 0; i < this.Rotor.Arms; i++) { 
+          let rotorArm = new Graphics();   
+          rotorArm.poly([-magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos + magnetDepthSin - rotorGapSin, 
+                          magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos + magnetDepthSin - rotorGapSin, 
+                          magnetWidthSin - magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos - magnetDepthSin - rotorGapSin,
+                         -magnetWidthSin - magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos - magnetDepthSin - rotorGapSin]); // Magnet
+          rotorArm.poly([0, 0, magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos + magnetDepthSin - rotorGapSin,
+                   ...Rotate([-magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos + magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms)], false); // Rotor Arm
           rotorArm.stroke({ width: 1, color: 0x000 });
+          rotorArm.rotation = 2 * Math.PI * i / this.Rotor.Arms;
           Rotor.addChild(rotorArm);
         }
         Surface.stage.addChild(Rotor);
@@ -215,16 +292,14 @@ export default defineComponent({
           let crank = new Container();   
           crank.rotation = i * this.Angle;
           let gear1 = new Graphics();
-          gear1.poly(GetGear(20, gear1R, 25, 2).flat()); // Gear 1A     
-          gear1.poly(GetGearT(16, 10, 2 * gear2R, 25, true, 2).flat()); // Gear 1B      
-          //gear1.circle(0, 0, gear2R); // Gear 1B
+          gear1.poly(GetGear(this.Gears.N, gear1R, this.Gears.PA_Deg, 5).flat()); // Gear 1A     
+          gear1.poly(GetGearT(this.Gears.RBN, this.Gears.RSN, 2 * gear2R, this.Gears.PA_Deg, true, 2).flat()); // Gear 1B
           gear1.stroke({ width: 1, color: 0x000 });
           gear1.y = mainR + gear1R;
           Gear1.push(gear1);
           crank.addChild(gear1);
           let gear2 = new Graphics();
-          gear2.poly(GetGearT(16, 10, 2 * gear2R, 25, false, 2).flat()); // Gear s
-          //gear2.circle(0, 0, gear2R); // Gear 2
+          gear2.poly(GetGearT(this.Gears.RBN, this.Gears.RSN, 2 * gear2R, this.Gears.PA_Deg, false, 2).flat()); // Gear 2
           gear2.circle(0, 0, crankTotalR); // Crank Body
           gear2.stroke({ width: 1, color: 0x000 });
           gear2.y = totalR;
@@ -238,11 +313,24 @@ export default defineComponent({
           let crankArm = new Graphics();
           crankArm.circle(0, 0, crankPinR); // Crank Pin
           crankArm.poly([0, 0, 0, -crankArmLength], false); // Crank Arm
-          crankArm.circle(0, -crankArmLength, crankPinR); // Crank Magnet
+          crankArm.circle(0, -crankArmLength, crankPinR); // Crank Pin
           crankArm.stroke({ width: 1, color: 0x000 });
           crankArm.y = totalR;
           Arms.push(crankArm);
           crank.addChild(crankArm);
+          let crankHead = new Graphics();
+          crankHead.poly([-magnetWidthSin + magnetDepthCos,  magnetWidthCos + magnetDepthSin, 
+                           magnetWidthSin + magnetDepthCos, -magnetWidthCos + magnetDepthSin, 
+                           magnetWidthSin - magnetDepthCos, -magnetWidthCos - magnetDepthSin,
+                          -magnetWidthSin - magnetDepthCos,  magnetWidthCos - magnetDepthSin]); // Magnet
+          crankHead.poly([ magnetWidthSin + magnetDepthCos + 1 * this.Scale, -magnetWidthCos - magnetDepthSin - 1 * this.Scale, 
+                           magnetWidthSin + magnetDepthCos + 1 * this.Scale,  magnetWidthCos + magnetDepthSin + 4 * crankPinR, 
+                          -magnetWidthSin - magnetDepthCos - 1 * this.Scale,  magnetWidthCos + magnetDepthSin + 4 * crankPinR, 
+                          -magnetWidthSin - magnetDepthCos - 1 * this.Scale, -magnetWidthCos - magnetDepthSin - 1 * this.Scale]); // Magnet
+          crankHead.stroke({ width: 1, color: 0x000 });
+          crankHead.y = totalR - crankPitchR - crankArmLength;
+          Heads.push(crankHead);
+          crank.addChild(crankHead);
           Surface.stage.addChild(crank);
         }
       },
@@ -250,18 +338,23 @@ export default defineComponent({
         const rotation = (Date.now() - this.Start) / (1000 * this.SPR);
         const totalR = this.Scale * this.TotalR;
         const crankPitchR = this.Scale * this.Crank.PitchR;
+        const crankPinR = this.Scale * this.Crank.PinR
         const crankArmLength = this.Scale * this.Crank.ArmLength;
-        const VS = 0.710;
+        const magnetWidth = this.Scale * this.Magnets.Width;
+        const magnetDepth = this.Scale * this.Magnets.Depth;
+        const magnetWidthCos = magnetWidth * Math.cos(this.Magnets.Angle) / 2;
+        const magnetDepthSin = magnetDepth * Math.sin(this.Magnets.Angle) / 2;
         for(let i = 0; i < this.Crank.Arms; i++) {
           let armRotation = this.Rotor.Arms * (rotation - i / this.Crank.Arms);
           armRotation = armRotation - Math.floor(armRotation);
-          armRotation = armRotation <= VS ? armRotation / (VS * 2) : 0.5 + 0.5 * (armRotation - VS) / (1 - VS);
-          let crankAngle = Math.PI + armRotation * 2 * Math.PI;
-          let crankOffset = [crankPitchR * -Math.sin(crankAngle), crankPitchR * Math.cos(crankAngle)];
+          armRotation = armRotation <= this.VS ? armRotation / (this.VS * 2) : 0.5 + 0.5 * (armRotation - this.VS) / (1 - this.VS);
+          let crankAngle = armRotation * 2 * Math.PI;
+          let crankOffset = Rotate([0, crankPitchR], Math.PI + crankAngle);
           Arms[i].rotation = -Math.asin(crankOffset[0] / crankArmLength);
           Arms[i].position = { x: crankOffset[0], y: crankOffset[1] + totalR };
           Gear1[i].rotation = (i * this.Angle - rotation * 2 * Math.PI) * this.Rotor.Arms;
-          Gear2[i].rotation = armRotation * 2 * Math.PI;
+          Gear2[i].rotation = crankAngle;
+          Heads[i].y = totalR + crankOffset[1] - crankArmLength * Math.cos(Arms[i].rotation) - 2 * crankPinR - magnetWidthCos - magnetDepthSin;
         }
         Rotor.rotation = rotation * 2 * Math.PI;
       }

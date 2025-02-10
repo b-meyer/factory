@@ -1,5 +1,5 @@
 
-@theme {
+@theme inline {
 	--color-*: initial;
 	--color-transparent: transparent;
 	--color-black: #000;
