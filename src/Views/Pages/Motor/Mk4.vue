@@ -117,11 +117,13 @@
           <div class="flex flex-col gap-10">
             <div class="flex gap-10 items-center justify-between">
               <label>GearM N:</label>
-              <div class="w-75" v-text="Gears.N * Rotor.Arms"/>
+              <div class="w-75"
+                   v-text="Gears.N * Rotor.Arms" />
             </div>
             <div class="flex gap-10 items-center justify-between">
               <label>GearM R:</label>
-              <div class="w-75" v-text="MainR"/>
+              <div class="w-75"
+                   v-text="MainR" />
             </div>
             <div class="flex gap-10 items-center justify-between">
               <label>Gear1 N:</label>
@@ -134,7 +136,8 @@
             </div>
             <div class="flex gap-10 items-center justify-between">
               <label>Gear1 R:</label>
-              <div class="w-75" v-text="Gear1R"/>
+              <div class="w-75"
+                   v-text="Gear1R" />
             </div>
             <div class="flex gap-10 items-center justify-between">
               <label>Gear2 RBN:</label>
@@ -230,9 +233,9 @@ export default defineComponent({
         return .425 * Math.min(Surface.screen.width, Surface.screen.height) / this.TotalR;
       },
       VS: function() {
-        let a = 4 * this.Gears.RSN - 4 * this.Gears.RBN;
-        let b = 2 * this.Gears.RBN - 6 * this.Gears.RSN;
-        let c = 2 * this.Gears.RBN;
+        const a = 4 * this.Gears.RSN - 4 * this.Gears.RBN;
+        const b = 2 * this.Gears.RBN - 6 * this.Gears.RSN;
+        const c = 2 * this.Gears.RBN;
         return (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
       },
     },
@@ -276,13 +279,13 @@ export default defineComponent({
         const rotorPitchR = totalR - crankPitchR - crankArmLength - crankArmWidth / 2 - magnetWidthCos - magnetDepthSin - 2 * this.Scale;
 
         // Static Body
-        let body = new Graphics();
+        const body = new Graphics();
         body.circle(0, 0, totalR + crankTotalR); // Body
         body.stroke({ width: 1, color: 0x000 });
         Surface.stage.addChild(body);
 
         // Main Gear
-        let gear = new Graphics();
+        const gear = new Graphics();
         gear.poly(GetGear(this.Gears.N * this.Rotor.Arms, mainR, this.Gears.PA_Deg, 5).map(x => Rotate(x, Math.PI / (this.Gears.N * this.Rotor.Arms))).flat()); // Gear Main        
         gear.stroke({ width: 1, color: 0x000 });
         GearM.addChild(gear);
@@ -290,32 +293,32 @@ export default defineComponent({
 
         // Crank Arms / Gear Train
         for (let i = 0; i < this.Crank.Arms; i++) {
-          let crank = new Container();   
+          const crank = new Container();   
           crank.rotation = i * this.Angle;
-          let gear1a = new Graphics();
+          const gear1a = new Graphics();
           gear1a.poly(GetGear(this.Gears.N, gear1R, this.Gears.PA_Deg, 5).flat()); // Gear 1A     
           gear1a.stroke({ width: 1, color: 0x000 });
           gear1a.y = mainR + gear1R;
           Gear1.push(gear1a);
           crank.addChild(gear1a);
-          let gear1b = new Graphics(); 
+          const gear1b = new Graphics(); 
           gear1b.poly(GetGearT(this.Gears.RBN, this.Gears.RSN, 2 * gear2R, this.Gears.PA_Deg, true, 2).flat()); // Gear 1B
           gear1b.fill().stroke({ width: 1, color: 0x000 });
           gear1b.y = mainR + gear1R;
           Gear1.push(gear1b);
           crank.addChild(gear1b);
-          let gear2 = new Graphics();
+          const gear2 = new Graphics();
           gear2.poly(GetGearT(this.Gears.RBN, this.Gears.RSN, 2 * gear2R, this.Gears.PA_Deg, false, 2).flat()); // Gear 2
           gear2.fill().stroke({ width: 1, color: 0x000 });
           gear2.y = totalR;
           Gear2.push(gear2);
           crank.addChild(gear2);
-          let crankBody = new Graphics();
+          const crankBody = new Graphics();
           crankBody.circle(0, 0, crankTotalR); // Crank Body
           crankBody.stroke({ width: 1, color: 0x000 });
           crankBody.y = totalR;
           crank.addChild(crankBody);
-          let crankRail = new Graphics();
+          const crankRail = new Graphics();
           crankRail.poly([-crankPinR,  crankPitchR + 2 * crankPinR,
                           -crankPinR, -crankPitchR - crankArmWidth / 2 - 3 * this.Scale - 2 * (magnetWidthCos + magnetDepthSin),
                            crankPinR, -crankPitchR - crankArmWidth / 2 - 3 * this.Scale - 2 * (magnetWidthCos + magnetDepthSin),
@@ -323,7 +326,7 @@ export default defineComponent({
           crankRail.fill().stroke({ width: 1, color: 0x000 });
           crankRail.y = totalR  - crankArmLength;
           crank.addChild(crankRail);
-          let crankHead = new Graphics();
+          const crankHead = new Graphics();
           crankHead.poly([-magnetWidthSin + magnetDepthCos,  magnetWidthCos + magnetDepthSin, 
                            magnetWidthSin + magnetDepthCos, -magnetWidthCos + magnetDepthSin, 
                            magnetWidthSin - magnetDepthCos, -magnetWidthCos - magnetDepthSin,
@@ -337,7 +340,7 @@ export default defineComponent({
           crankHead.fill().stroke({ width: 1, color: 0x000 });
           Heads.push(crankHead);
           crank.addChild(crankHead);
-          let crankArm = new Graphics();
+          const crankArm = new Graphics();
           crankArm.circle(0, 0, crankPinR); // Crank Pin
           crankArm.roundRect(-crankArmWidth / 2, -crankArmLength - crankArmWidth / 2, crankArmWidth, crankArmLength + crankArmWidth, crankArmWidth / 2); // Crank Arm
           crankArm.circle(0, -crankArmLength, crankPinR); // Crank Pin
@@ -350,7 +353,7 @@ export default defineComponent({
 
         // Rotor
         for (let i = 0; i < this.Rotor.Arms; i++) { 
-          let rotorBody = new Graphics();   
+          const rotorBody = new Graphics();   
           rotorBody.poly([0, 0, magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos + magnetDepthSin - rotorGapSin,
               ...Rotate([-magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos + magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms),
               ...Rotate([magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos + magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms)]); // Rotor Arm
@@ -359,7 +362,7 @@ export default defineComponent({
           Rotor.addChild(rotorBody);
         }        
         for (let i = 0; i < this.Rotor.Arms; i++) { 
-          let rotorArm = new Graphics();   
+          const rotorArm = new Graphics();   
           rotorArm.poly([-magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos + magnetDepthSin - rotorGapSin, 
                           magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos + magnetDepthSin - rotorGapSin, 
                           magnetWidthSin - magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos - magnetDepthSin - rotorGapSin,
@@ -386,8 +389,8 @@ export default defineComponent({
           let armRotation = this.Rotor.Arms * (rotation - i / this.Crank.Arms);
           armRotation = armRotation - Math.floor(armRotation);
           armRotation = armRotation <= this.VS ? armRotation / (this.VS * 2) : 0.5 + 0.5 * (armRotation - this.VS) / (1 - this.VS);
-          let crankAngle = armRotation * 2 * Math.PI;
-          let crankOffset = Rotate([0, crankPitchR], Math.PI + crankAngle);
+          const crankAngle = armRotation * 2 * Math.PI;
+          const crankOffset = Rotate([0, crankPitchR], Math.PI + crankAngle);
           Arms[i].rotation = -Math.asin(crankOffset[0] / crankArmLength);
           Arms[i].position = { x: crankOffset[0], y: crankOffset[1] + totalR };
           Gear1[2 * i].rotation = (i * this.Angle - rotation * 2 * Math.PI) * this.Rotor.Arms;

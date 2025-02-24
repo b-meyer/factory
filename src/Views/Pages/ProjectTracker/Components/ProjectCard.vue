@@ -59,12 +59,12 @@ export default defineComponent({
             }
             if (this.DropState) e.preventDefault();
         },
-        DragEnd: function(e: DragEvent) : void {
+        DragEnd: function() : void {
             this.DropState = null!;
         },
         Drop: function(e: DragEvent) : void {
             this.$emit('dropItem', this.Project.Id, e.dataTransfer?.types[0], this.DropState);
-            this.DragEnd(e);
+            this.DragEnd();
         },
     },
 });

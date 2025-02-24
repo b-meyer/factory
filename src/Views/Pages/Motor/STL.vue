@@ -16,7 +16,10 @@
                 <select v-model="Shared.Gear"
                         class="border-input rounded h-32 w-full px-10"
                         @change="GearChange">
-                  <option v-for="gear in Shared.Gears" :value="gear" v-text="gear"></option>
+                  <option v-for="gear in Shared.Gears"
+                          :key="gear"
+                          :value="gear"
+                          v-text="gear" />
                 </select>
               </div>
             </div>
@@ -51,11 +54,13 @@
           <div class="flex flex-col gap-10">
             <div class="flex gap-10 items-center justify-between">
               <label>N:</label>
-              <div class="w-75" v-text="GearM.Ratio * Gear1.N"/>
+              <div class="w-75"
+                   v-text="GearM.Ratio * Gear1.N" />
             </div>
             <div class="flex gap-10 items-center justify-between">
               <label>R:</label>
-              <div class="w-75" v-text="GearM.Ratio * Gear1.R"/>
+              <div class="w-75"
+                   v-text="GearM.Ratio * Gear1.R" />
             </div>
             <div class="flex gap-10 items-center justify-between">
               <label>Ratio:</label>
@@ -139,7 +144,10 @@
       </div>
       <div id="viewport"
            class="flex flex-auto" />
-      <button class="absolute top-15 right-15 flex items-center gap-5 h-30 px-10 btn-green" @click="Export">Export</button>
+      <button class="absolute top-15 right-15 flex items-center gap-5 h-30 px-10 btn-green"
+              @click="Export">
+        Export
+      </button>
     </div>
   </div>
 </template>
@@ -154,9 +162,9 @@ import { GetGear, GetGearT } from '@/Scripts/Functions';
 let scene: THREE.Scene,
     camera: THREE.PerspectiveCamera, 
     renderer: THREE.WebGLRenderer,
-    orbit: OrbitControls,
-    lineMaterial = new THREE.LineBasicMaterial({ color: 0x000000 }),
-    meshMaterial = new THREE.MeshStandardMaterial({ emissive: 0x999999 });
+    orbit: OrbitControls;
+const lineMaterial = new THREE.LineBasicMaterial({ color: 0x000000 }),
+      meshMaterial = new THREE.MeshStandardMaterial({ emissive: 0x999999 });
 
 //ViewModel
 export default defineComponent({
@@ -212,20 +220,20 @@ export default defineComponent({
     },
     Init: function() {
       scene.clear();
-      let shape = new THREE.Shape(this.Points.map(x => new THREE.Vector2(x[0], x[1])));
-      let geometry = new THREE.ExtrudeGeometry(shape, { depth: this.Shared.Depth, bevelEnabled: false });
+      const shape = new THREE.Shape(this.Points.map(x => new THREE.Vector2(x[0], x[1])));
+      const geometry = new THREE.ExtrudeGeometry(shape, { depth: this.Shared.Depth, bevelEnabled: false });
       geometry.translate(0,0,-this.Shared.Depth / 2);
-      let wireFrame = new THREE.WireframeGeometry(geometry);
+      const wireFrame = new THREE.WireframeGeometry(geometry);
       scene.add(new THREE.LineSegments(wireFrame, lineMaterial));
       scene.add(new THREE.Mesh(geometry, meshMaterial));
     },
     Export: function() {
-      let shape = new THREE.Shape(this.Points.map(x => new THREE.Vector2(x[0], x[1])));
-      let geometry = new THREE.ExtrudeGeometry(shape, { depth: this.Shared.Depth, bevelEnabled: false });
-      let exporter = new STLExporter();
-      let result = exporter.parse(new THREE.Mesh(geometry), { binary: true });
-      let blob = new Blob([result], { type : 'text/plain' });
-      let link = document.createElement('a');
+      const shape = new THREE.Shape(this.Points.map(x => new THREE.Vector2(x[0], x[1])));
+      const geometry = new THREE.ExtrudeGeometry(shape, { depth: this.Shared.Depth, bevelEnabled: false });
+      const exporter = new STLExporter();
+      const result = exporter.parse(new THREE.Mesh(geometry), { binary: true });
+      const blob = new Blob([result], { type : 'text/plain' });
+      const link = document.createElement('a');
       link.style.display = 'none';
       document.body.appendChild(link);
       link.href = URL.createObjectURL(blob);

@@ -43,6 +43,7 @@
           </div>
         </div>
         <app-projectcard v-for="project in Project?.Items || projectTrackerStore.Projects"
+                         :key="project.Id"
                          :Project="project"
                          @drop-item="DropItem" />
         <div class="card aspect-square flex flex-col justify-center items-center"

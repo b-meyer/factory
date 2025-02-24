@@ -10,7 +10,7 @@ export const colorStore = defineStore('color', {
     getters: { 
         Selected(): Models.Theme {
             return this.SelectedIndex != null ? this.Themes[this.SelectedIndex] : {} as Models.Theme;
-        }
+        },
     },
     actions: { 
         AddTheme(): void { 
@@ -30,6 +30,6 @@ export const colorStore = defineStore('color', {
                 const hex = Math.round(x * 255).toString(16);
                 return hex.length === 1 ? '0' + hex : hex;
             }).join('');
-        }
+        },
     },
 });

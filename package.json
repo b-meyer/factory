@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --build && vite build"
+    "build": "vue-tsc --build && eslint . --fix && vite build"
   },
   "dependencies": {
     "@vueuse/core": "^12.7.0",

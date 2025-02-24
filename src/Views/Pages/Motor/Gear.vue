@@ -104,8 +104,8 @@ export default defineComponent({
       Surface.stage.removeChildren();
       const g = new Graphics();
 
-      let leftMost = [(this.R+this.A)*Math.sin(this.TA/2),(this.R+this.A)*Math.cos(this.TA/2)];
-      let rightMost = [(this.R+this.A)*Math.sin(-this.TA/2),(this.R+this.A)*Math.cos(-this.TA/2)];
+      const leftMost = [(this.R+this.A)*Math.sin(this.TA/2),(this.R+this.A)*Math.cos(this.TA/2)];
+      const rightMost = [(this.R+this.A)*Math.sin(-this.TA/2),(this.R+this.A)*Math.cos(-this.TA/2)];
       if (this.ShowPitch) {
         g.circle(0, 0, this.R - this.A);
         g.circle(0, 0, this.R);
@@ -116,22 +116,22 @@ export default defineComponent({
       }
         
       // Generate all racks for tooth
-      let rack = [
+      const rack = [
         [-this.TW / 2 - this.A * Math.sin(this.PA), this.R + this.A],
         [-this.TW / 2 + this.A * Math.sin(this.PA), this.R - this.A],
         [ this.TW / 2 - this.A * Math.sin(this.PA), this.R - this.A],
         [ this.TW / 2 + this.A * Math.sin(this.PA), this.R + this.A]
       ], tooth = [rack];
       for (let i = 1; i < 1000; i++) { // Attempt 1000 steps until the rack clears
-        let theta = i * this.TA / this.Steps;
+        const theta = i * this.TA / this.Steps;
         //let theta = i * (Math.PI * 3 / 180); // 3 degree step
-        let involute = theta * this.R;
-        let sin = Math.sin(theta), cos = Math.cos(theta);    
-        let left = rack.map(x => [ // Rotate Left
+        const involute = theta * this.R;
+        const sin = Math.sin(theta), cos = Math.cos(theta);    
+        const left = rack.map(x => [ // Rotate Left
           x[0] *  cos - x[1] * -sin - involute *  cos,
           x[0] * -sin + x[1] *  cos - involute * -sin
         ]);
-        let right = rack.map(x => [  // Rotate Right
+        const right = rack.map(x => [  // Rotate Right
           x[0] * cos - x[1] * sin + involute * cos,
           x[0] * sin + x[1] * cos + involute * sin
         ]);          
@@ -147,9 +147,10 @@ export default defineComponent({
       }
 
       // Intersection Left
-      let last = 0, interL = [tooth[0][3]];
+      let last = 0;
+      const interL = [tooth[0][3]];
       for(let i = 1; i < tooth.length; i++) {
-        let prev = interL[interL.length - 1];
+        const prev = interL[interL.length - 1];
         let inter = GetIntersection(tooth[i-1][3], tooth[i-1][2], tooth[i][3], tooth[i][2]);
         if (!inter.length) inter = tooth[i][3]; // Fallback to Top Left
         if (GetDistance([0,0], prev) < GetDistance([0,0], inter)) break; // Ensure descending points
@@ -159,22 +160,22 @@ export default defineComponent({
       interL.push(tooth[last][2]);
 
       // Corner Left
-      let cornerL = [];
+      const cornerL = [];
       for (let i = 1; i <= last; i++) {
         if (!cornerL.length) {
-          let inter = GetIntersection(rack[2], rack[1], tooth[i][3], tooth[i][2]); 
+          const inter = GetIntersection(rack[2], rack[1], tooth[i][3], tooth[i][2]); 
           if (!inter.length) continue; // Ensure the Bottom Left corner dips below the rack
           if (GetDistance([0,0], tooth[i][2]) > GetDistance([0,0], tooth[i+1][2])) continue; // Ensure ascending points
         }
         cornerL.push(tooth[i][2]);
       }
       if (last + 2 < tooth.length) { // Check for undercut
-        let undercut = [tooth[last + 1][2]];
+        const undercut = [tooth[last + 1][2]];
         outer:for (let i = last + 2; i < tooth.length; i++) {
-          let prev = undercut[undercut.length - 1];
-          let point = tooth[i][2];
+          const prev = undercut[undercut.length - 1];
+          const point = tooth[i][2];
           for (let j = 1; j < interL.length; j++) {
-            let inter = GetIntersection(prev, point, interL[j-1], interL[j]);
+            const inter = GetIntersection(prev, point, interL[j-1], interL[j]);
             if (inter.length) {
               interL.splice(j, interL.length - j, inter);
               cornerL.push(...undercut, inter);
@@ -188,22 +189,22 @@ export default defineComponent({
       // Arc Top
       let short = false;
       for(let i = 1; i < interL.length; i++) {
-        let inter = GetIntersection([0,0], leftMost, interL[i-1], interL[i]);
+        const inter = GetIntersection([0,0], leftMost, interL[i-1], interL[i]);
         if (inter.length) {
           interL.splice(0,i,inter);
           short = true;
           break;
         }
       }
-      let arcT = [];
+      const arcT = [];
       outer:for (let i = -this.Steps; i <= 0 && !short; i++) {
-        let theta = i * this.TA / this.Steps / 2;
-        let sin = Math.sin(theta), cos = Math.cos(theta); 
-        let point = [-(this.R + this.A) * sin, (this.R + this.A) * cos];
+        const theta = i * this.TA / this.Steps / 2;
+        const sin = Math.sin(theta), cos = Math.cos(theta); 
+        const point = [-(this.R + this.A) * sin, (this.R + this.A) * cos];
         if (arcT.length) {
-          let prev = arcT[arcT.length - 1];
+          const prev = arcT[arcT.length - 1];
           for (let j = 1; j < interL.length; j++) {
-            let inter = GetIntersection(prev, point, interL[j-1], interL[j]);
+            const inter = GetIntersection(prev, point, interL[j-1], interL[j]);
             if (inter.length) {
               interL.splice(0,j,inter);
               arcT.push(inter);
@@ -215,9 +216,9 @@ export default defineComponent({
       }
 
       // Intersection Bottom
-      let interB = [cornerL[0]];
+      const interB = [cornerL[0]];
       for(let i = 1; i < tooth.length; i++) {
-        let inter = GetIntersection(tooth[i-1][2], tooth[i-1][1], tooth[i][2], tooth[i][1]);
+        const inter = GetIntersection(tooth[i-1][2], tooth[i-1][1], tooth[i][2], tooth[i][1]);
         if (!inter.length || inter[0] < 0) continue;
         interB.push(inter);
       }
@@ -249,7 +250,7 @@ export default defineComponent({
       // interBPathR.closed = false;
       // interBPathR.stroke = "red";
 
-      let outline = [
+      const outline = [
         ...arcT,
         ...interL.slice(arcT.length ? 1 : 0),
         ...cornerL.slice(0,-1).reverse(),
@@ -257,15 +258,15 @@ export default defineComponent({
       ];
       outline.push(...outline.map(x => [-x[0], x[1]]).reverse().slice(1,-1));
 
-      let points = new Graphics();
+      const points = new Graphics();
       outline.map(x => points.circle(x[0], x[1], 2));
       points.fill({ color: 0xFF0000 });
       Surface.stage.addChild(points);
 
-      let gear = [];
+      const gear = [];
       for(let i = 0; i < this.N; i++) {
-        let theta = i * this.TA;
-        let sin = Math.sin(theta), cos = Math.cos(theta);
+        const theta = i * this.TA;
+        const sin = Math.sin(theta), cos = Math.cos(theta);
         gear.push(outline.map(x => [
           x[0] * cos - x[1] * sin,
           x[0] * sin + x[1] * cos,

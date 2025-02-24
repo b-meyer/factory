@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col gap-5">
     <div class="h-124 w-124"
-         :style="{ backgroundColor: backgroundColor}" />
+         :style="{ backgroundColor: colorStore.RGB(Color)}" />
     <div class="flex items-center justify-between gap-5">
       <input v-if="Color.Primary"
              v-model="colorStore.Selected.PrimaryHue"
@@ -11,51 +11,56 @@
              type="number"
              disabled>
       <input v-else
-             v-model="Color.H"
+             v-model="_Color.H"
              class="border-input rounded w-34 h-34 text-center"
              min="0"
              max="359"
              type="number">
-      <input v-model="Color.S"
+      <input v-model="_Color.S"
              class="border-input rounded w-34 h-34 text-center"
              min="0"
              max="100"
              type="number">
-      <input v-model="Color.L"
+      <input v-model="_Color.L"
              class="border-input rounded w-34 h-34 text-center"
              min="0"
              max="100"
              type="number">
     </div>
     <div class="flex items-center justify-center gap-5">
-      <input v-model="Color.Primary"
+      <input v-model="_Color.Primary"
              class="w-34"
              type="checkbox">
       <div class="text-center flex-auto"
-           v-text="backgroundColor" />
+           v-text="colorStore.RGB(Color)" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { mapStores } from 'pinia';
 import { Color } from '../Scripts/Models';
 import { colorStore } from '../Scripts/Store';
 export default defineComponent({
     props: {
         Color: {
-            type: Color,
+            type: Object as PropType<Color>,
             required: true,
         },
     },
+    emits: ['update:Color'],
     computed: {
         ...mapStores(colorStore),
-        backgroundColor() {
-            return this.colorStore.RGB(this.Color);
-        }
+        _Color: {
+          get() {
+            return this.Color;
+          },
+          set(value: Color) {
+            this.$emit('update:Color', value);
+          },
+        },
     },
-    methods: {},
 });
 </script>
 

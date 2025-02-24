@@ -27,19 +27,23 @@
           </div>
           <div class="flex gap-10 items-center justify-between">
             <label>DB Teeth:</label>
-            <div class="w-75" v-text="DBN.toFixed(3)"/>
+            <div class="w-75"
+                 v-text="DBN.toFixed(3)" />
           </div>
           <div class="flex gap-10 items-center justify-between">
             <label>DS Teeth:</label>
-            <div class="w-75" v-text="DSN.toFixed(3)"/>
+            <div class="w-75"
+                 v-text="DSN.toFixed(3)" />
           </div>
           <div class="flex gap-10 items-center justify-between">
             <label>VS:</label>
-            <div class="w-75" v-text="VS.toFixed(3)"/>
+            <div class="w-75"
+                 v-text="VS.toFixed(3)" />
           </div>
           <div class="flex gap-10 items-center justify-between">
             <label>PA:</label>
-            <div class="w-75" v-text="(180 * TPA / Math.PI).toFixed(3)"/>
+            <div class="w-75"
+                 v-text="(180 * TPA / Math.PI).toFixed(3)" />
           </div>
           <div class="flex gap-10 items-center justify-between">
             <label>Angle:</label>
@@ -98,7 +102,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Application, Graphics } from 'pixi.js';
-import { GetAngle, GetDistance, GetGearT, GetIntersection, GetTooth, Rotate, RotateAt, Translate } from '@/Scripts/Functions';
+import { GetDistance, GetGearT, GetIntersection, GetTooth, Rotate, RotateAt, Translate } from '@/Scripts/Functions';
 
 const Surface = new Application();
 
@@ -116,9 +120,9 @@ export default defineComponent({
   computed: {
     // Variable Speed
     VS: function() {
-      let a = 4 * this.RSN - 4 * this.RBN;
-      let b = 2 * this.RBN - 6 * this.RSN;
-      let c = 2 * this.RBN;
+      const a = 4 * this.RSN - 4 * this.RBN;
+      const b = 2 * this.RBN - 6 * this.RSN;
+      const c = 2 * this.RBN;
       return (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
     },
     Ratios: function() {
@@ -210,7 +214,7 @@ export default defineComponent({
       Surface.stage.position = {x: Surface.screen.width / 2, y: Surface.screen.height / 2};
       const g = new Graphics();
 
-      let outline = GetGearT(this.RBN, this.RSN, 2 * Surface.screen.height / 3, this.PA_Deg, this.Driver, 10);
+      const outline = GetGearT(this.RBN, this.RSN, 2 * Surface.screen.height / 3, this.PA_Deg, this.Driver, 10);
       g.poly(outline.flat());
 
       g.stroke({ width: 1, color: 0x000 });
@@ -221,12 +225,12 @@ export default defineComponent({
       Surface.stage.removeChildren();
       const g = new Graphics();
 
-      let BN = this.Driver ? this.DBN : this.RBN;
-      let BR = this.Driver ? this.DBR : this.RBR;
-      let BTA = this.Driver ? this.DBTA : this.RBTA;
-      let SN = this.Driver ? this.DSN : this.RSN;
-      let SR = this.Driver ? this.DSR : this.RSR;
-      let STA = this.Driver ? this.DSTA : this.RSTA;
+      const BN = this.Driver ? this.DBN : this.RBN;
+      const BR = this.Driver ? this.DBR : this.RBR;
+      const BTA = this.Driver ? this.DBTA : this.RBTA;
+      const SN = this.Driver ? this.DSN : this.RSN;
+      const SR = this.Driver ? this.DSR : this.RSR;
+      const STA = this.Driver ? this.DSTA : this.RSTA;
 
       Surface.stage.position = {x: Surface.screen.width / 2, y: Surface.screen.height + SR - 2 * this.A};
       
@@ -244,11 +248,11 @@ export default defineComponent({
         g.poly([...[0, BR - this.A], ...[0, BR + this.A]], false);
         g.poly([...Rotate([0, BR - this.A], -BTA/2), ...Rotate([0, BR + this.A], -BTA/2)], false);
       }
-      let RSTooth = GetTooth(SN, SR, 180 * this.PA / Math.PI, 10);
+      const RSTooth = GetTooth(SN, SR, 180 * this.PA / Math.PI, 10);
       g.poly(RSTooth.map(x => Rotate(x, -1.5 * STA)).flat(), false);
       g.poly(RSTooth.map(x => Rotate(x, -0.5 * STA)).flat(), false);
       g.poly(RSTooth.map(x => Rotate(x,  1.5 * STA)).flat(), false);
-      let RBTooth = GetTooth(BN, BR, 180 * this.PA / Math.PI, 10);
+      const RBTooth = GetTooth(BN, BR, 180 * this.PA / Math.PI, 10);
       g.poly(RBTooth.map(x => Rotate(x, -3 * BTA)).flat(), false);
       g.poly(RBTooth.map(x => Rotate(x, -2 * BTA)).flat(), false);
       g.poly(RBTooth.map(x => Rotate(x, -1 * BTA)).flat(), false);
@@ -267,30 +271,31 @@ export default defineComponent({
         [ 0.5 * this.TW - this.A * Math.sin(this.TPA), -this.A],
         [ 1.5 * this.TW + this.A * Math.sin(this.TPA), BR - SR + this.A]
         //[ 0.5 * this.TW + (BR - SR + this.A) * Math.sin(this.TPA), BR - SR + this.A]
-      ], tooth = [];
+      ];
+      const tooth = [];
       for (let i = -(this.Steps - 0.5) / 2 | 0; i <= 1000; i++) { // Attempt 1000 steps until the rack clears
-        let theta = i * STA / this.Steps;
-        let circleP = Rotate([0,SR], theta + STA / 2);
-        let involuteP = Translate(circleP, Rotate([theta * SR, 0], theta + STA / 2));
+        const theta = i * STA / this.Steps;
+        const circleP = Rotate([0,SR], theta + STA / 2);
+        const involuteP = Translate(circleP, Rotate([theta * SR, 0], theta + STA / 2));
         if (this.ShowPitch) {
           g.circle(circleP[0], circleP[1], 2);
           g.circle(involuteP[0], involuteP[1], 2);
         }
-        let step = rack.map(x => Translate(Rotate(x, theta + STA / 2), involuteP));
+        const step = rack.map(x => Translate(Rotate(x, theta + STA / 2), involuteP));
         if (GetDistance([0,0], step[1]) > SR + this.A) break; // Rack clears gear blank
         tooth.push(step);
       }
       rack = rack.map(x => Translate(x, [SR * -STA / 2, SR])); // Rack at transistion point
       tooth.unshift(rack);
       for (let i = 1; i <= 1000; i++) { // Attempt 1000 steps until the rack clears
-        let theta = -i * BTA / this.Steps;
-        let circleP = Rotate([0,BR], theta);
-        let involuteP = Translate(circleP, Rotate([theta * BR, 0], theta));
+        const theta = -i * BTA / this.Steps;
+        const circleP = Rotate([0,BR], theta);
+        const involuteP = Translate(circleP, Rotate([theta * BR, 0], theta));
         if (this.ShowPitch) {
           g.circle(circleP[0], circleP[1], 2);
           g.circle(involuteP[0], involuteP[1], 2);
         }
-        let step = rack.map(x => RotateAt(Translate(x, involuteP, [0, -BR]), involuteP, theta));
+        const step = rack.map(x => RotateAt(Translate(x, involuteP, [0, -BR]), involuteP, theta));
         if (GetDistance([0,0], step[2]) > BR + this.A) break; // Rack clears gear blank
         tooth.unshift(step);
       }
@@ -302,9 +307,10 @@ export default defineComponent({
       }
 
       // Intersection Left
-      let last = 0, interL = [tooth[0][3]];
+      let last = 0;
+      const interL = [tooth[0][3]];
       for(let i = 1; i < tooth.length; i++) {
-        let prev = interL[interL.length - 1];
+        const prev = interL[interL.length - 1];
         let inter = GetIntersection(tooth[i-1][3], tooth[i-1][2], tooth[i][3], tooth[i][2]);
         if (!inter.length) inter = tooth[i][3]; // Fallback to Top Left
         if (GetDistance([0,0], prev) < GetDistance([0,0], inter)) break; // Ensure descending points
@@ -314,18 +320,18 @@ export default defineComponent({
       interL.push(tooth[last][2]);
 
       // Corner Left
-      let cornerL = [];
+      const cornerL = [];
       for (let i = 1; i <= last; i++) {
         if (GetDistance([0,0], tooth[i][2]) > GetDistance([0,0], tooth[i+1][2])) continue; // Ensure ascending points
         cornerL.push(tooth[i][2]);
       }
       if (last + 2 < tooth.length) { // Check for undercut
-        let undercut = [tooth[last + 1][2]];
+        const undercut = [tooth[last + 1][2]];
         outer:for (let i = last + 2; i < tooth.length; i++) {
-          let prev = undercut[undercut.length - 1];
-          let point = tooth[i][2];
+          const prev = undercut[undercut.length - 1];
+          const point = tooth[i][2];
           for (let j = 1; j < interL.length; j++) {
-            let inter = GetIntersection(prev, point, interL[j-1], interL[j]);
+            const inter = GetIntersection(prev, point, interL[j-1], interL[j]);
             if (inter.length) {
               interL.splice(j, interL.length - j, inter);
               cornerL.push(...undercut, inter);
@@ -338,24 +344,24 @@ export default defineComponent({
 
       // Arc Top
       let short = false;
-      let leftMost = Rotate([0, BR + this.A], -BTA/2);
+      const leftMost = Rotate([0, BR + this.A], -BTA/2);
       for(let i = 1; i < interL.length; i++) {
-        let inter = GetIntersection([0,0], leftMost, interL[i-1], interL[i]);
+        const inter = GetIntersection([0,0], leftMost, interL[i-1], interL[i]);
         if (inter.length) {
           interL.splice(0,i,inter);
           short = true;
           break;
         }
       }
-      let arcT = [];
+      const arcT = [];
       outer:for (let i = -this.Steps; i <= 0 && !short; i++) {
-        let theta = i * BTA / this.Steps / 2;
-        let sin = Math.sin(theta), cos = Math.cos(theta);
-        let point = [-(BR + this.A) * sin, (BR + this.A) * cos];
+        const theta = i * BTA / this.Steps / 2;
+        const sin = Math.sin(theta), cos = Math.cos(theta);
+        const point = [-(BR + this.A) * sin, (BR + this.A) * cos];
         if (arcT.length) {
-          let prev = arcT[arcT.length - 1];
+          const prev = arcT[arcT.length - 1];
           for (let j = 1; j < interL.length; j++) {
-            let inter = GetIntersection(prev, point, interL[j-1], interL[j]);
+            const inter = GetIntersection(prev, point, interL[j-1], interL[j]);
             if (inter.length) {
               interL.splice(0,j,inter);
               arcT.push(inter);
@@ -367,9 +373,9 @@ export default defineComponent({
       }
 
       // Intersection Bottom
-      let interB = [cornerL[0]];
+      const interB = [cornerL[0]];
       for(let i = 1; i < tooth.length; i++) {
-        let inter = GetIntersection(tooth[i-1][2], tooth[i-1][1], tooth[i][2], tooth[i][1]);
+        const inter = GetIntersection(tooth[i-1][2], tooth[i-1][1], tooth[i][2], tooth[i][1]);
         if (!inter.length || inter[0] < 0) continue;
         interB.push(inter);
       }
@@ -381,7 +387,7 @@ export default defineComponent({
       // g.poly(cornerL.flat(), false);
       // g.poly(interB.flat(), false);
 
-      let outline = [
+      const outline = [
         ...arcT,
         ...interL.slice(arcT.length ? 1 : 0),
         ...cornerL.slice(0,-1).reverse(),

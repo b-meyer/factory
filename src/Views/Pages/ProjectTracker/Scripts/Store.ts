@@ -25,7 +25,7 @@ export const projectTrackerStore = defineStore('projectTracker', {
             return items.reduce<Project | null>((a,b) => a || this.GetParent(guid, b), null);
         },
         SelectParent: function() {
-            this.Selected = this.GetParent(this.Selected || '')?.Id!;
+            this.Selected = this.GetParent(this.Selected || '')?.Id || null!;
         },
         AddChild: function() {
             if (this.Selected) {

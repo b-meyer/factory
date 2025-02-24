@@ -11,12 +11,12 @@ export class Theme {
     public static New = (data?: any): Theme => ({
         Name: "New Theme",
         PrimaryHue: 0,
-        ColorsDark: Array.from({length: 8}, x => Color.New()),
-        ColorsLight: Array.from({length: 8}, x => Color.New()),
-        ColorBackground: Array.from({length: 2}, x => Color.New()),
-        ColorForeground: Array.from({length: 2}, x => Color.New()),
-        ColorBorder: Array.from({length: 2}, x => Color.New()),
-        ColorHighlight: Array.from({length: 2}, x => Color.New()),
+        ColorsDark: Array.from({length: 8}, () => Color.New()),
+        ColorsLight: Array.from({length: 8}, () => Color.New()),
+        ColorBackground: Array.from({length: 2}, () => Color.New()),
+        ColorForeground: Array.from({length: 2}, () => Color.New()),
+        ColorBorder: Array.from({length: 2}, () => Color.New()),
+        ColorHighlight: Array.from({length: 2}, () => Color.New()),
         ...data
     });
 }

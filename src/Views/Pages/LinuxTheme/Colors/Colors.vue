@@ -10,6 +10,7 @@
           <select v-model="colorStore.SelectedIndex"
                   class="border-input rounded w-150 h-34 px-5">
             <option v-for="(theme, i) in colorStore.Themes"
+                    :key="theme.Name"
                     :value="i"
                     v-text="theme.Name" />
           </select>
@@ -36,18 +37,23 @@
         </div>
         <div class="flex gap-10">
           <app-picker-hsl v-for="color in colorStore.Selected.ColorsDark"
+                          :key="`${color.H}${color.S}${color.L}`"
                           :Color="color" />
         </div>
         <div class="flex gap-10">
           <app-picker-hsl v-for="color in colorStore.Selected.ColorsLight"
+                          :key="`${color.H}${color.S}${color.L}`"
                           :Color="color" />
         </div>
         <div class="flex gap-10">
           <app-picker-hsl v-for="color in colorStore.Selected.ColorBackground"
+                          :key="`${color.H}${color.S}${color.L}`"
                           :Color="color" />
           <app-picker-hsl v-for="color in colorStore.Selected.ColorBorder"
+                          :key="`${color.H}${color.S}${color.L}`"
                           :Color="color" />
           <app-picker-hsl v-for="color in colorStore.Selected.ColorForeground"
+                          :key="`${color.H}${color.S}${color.L}`"
                           :Color="color" />
           <!-- <app-picker-hsl v-for="color in colorStore.Selected.ColorHighlight" :Color="color"/> -->
         </div>
@@ -64,16 +70,18 @@
             <div>Kernal: 21H2</div>
             <div class="flex">
               <div v-for="color in colorStore.Selected.ColorsDark"
+                   :key="`${color.H}${color.S}${color.L}`"
                    :style="{ backgroundColor: colorStore.RGB(color)}"
                    class="w-20 h-20 block">
-&nbsp;
+                &nbsp;
               </div>
             </div>
             <div class="flex">
               <div v-for="color in colorStore.Selected.ColorsLight"
+                   :key="`${color.H}${color.S}${color.L}`"
                    :style="{ backgroundColor: colorStore.RGB(color)}"
                    class="w-20 h-20 block">
-&nbsp;
+                &nbsp;
               </div>
             </div>
           </div>
@@ -117,7 +125,6 @@ export default defineComponent({
             return this.colorStore.SelectedIndex != null ? this.colorStore.RGB(this.colorStore.Selected.ColorBorder[1]) : "#FFF";
         }
     },
-    methods: { },
 });
 </script>
 
