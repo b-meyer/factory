@@ -25,6 +25,8 @@
               <div class="w-75">
                 <input v-model="Shared.PA_Deg"
                        type="number"
+                       min="0"
+                       max="45"
                        class="border-input rounded h-32 w-full px-10"
                        @input="Init">
               </div>
@@ -34,6 +36,7 @@
               <div class="w-75">
                 <input v-model="Shared.Depth"
                        type="number"
+                       min="0"
                        class="border-input rounded h-32 w-full px-10"
                        @input="Init">
               </div>
@@ -59,6 +62,7 @@
               <div class="w-75">
                 <input v-model="GearM.Ratio"
                        type="number"
+                       min="1"
                        class="border-input rounded h-32 w-full px-10"
                        @input="Init">
               </div>
@@ -76,6 +80,7 @@
               <div class="w-75">
                 <input v-model="Gear1.N"
                        type="number"
+                       min="0"
                        class="border-input rounded h-32 w-full px-10"
                        @input="Init">
               </div>
@@ -85,6 +90,7 @@
               <div class="w-75">
                 <input v-model="Gear1.R"
                        type="number"
+                       min="0"
                        class="border-input rounded h-32 w-full px-10"
                        @input="Init">
               </div>
@@ -102,6 +108,8 @@
               <div class="w-75">
                 <input v-model="Gear2.RBN"
                        type="number"
+                       min="6"
+                       step="2"
                        class="border-input rounded h-32 w-full px-10"
                        @input="Init">
               </div>
@@ -111,6 +119,8 @@
               <div class="w-75">
                 <input v-model="Gear2.RSN"
                        type="number"
+                       min="4"
+                       step="2"
                        class="border-input rounded h-32 w-full px-10"
                        @input="Init">
               </div>
@@ -187,9 +197,9 @@ export default defineComponent({
     scene = new THREE.Scene()
     camera = new THREE.PerspectiveCamera(50, viewport.clientWidth / viewport.clientHeight, 0.1, 2000);
     renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-    orbit = new OrbitControls(camera, renderer.domElement);
     renderer.setSize(viewport.clientWidth, viewport.clientHeight);
     renderer.setAnimationLoop(() => renderer.render(scene, camera));
+    orbit = new OrbitControls(camera, renderer.domElement);
     viewport.appendChild(renderer.domElement);
     camera.position.z = Math.max(...this.Points.flat()) * 3;
     this.Init();
@@ -205,7 +215,8 @@ export default defineComponent({
       let shape = new THREE.Shape(this.Points.map(x => new THREE.Vector2(x[0], x[1])));
       let geometry = new THREE.ExtrudeGeometry(shape, { depth: this.Shared.Depth, bevelEnabled: false });
       geometry.translate(0,0,-this.Shared.Depth / 2);
-      scene.add(new THREE.LineSegments(new THREE.WireframeGeometry(geometry), lineMaterial));
+      let wireFrame = new THREE.WireframeGeometry(geometry);
+      scene.add(new THREE.LineSegments(wireFrame, lineMaterial));
       scene.add(new THREE.Mesh(geometry, meshMaterial));
     },
     Export: function() {
@@ -213,8 +224,8 @@ export default defineComponent({
       let geometry = new THREE.ExtrudeGeometry(shape, { depth: this.Shared.Depth, bevelEnabled: false });
       let exporter = new STLExporter();
       let result = exporter.parse(new THREE.Mesh(geometry), { binary: true });
-      var blob = new Blob([result], { type : 'text/plain' });
-      var link = document.createElement('a');
+      let blob = new Blob([result], { type : 'text/plain' });
+      let link = document.createElement('a');
       link.style.display = 'none';
       document.body.appendChild(link);
       link.href = URL.createObjectURL(blob);
