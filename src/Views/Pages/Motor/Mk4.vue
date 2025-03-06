@@ -1,19 +1,37 @@
 <template>
   <div class="flex flex-col w-full min-h-full gap-20 p-20">
     <div class="card flex flex-auto gap-20">
-      <div class="flex flex-col flex-auto max-w-[300px] p-40 gap-30">
-        <div class="flex flex-col gap-10">
+      <div class="flex flex-col flex-auto max-w-[300px] px-40 py-20">
+        <div class="flex flex-col gap-8">
           <div class="flex items-center justify-between">
             <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
               General
             </h2>
             <i class="bi-caret-down-fill" />
           </div>
-          <div class="flex flex-col gap-10">
-            <div class="flex gap-10 items-center justify-between">
+          <div class="flex flex-col gap-8">
+            <div class="flex gap-8 items-center justify-between">
               <label>Total Arm Radius:</label>
               <div class="max-w-[75px]">
                 <input v-model="TotalR"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-8 items-center justify-between">
+              <label>Magnet Length:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Magnets.Width"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-8 items-center justify-between">
+              <label>Magnet Depth:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Magnets.Depth"
                        type="number"
                        class="border-input rounded h-32 w-full px-10"
                        @input="Init">
@@ -26,8 +44,8 @@
             </h2>
             <i class="bi-caret-down-fill" />
           </div>
-          <div class="flex flex-col gap-10">
-            <div class="flex gap-10 items-center justify-between">
+          <div class="flex flex-col gap-8">
+            <div class="flex gap-8 items-center justify-between">
               <label>Magnets:</label>
               <div class="max-w-[75px]">
                 <input v-model="Crank.Arms"
@@ -36,7 +54,7 @@
                        @input="Init">
               </div>
             </div>
-            <div class="flex gap-10 items-center justify-between">
+            <div class="flex gap-8 items-center justify-between">
               <label>Arm Length:</label>
               <div class="max-w-[75px]">
                 <input v-model="Crank.ArmLength"
@@ -45,7 +63,7 @@
                        @input="Init">
               </div>
             </div>
-            <div class="flex gap-10 items-center justify-between">
+            <div class="flex gap-8 items-center justify-between">
               <label>Arm Width:</label>
               <div class="max-w-[75px]">
                 <input v-model="Crank.ArmWidth"
@@ -54,7 +72,7 @@
                        @input="Init">
               </div>
             </div>
-            <div class="flex gap-10 items-center justify-between">
+            <div class="flex gap-8 items-center justify-between">
               <label>Outer Radius:</label>
               <div class="max-w-[75px]">
                 <input v-model="Crank.TotalR"
@@ -63,7 +81,7 @@
                        @input="Init">
               </div>
             </div>
-            <div class="flex gap-10 items-center justify-between">
+            <div class="flex gap-8 items-center justify-between">
               <label>Pitch Radius:</label>
               <div class="max-w-[75px]">
                 <input v-model="Crank.PitchR"
@@ -72,7 +90,7 @@
                        @input="Init">
               </div>
             </div>
-            <div class="flex gap-10 items-center justify-between">
+            <div class="flex gap-8 items-center justify-between">
               <label>Pin Radius:</label>
               <div class="max-w-[75px]">
                 <input v-model="Crank.PinR"
@@ -88,8 +106,8 @@
             </h2>
             <i class="bi-caret-down-fill" />
           </div>
-          <div class="flex flex-col gap-10">
-            <div class="flex gap-10 items-center justify-between">
+          <div class="flex flex-col gap-8">
+            <div class="flex gap-8 items-center justify-between">
               <label>Magnets:</label>
               <div class="max-w-[75px]">
                 <input v-model="Rotor.Arms"
@@ -98,7 +116,7 @@
                        @input="Init">
               </div>
             </div>
-            <div class="flex gap-10 items-center justify-between">
+            <div class="flex gap-8 items-center justify-between">
               <label>Magnet Gap:</label>
               <div class="max-w-[75px]">
                 <input v-model="Rotor.Gap"
@@ -114,18 +132,18 @@
             </h2>
             <i class="bi-caret-down-fill" />
           </div>
-          <div class="flex flex-col gap-10">
-            <div class="flex gap-10 items-center justify-between">
+          <div class="flex flex-col gap-8">
+            <div class="flex gap-8 items-center justify-between">
               <label>GearM N:</label>
               <div class="w-75"
                    v-text="Gears.N * Rotor.Arms" />
             </div>
-            <div class="flex gap-10 items-center justify-between">
+            <div class="flex gap-8 items-center justify-between">
               <label>GearM R:</label>
               <div class="w-75"
                    v-text="MainR" />
             </div>
-            <div class="flex gap-10 items-center justify-between">
+            <div class="flex gap-8 items-center justify-between">
               <label>Gear1 N:</label>
               <div class="max-w-[75px]">
                 <input v-model="Gears.N"
@@ -134,12 +152,12 @@
                        @input="Init">
               </div>
             </div>
-            <div class="flex gap-10 items-center justify-between">
+            <div class="flex gap-8 items-center justify-between">
               <label>Gear1 R:</label>
               <div class="w-75"
                    v-text="Gear1R" />
             </div>
-            <div class="flex gap-10 items-center justify-between">
+            <div class="flex gap-8 items-center justify-between">
               <label>Gear2 RBN:</label>
               <div class="max-w-[75px]">
                 <input v-model="Gears.RBN"
@@ -148,7 +166,7 @@
                        @input="Init">
               </div>
             </div>
-            <div class="flex gap-10 items-center justify-between">
+            <div class="flex gap-8 items-center justify-between">
               <label>Gear2 RSN:</label>
               <div class="max-w-[75px]">
                 <input v-model="Gears.RSN"
@@ -157,7 +175,7 @@
                        @input="Init">
               </div>
             </div>
-            <div class="flex gap-10 items-center justify-between">
+            <div class="flex gap-8 items-center justify-between">
               <label>PA:</label>
               <div class="max-w-[75px]">
                 <input v-model="Gears.PA_Deg"
@@ -355,6 +373,7 @@ export default defineComponent({
         for (let i = 0; i < this.Rotor.Arms; i++) { 
           const rotorBody = new Graphics();   
           rotorBody.poly([0, 0, magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos + magnetDepthSin - rotorGapSin,
+              ...Rotate([-magnetWidthSin - magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos - magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms),
               ...Rotate([-magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos + magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms),
               ...Rotate([magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos + magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms)]); // Rotor Arm
           rotorBody.fill();
@@ -368,7 +387,7 @@ export default defineComponent({
                           magnetWidthSin - magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos - magnetDepthSin - rotorGapSin,
                          -magnetWidthSin - magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos - magnetDepthSin - rotorGapSin]); // Magnet
           rotorArm.poly([0, 0, magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos + magnetDepthSin - rotorGapSin,
-              ...Rotate([-magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos + magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms)], false); // Rotor Arm
+              ...Rotate([-magnetWidthSin - magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos - magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms)], false); // Rotor Arm
           rotorArm.stroke({ width: 1, color: 0x000 });
           rotorArm.rotation = 2 * Math.PI * i / this.Rotor.Arms;
           Rotor.addChild(rotorArm);

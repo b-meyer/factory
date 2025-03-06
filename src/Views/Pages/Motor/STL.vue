@@ -148,6 +148,50 @@
               @click="Export">
         Export
       </button>
+      <div class="absolute bottom-15 right-15">
+        <div v-if="Shared.Gear == '0'" class="flex flex-col gap-5">
+          <div class="flex gap-5">
+            <div class="w-85">0 Pitch D+</div>
+            <div v-text="((Gear1.R / 2 + GearA) * 2).toFixed(2)"/>
+          </div>
+          <div class="flex gap-5">
+            <div class="w-85">0 Pitch D</div>
+            <div v-text="((Gear1.R / 2) * 2).toFixed(2)"/>
+          </div>
+          <div class="flex gap-5">
+            <div class="w-85">0 Pitch D-</div>
+            <div v-text="((Gear1.R / 2 - GearA) * 2).toFixed(2)"/>
+          </div>
+        </div>
+        <div v-else-if="Shared.Gear == '1'" class="flex flex-col gap-5">
+          <div class="flex gap-5">
+            <div class="w-85">1 Pitch D+</div>
+            <div v-text="((Gear1.R + GearA) * 2).toFixed(2)"/>
+          </div>
+          <div class="flex gap-5">
+            <div class="w-85">1 Pitch D</div>
+            <div v-text="((Gear1.R) * 2).toFixed(2)"/>
+          </div>
+          <div class="flex gap-5">
+            <div class="w-85">1 Pitch D-</div>
+            <div v-text="((Gear1.R - GearA) * 2).toFixed(2)"/>
+          </div>
+        </div>
+        <div v-else-if="Shared.Gear == 'M'" class="flex flex-col gap-5">
+          <div class="flex gap-5">
+            <div class="w-85">M Pitch D+</div>
+            <div v-text="((Gear1.R * GearM.Ratio + GearA) * 2).toFixed(2)"/>
+          </div>
+          <div class="flex gap-5">
+            <div class="w-85">M Pitch D</div>
+            <div v-text="((Gear1.R * GearM.Ratio) * 2).toFixed(2)"/>
+          </div>
+          <div class="flex gap-5">
+            <div class="w-85">M Pitch D-</div>
+            <div v-text="((Gear1.R * GearM.Ratio - GearA) * 2).toFixed(2)"/>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -198,7 +242,10 @@ export default defineComponent({
         case '2R': return GetGearT(this.Gear2.RBN, this.Gear2.RSN, 2 * this.Gear1.R * this.Gear2.Dist, this.Shared.PA_Deg, false, 12);
         default: return [];
       }
-    }
+    },
+    GearA: function() {
+      return 2 * this.Gear1.R / this.Gear1.N;
+    },
   },
   mounted: async function() {
     const viewport = document.getElementById("viewport")!;
