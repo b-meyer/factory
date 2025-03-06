@@ -216,10 +216,10 @@ export default defineComponent({
       Crank: {
         Arms: 23,
         ArmLength: 60,
-        ArmWidth: 8,
+        ArmWidth: 10,
         TotalR: 28,
-        PitchR: 24,
-        PinR: 1.5875,
+        PitchR: 23,
+        PinR: 2,
       },
       Rotor: {
         Arms: 8,

@@ -158,7 +158,7 @@ export const GetTooth = (N: number, R: number, PA_Deg: number, Steps: number) =>
     outline.push(...outline.map(x => [-x[0], x[1]]).reverse().slice(1));
     return outline;
 };
-export const GetTranTooth = (RBN: number, RSN: number, Dist: number, PA_Deg: number, Driver: boolean, Steps: number)  => {
+export const GetTranInfo = (RBN: number, RSN: number, Dist: number)  => {
   // Variable Speed
   const a = 4 * RSN - 4 * RBN;
   const b = 2 * RBN - 6 * RSN;
@@ -185,13 +185,17 @@ export const GetTranTooth = (RBN: number, RSN: number, Dist: number, PA_Deg: num
   const DSR = (Dist / (1 + Ratios[1] / Ratios[2])) / Ratios[2] * Ratios[0];
   const DSTA = 2 * Math.PI / DSN;
   // Shared
-  const PA = PA_Deg * Math.PI / 180;
   const TPA = Math.atan((1 / Ratios[1] * Ratios[0] * Math.PI / (RSN / Ratios[2] * Ratios[0])) / (1 - 1 / Ratios[1] * Ratios[0]));
   const A = 2 * RBR / RBN;
   const TW = Math.PI * RBR / RBN;
+  return { VS, RBN, RBR, RBTA, RSN, RSR, RSTA, DBN, DBR, DBTA, DSN, DSR, DSTA, TPA, A, TW };
+};
+export const GetTranTooth = (RBN: number, RSN: number, Dist: number, PA_Deg: number, Driver: boolean, Steps: number)  => {
+  // Tooth Info
+  const { RBR, RBTA, RSR, RSTA, DBR, DBTA, DSN, DSR, DSTA, TPA, A, TW } = GetTranInfo(RBN, RSN, Dist);
+  const PA = PA_Deg * Math.PI / 180;
 
   // Driver Switch
-  //const BN = Driver ? DBN : RBN;
   const BR = Driver ? DBR : RBR;
   const BTA = Driver ? DBTA : RBTA;
   const SN = Driver ? DSN : RSN;
@@ -367,6 +371,6 @@ export const GetGearT = (RBN: number, RSN: number, Dist: number, PA_Deg: number,
   for(let i = 1; i < Math.round(BN - BN * VS); i++) {
     gear.push(...outlineB.map(x => Rotate(x, 2 * Math.PI * VS + i * BTA)));
   }
-  //return Driver ? gear.map(x => Rotate(x, 2 * Math.PI * (1 - VS))) : gear;
   return Driver ? gear : gear.map(x => Rotate(x, Math.PI));
+  //return Driver ? gear.map(x => Rotate(x, -2 * Math.PI * VS)) : gear.map(x => Rotate(x, Math.PI));
 };

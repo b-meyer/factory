@@ -149,46 +149,145 @@
         Export
       </button>
       <div class="absolute bottom-15 right-15">
-        <div v-if="Shared.Gear == '0'" class="flex flex-col gap-5">
+        <div v-if="Shared.Gear == '0'"
+             class="flex flex-col gap-5">
           <div class="flex gap-5">
-            <div class="w-85">0 Pitch D+</div>
-            <div v-text="((Gear1.R / 2 + GearA) * 2).toFixed(2)"/>
+            <div class="w-100">
+              0 Pitch D+
+            </div>
+            <div v-text="((Gear1.R / 2 + GearA) * 2).toFixed(2)" />
           </div>
           <div class="flex gap-5">
-            <div class="w-85">0 Pitch D</div>
-            <div v-text="((Gear1.R / 2) * 2).toFixed(2)"/>
+            <div class="w-100">
+              0 Pitch D
+            </div>
+            <div v-text="((Gear1.R / 2) * 2).toFixed(2)" />
           </div>
           <div class="flex gap-5">
-            <div class="w-85">0 Pitch D-</div>
-            <div v-text="((Gear1.R / 2 - GearA) * 2).toFixed(2)"/>
-          </div>
-        </div>
-        <div v-else-if="Shared.Gear == '1'" class="flex flex-col gap-5">
-          <div class="flex gap-5">
-            <div class="w-85">1 Pitch D+</div>
-            <div v-text="((Gear1.R + GearA) * 2).toFixed(2)"/>
-          </div>
-          <div class="flex gap-5">
-            <div class="w-85">1 Pitch D</div>
-            <div v-text="((Gear1.R) * 2).toFixed(2)"/>
-          </div>
-          <div class="flex gap-5">
-            <div class="w-85">1 Pitch D-</div>
-            <div v-text="((Gear1.R - GearA) * 2).toFixed(2)"/>
+            <div class="w-100">
+              0 Pitch D-
+            </div>
+            <div v-text="((Gear1.R / 2 - GearA) * 2).toFixed(2)" />
           </div>
         </div>
-        <div v-else-if="Shared.Gear == 'M'" class="flex flex-col gap-5">
+        <div v-else-if="Shared.Gear == '1'"
+             class="flex flex-col gap-5">
           <div class="flex gap-5">
-            <div class="w-85">M Pitch D+</div>
-            <div v-text="((Gear1.R * GearM.Ratio + GearA) * 2).toFixed(2)"/>
+            <div class="w-100">
+              1 Pitch D+
+            </div>
+            <div v-text="((Gear1.R + GearA) * 2).toFixed(2)" />
           </div>
           <div class="flex gap-5">
-            <div class="w-85">M Pitch D</div>
-            <div v-text="((Gear1.R * GearM.Ratio) * 2).toFixed(2)"/>
+            <div class="w-100">
+              1 Pitch D
+            </div>
+            <div v-text="((Gear1.R) * 2).toFixed(2)" />
           </div>
           <div class="flex gap-5">
-            <div class="w-85">M Pitch D-</div>
-            <div v-text="((Gear1.R * GearM.Ratio - GearA) * 2).toFixed(2)"/>
+            <div class="w-100">
+              1 Pitch D-
+            </div>
+            <div v-text="((Gear1.R - GearA) * 2).toFixed(2)" />
+          </div>
+        </div>
+        <div v-else-if="Shared.Gear == 'M'"
+             class="flex flex-col gap-5">
+          <div class="flex gap-5">
+            <div class="w-100">
+              M Pitch D+
+            </div>
+            <div v-text="((Gear1.R * GearM.Ratio + GearA) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              M Pitch D
+            </div>
+            <div v-text="((Gear1.R * GearM.Ratio) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              M Pitch D-
+            </div>
+            <div v-text="((Gear1.R * GearM.Ratio - GearA) * 2).toFixed(2)" />
+          </div>
+        </div>
+        <div v-else-if="Shared.Gear == '2D'"
+             class="flex flex-col gap-5">
+          <div class="flex gap-5">
+            <div class="w-100">
+              DBR Pitch D+
+            </div>
+            <div v-text="((TGearInfo.DBR + TGearInfo.A) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              DBR Pitch D
+            </div>
+            <div v-text="((TGearInfo.DBR) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              DBR Pitch D-
+            </div>
+            <div v-text="((TGearInfo.DBR - TGearInfo.A) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              DSR Pitch D+
+            </div>
+            <div v-text="((TGearInfo.DSR + TGearInfo.A) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              DSR Pitch D
+            </div>
+            <div v-text="((TGearInfo.DSR) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              DSR Pitch D-
+            </div>
+            <div v-text="((TGearInfo.DSR - TGearInfo.A) * 2).toFixed(2)" />
+          </div>
+        </div>
+        <div v-else-if="Shared.Gear == '2R'"
+             class="flex flex-col gap-5">
+          <div class="flex gap-5">
+            <div class="w-100">
+              RBR Pitch D+
+            </div>
+            <div v-text="((TGearInfo.RBR + TGearInfo.A) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              RBR Pitch D
+            </div>
+            <div v-text="((TGearInfo.RBR) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              RBR Pitch D-
+            </div>
+            <div v-text="((TGearInfo.RBR - TGearInfo.A) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              RSR Pitch D+
+            </div>
+            <div v-text="((TGearInfo.RSR + TGearInfo.A) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              RSR Pitch D
+            </div>
+            <div v-text="((TGearInfo.RSR) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              RSR Pitch D-
+            </div>
+            <div v-text="((TGearInfo.RSR - TGearInfo.A) * 2).toFixed(2)" />
           </div>
         </div>
       </div>
@@ -201,7 +300,7 @@ import { defineComponent } from 'vue';
 import * as THREE from 'three';
 import { STLExporter } from 'three/addons/exporters/STLExporter.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { GetGear, GetGearT } from '@/Scripts/Functions';
+import { GetGear, GetGearT, GetTranInfo } from '@/Scripts/Functions';
 
 let scene: THREE.Scene,
     camera: THREE.PerspectiveCamera, 
@@ -215,7 +314,7 @@ export default defineComponent({
   data: () => ({
     Shared: {
       PA_Deg: 25,
-      Depth: 12,
+      Depth: 15,
       Gear: '1',
       Gears: ['M', '0', '1', '2R', '2D']
     },
@@ -245,6 +344,9 @@ export default defineComponent({
     },
     GearA: function() {
       return 2 * this.Gear1.R / this.Gear1.N;
+    },
+    TGearInfo: function() {
+      return GetTranInfo(this.Gear2.RBN, this.Gear2.RSN, 2 * this.Gear1.R * this.Gear2.Dist);
     },
   },
   mounted: async function() {
