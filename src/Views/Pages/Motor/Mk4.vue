@@ -276,6 +276,7 @@ export default defineComponent({
         Gear2.length = 0;
         Heads.length = 0;
         
+        const fill = 'hsl(215 8% 97.5%)';
         const totalR = this.Scale * this.TotalR;
         const mainR = this.Scale * this.MainR;
         const gear1R = this.Scale * this.Gear1R;
@@ -321,13 +322,13 @@ export default defineComponent({
           crank.addChild(gear1a);
           const gear1b = new Graphics(); 
           gear1b.poly(GetGearT(this.Gears.RBN, this.Gears.RSN, 2 * gear2R, this.Gears.PA_Deg, true, 2).flat()); // Gear 1B
-          gear1b.fill().stroke({ width: 1, color: 0x000 });
+          gear1b.fill(fill).stroke({ width: 1, color: 0x000 });
           gear1b.y = mainR + gear1R;
           Gear1.push(gear1b);
           crank.addChild(gear1b);
           const gear2 = new Graphics();
           gear2.poly(GetGearT(this.Gears.RBN, this.Gears.RSN, 2 * gear2R, this.Gears.PA_Deg, false, 2).flat()); // Gear 2
-          gear2.fill().stroke({ width: 1, color: 0x000 });
+          gear2.fill(fill).stroke({ width: 1, color: 0x000 });
           gear2.y = totalR;
           Gear2.push(gear2);
           crank.addChild(gear2);
@@ -341,7 +342,7 @@ export default defineComponent({
                           -crankPinR, -crankPitchR - crankArmWidth / 2 - 3 * this.Scale - 2 * (magnetWidthCos + magnetDepthSin),
                            crankPinR, -crankPitchR - crankArmWidth / 2 - 3 * this.Scale - 2 * (magnetWidthCos + magnetDepthSin),
                            crankPinR,  crankPitchR + 2 * crankPinR]); // Crank Rail
-          crankRail.fill().stroke({ width: 1, color: 0x000 });
+          crankRail.fill(fill).stroke({ width: 1, color: 0x000 });
           crankRail.y = totalR  - crankArmLength;
           crank.addChild(crankRail);
           const crankHead = new Graphics();
@@ -355,14 +356,14 @@ export default defineComponent({
                           -magnetWidthSin - magnetDepthCos - 1 * this.Scale, -magnetWidthCos - magnetDepthSin - 1 * this.Scale]); // Magnet Housing
           crankHead.poly([magnetWidthSin + magnetDepthCos + 1 * this.Scale,  magnetWidthCos + magnetDepthSin + 1 * this.Scale, 
                          -magnetWidthSin - magnetDepthCos - 1 * this.Scale,  magnetWidthCos + magnetDepthSin + 1 * this.Scale]); // Arm Slot
-          crankHead.fill().stroke({ width: 1, color: 0x000 });
+          crankHead.fill(fill).stroke({ width: 1, color: 0x000 });
           Heads.push(crankHead);
           crank.addChild(crankHead);
           const crankArm = new Graphics();
           crankArm.circle(0, 0, crankPinR); // Crank Pin
           crankArm.roundRect(-crankArmWidth / 2, -crankArmLength - crankArmWidth / 2, crankArmWidth, crankArmLength + crankArmWidth, crankArmWidth / 2); // Crank Arm
           crankArm.circle(0, -crankArmLength, crankPinR); // Crank Pin
-          crankArm.fill().stroke({ width: 1, color: 0x000 });
+          crankArm.fill(fill).stroke({ width: 1, color: 0x000 });
           crankArm.y = totalR;
           Arms.push(crankArm);
           crank.addChild(crankArm);
@@ -376,7 +377,7 @@ export default defineComponent({
               ...Rotate([-magnetWidthSin - magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos - magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms),
               ...Rotate([-magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos + magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms),
               ...Rotate([magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos + magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms)]); // Rotor Arm
-          rotorBody.fill();
+          rotorBody.fill(fill);
           rotorBody.rotation = 2 * Math.PI * i / this.Rotor.Arms;
           Rotor.addChild(rotorBody);
         }        

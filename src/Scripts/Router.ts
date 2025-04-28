@@ -5,8 +5,12 @@ export const router = createRouter({
     routes: [
         // Colors
         {
-            path: '/LinuxTheme/Colors',
-            component: () => import('@/Views/Pages/LinuxTheme/Colors/Colors.vue'),
+            path: '/Colors/Linux',
+            component: () => import('@/Views/Pages/Colors/Linux.vue'),
+        },
+        {
+            path: '/Colors/Human',
+            component: () => import('@/Views/Pages/Colors/Human.vue'),
         },
         // ProjectTracker
         {
