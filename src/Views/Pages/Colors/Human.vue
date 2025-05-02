@@ -1,7 +1,5 @@
 <template>
   <div class="flex flex-col w-full min-h-full gap-20 p-20 m-auto">
-    <h1 class="text-[28px] flex justify-center items-center"
-        v-text="'Human Colors'" />
     <div class="flex flex-col flex-auto card p-20 gap-10">
       <div ref="panel"
            class="flex flex-auto justify-end items-end pb-10 pr-10 h-0"
