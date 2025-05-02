@@ -52,7 +52,8 @@
   import { mainStore } from '@/Scripts/Store'
 
   export enum MenuCategory {
-      Linux = "Linux",
+    Colors = "Colors",
+    Motor = "Motor",
   }
 
   export default defineComponent({
@@ -60,25 +61,35 @@
           Active: null! as MenuCategory,
           MenuCategory: MenuCategory,
           Menu: [
-              // {
-              //     Category: MenuCategory.Linux,
-              //     Icon: "fab-linux",
-              //     Links: [
-              //         { Text: 'Colors', Link: '/LinuxTheme/Colors' },
-              //     ]
-              // },
+              {
+                  Category: MenuCategory.Colors,
+                  Icon: "bi-palette",
+                  Links: [
+                    { Text: 'Linux', Link: '/colors/linux' },
+                    { Text: 'Human', Link: '/colors/human' },
+                  ]
+              },
+              {
+                  Category: MenuCategory.Motor,
+                  Icon: "bi-gear",
+                  Links: [
+                    { Text: 'Gear', Link: '/motor/gear' },
+                    { Text: 'Gear T', Link: '/motor/geart' },
+                    { Text: 'STL', Link: '/motor/stl' },
+                    { Text: 'Mk4', Link: '/motor/mk4' },
+                  ]
+              },
               [
-                  { Icon: "bi-journals", Text: 'Wishlist', Link: '/ProjectTracker' },
+                  //{ Icon: "bi-journals", Text: 'Wishlist', Link: '/ProjectTracker' },
                   { Icon: "bi-lightning-charge", Text: 'Icons', Link: '/Icons' },
-                  { Icon: "fab-linux", Text: 'Colors', Link: '/LinuxTheme/Colors' },
               ]
-          ] as any
+          ]
       }),
       computed: {
           ...mapStores(mainStore),
       },
       methods: {
-          Select: function (category: any) {
+          Select: function (category: MenuCategory) {
               this.Active = this.Active === category ? null! : category;
           },
       }
