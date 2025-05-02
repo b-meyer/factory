@@ -8,9 +8,12 @@
            :style="{ backgroundColor: BgColor, color: TextColor }" 
            v-text="BgColor" />
       <div v-if="width"
+           ref="picker"
            class="relative flex flex-auto h-0"
-           @mousemove="MouseMove"
-           @mousedown="MouseMove">
+           @mousemove="UpdatePos"
+           @mousedown="UpdatePos"
+           @touchstart="UpdatePos"
+           @touchmove="UpdatePos">
         <div v-for="i in width" 
              v-once
              :key="i"
@@ -26,6 +29,7 @@
 <script setup lang="ts">
   import { computed, onMounted, reactive, ref, useTemplateRef } from 'vue';
   const panel = useTemplateRef('panel');
+  const picker = useTemplateRef('picker');
   const width = ref(0);
   const band = 3;
   const pos = reactive({x:0.5,y:0.5});
@@ -54,12 +58,17 @@
     const l = -0.0200513*d*d*d*d*d + 0.553741*d*d*d*d - 5.36345*d*d*d + 20.9327*d*d - 36.8210*d + 116.640;
     return {h,s,l};
   };
-  const MouseMove = (e: MouseEvent) => {
-    if (e.buttons == 1 || e.type == "mousedown") {
-      const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-      pos.x = Math.min(1, Math.max(0, (e.pageX - rect.left) / rect.width));
-      pos.y = Math.min(1, Math.max(0, (e.pageY - rect.top) / rect.height));
-    }
+  const UpdatePos = (e: TouchEvent | MouseEvent) => {
+    let page;
+    const touch = e as TouchEvent, mouse = e as MouseEvent;
+    if (touch?.touches) page = touch?.touches[0];
+    else if (mouse?.buttons == 1 || mouse?.type == "mousedown") page = mouse;
+    else return;
+    const rect = picker.value!.getBoundingClientRect();
+    pos.x = Math.min(1, Math.max(0, (page.pageX - rect.left) / rect.width));
+    pos.y = Math.min(1, Math.max(0, (page.pageY - rect.top) / rect.height));
+    e.stopPropagation();
+    e.preventDefault();
   };
   onMounted(() => width.value = panel.value?.offsetWidth || 0);
 </script>
