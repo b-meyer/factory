@@ -26,8 +26,8 @@
   
 <script setup lang="ts">
   import { computed, onMounted, reactive, ref, useTemplateRef } from 'vue';
-  const panel = useTemplateRef('panel');
-  const picker = useTemplateRef('picker');
+  const panel = useTemplateRef<HTMLElement>('panel');
+  const picker = useTemplateRef<HTMLElement>('picker');
   const width = ref(0);
   const band = 3;
   const pos = reactive({x:0.5,y:0.5});
@@ -59,14 +59,14 @@
   const UpdatePos = (e: TouchEvent | MouseEvent) => {
     let page;
     const touch = e as TouchEvent, mouse = e as MouseEvent;
-    if (touch?.touches) page = touch?.touches[0];
-    else if (mouse?.buttons == 1 || mouse?.type == "mousedown") page = mouse;
-    else return;
-    const rect = picker.value!.getBoundingClientRect();
-    pos.x = Math.min(1, Math.max(0, (page.pageX - rect.left) / rect.width));
-    pos.y = Math.min(1, Math.max(0, (page.pageY - rect.top) / rect.height));
-    e.stopPropagation();
-    e.preventDefault();
+    if (touch?.touches) page = touch?.touches[0]; // Any touch event
+    else if (mouse?.buttons == 1 || mouse?.type == "mousedown") page = mouse; // Mouse Move + Left Click OR Mouse Down
+    else return; // Dont update
+    const rect = picker.value!.getBoundingClientRect(); // Control bounding dimensions
+    pos.x = Math.min(1, Math.max(0, (page.pageX - rect.left) / rect.width)); // Set marker y pos
+    pos.y = Math.min(1, Math.max(0, (page.pageY - rect.top) / rect.height)); // Set marker x pos
+    e.stopPropagation(); // Only throw one event
+    e.preventDefault(); // Only throw one event
   };
   onMounted(() => width.value = panel.value?.offsetWidth || 0);
 </script>
