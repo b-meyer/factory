@@ -2,10 +2,8 @@
    "css.customData": [
       ".vscode/css_tailwind.json"
    ],
-   "css.format.braceStyle": "collapse",
    "css.format.newlineBetweenRules": false,
    "css.format.newlineBetweenSelectors": false,
-   "css.validate": true,
    "editor.mouseWheelZoom": true,
    "editor.tabSize": 3,
    "editor.detectIndentation": false,

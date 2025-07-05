@@ -5,11 +5,9 @@
    input[type='checkbox'] {
       @apply h-14 w-14 appearance-none rounded-sm shadow-sm flex justify-center items-center enabled:cursor-pointer disabled:opacity-70;
    }
-
    input[type='checkbox']:checked {
       @apply bg-blue-500 enabled:hover:bg-blue-550 font-['bootstrap-icons'] before:content-['\f26e'] before:text-white before:text-18 before:leading-none;
    }
-
    input[type='checkbox']:not(:checked) {
       @apply bg-white border border-gray-200 enabled:hover:border-gray-400/75;
    }
@@ -21,65 +19,50 @@
       @apply text-blue-500 hover:text-blue-600 underline;
    }
 }
-
 @utility required {
    &label {
       @apply !-ml-8 before: !pr-1 before: !text-red-500 before: !content-['*'];
    }
 }
-
 @utility card {
    @apply bg-gray-25 shadow overflow-hidden rounded text-gray-900 border border-gray-200;
 }
-
 @utility tab {
    @apply rounded-t flex items-center h-30 px-10 z-10 border border-gray-200 -mb-1 -ml-1 first:ml-0;
-
    &.active {
       @apply bg-gray-25 border-b-0 pb-1;
    }
-
    &:not(.active) {
       @apply bg-gray-50 cursor-pointer;
    }
 }
-
 @utility btn {
    @apply rounded shadow-sm border bg-gray-50 box-content hover:not-disabled:bg-gray-100 border-gray-200 disabled:border-gray-100 text-gray-900 hover:not-disabled:text-black disabled:text-gray-500 not-disabled:cursor-pointer;
 }
-
 @utility btn-outline {
    @apply btn bg-inherit hover:not-disabled:border-gray-400;
 }
-
 @utility btn-primary {
    @apply btn bg-primary-400 hover:not-disabled:bg-primary-500 border-primary-550/75 disabled:border-primary-450;
 }
-
 @utility btn-green {
    @apply btn bg-green-400 hover:not-disabled:bg-green-500 border-green-550/75 disabled:border-green-450;
 }
-
 @utility btn-red {
    @apply btn bg-red-400 hover:not-disabled:bg-red-500 border-red-550/75 disabled:border-red-450;
 }
-
 @utility btn-group {
    @apply flex;
-
    &>*+* {
       @apply !rounded-l-none !border-l-0 hover: !border-l;
    }
-
    &>*:has(+ *) {
       @apply !rounded-r-none;
    }
-
    &>*:has(+ *:hover) {
       @apply !border-r-0;
    }
 }
-
 @utility border-input {
    &:not(.border-input .border-input) {
       @apply !border !border-gray-300 hover: !border-gray-400/75 focus-within: !ring-1 focus-within: !ring-gray-400/20 !shadow-sm !outline-none;
