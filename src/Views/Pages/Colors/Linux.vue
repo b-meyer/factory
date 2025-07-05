@@ -99,30 +99,30 @@ import { mapStores } from 'pinia';
 import PickerHSL from './Components/PickerHSL.vue';
 import { colorStore } from './Scripts/Store';
 export default defineComponent({
-    components: {
-        'app-picker-hsl': PickerHSL,
-    },
-    computed: {
-        ...mapStores(colorStore),
-        Background_D():string {
-            return this.colorStore.SelectedIndex != null ? this.colorStore.RGB(this.colorStore.Selected.ColorBackground[0]) : "#FFF";
-        },
-        Background_L():string {
-            return this.colorStore.SelectedIndex != null ? this.colorStore.RGB(this.colorStore.Selected.ColorBackground[1]) : "#FFF";
-        },
-        Foreground_D():string {
-            return this.colorStore.SelectedIndex != null ? this.colorStore.RGB(this.colorStore.Selected.ColorForeground[0]) : "#FFF";
-        },
-        Foreground_L():string {
-            return this.colorStore.SelectedIndex != null ? this.colorStore.RGB(this.colorStore.Selected.ColorForeground[1]) : "#FFF";
-        },
-        Border_D():string {
-            return this.colorStore.SelectedIndex != null ? this.colorStore.RGB(this.colorStore.Selected.ColorBorder[0]) : "#FFF";
-        },
-        Border_L():string {
-            return this.colorStore.SelectedIndex != null ? this.colorStore.RGB(this.colorStore.Selected.ColorBorder[1]) : "#FFF";
-        }
-    },
+   components: {
+      'app-picker-hsl': PickerHSL,
+   },
+   computed: {
+      ...mapStores(colorStore),
+      Background_D():string {
+         return this.colorStore.SelectedIndex != null ? this.colorStore.RGB(this.colorStore.Selected.ColorBackground[0]) : "#FFF";
+      },
+      Background_L():string {
+         return this.colorStore.SelectedIndex != null ? this.colorStore.RGB(this.colorStore.Selected.ColorBackground[1]) : "#FFF";
+      },
+      Foreground_D():string {
+         return this.colorStore.SelectedIndex != null ? this.colorStore.RGB(this.colorStore.Selected.ColorForeground[0]) : "#FFF";
+      },
+      Foreground_L():string {
+         return this.colorStore.SelectedIndex != null ? this.colorStore.RGB(this.colorStore.Selected.ColorForeground[1]) : "#FFF";
+      },
+      Border_D():string {
+         return this.colorStore.SelectedIndex != null ? this.colorStore.RGB(this.colorStore.Selected.ColorBorder[0]) : "#FFF";
+      },
+      Border_L():string {
+         return this.colorStore.SelectedIndex != null ? this.colorStore.RGB(this.colorStore.Selected.ColorBorder[1]) : "#FFF";
+      }
+   },
 });
 </script>
 

@@ -65,38 +65,38 @@ import { DropState } from './Scripts/Enum';
 import { Project } from './Scripts/Model';
 
 export default defineComponent({
-    components: {
-        'app-projectcard': ProjectCard,
-    },
-    computed: {
-        ...mapStores(projectTrackerStore),
-        Project: function(): Project | null {
-            return this.projectTrackerStore.GetProject(this.projectTrackerStore.Selected);
-        },
-    },
-    methods: { 
-        DropItem: function(target: string, payload: string, location: string) {
-            const payloadList = this.projectTrackerStore.GetParent(payload)?.Items || this.projectTrackerStore.Projects;
-            const targetList = this.projectTrackerStore.GetParent(target)?.Items  || this.projectTrackerStore.Projects;
-            const payloadIndex: number = payloadList.findIndex(x => x.Id == payload);
-            const payloadItem: Project[] = payloadList.splice(payloadIndex, 1);
-            const targetIndex: number = targetList.findIndex(x => x.Id == target);
-            switch(location) {
-                case DropState.Left:
-                    targetList.splice(targetIndex, 0, ...payloadItem);
-                    break;
-                case DropState.Right:
-                    targetList.splice(targetIndex + 1, 0, ...payloadItem);
-                    break;
-                case DropState.Middle:
-                    targetList[targetIndex].Items?.push(...payloadItem);
-                    break;
-            }
-        },
-        DropParent: function(e: DragEvent) : void {
-            const payload = e.dataTransfer?.types[0];
-            this.DropItem(null!, payload!, DropState.Middle);
-        },
-    },
+   components: {
+      'app-projectcard': ProjectCard,
+   },
+   computed: {
+      ...mapStores(projectTrackerStore),
+      Project: function(): Project | null {
+         return this.projectTrackerStore.GetProject(this.projectTrackerStore.Selected);
+      },
+   },
+   methods: { 
+      DropItem: function(target: string, payload: string, location: string) {
+         const payloadList = this.projectTrackerStore.GetParent(payload)?.Items || this.projectTrackerStore.Projects;
+         const targetList = this.projectTrackerStore.GetParent(target)?.Items  || this.projectTrackerStore.Projects;
+         const payloadIndex: number = payloadList.findIndex(x => x.Id == payload);
+         const payloadItem: Project[] = payloadList.splice(payloadIndex, 1);
+         const targetIndex: number = targetList.findIndex(x => x.Id == target);
+         switch(location) {
+         case DropState.Left:
+            targetList.splice(targetIndex, 0, ...payloadItem);
+            break;
+         case DropState.Right:
+            targetList.splice(targetIndex + 1, 0, ...payloadItem);
+            break;
+         case DropState.Middle:
+            targetList[targetIndex].Items?.push(...payloadItem);
+            break;
+         }
+      },
+      DropParent: function(e: DragEvent) : void {
+         const payload = e.dataTransfer?.types[0];
+         this.DropItem(null!, payload!, DropState.Middle);
+      },
+   },
 });
 </script>

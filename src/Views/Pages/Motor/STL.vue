@@ -303,97 +303,97 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GetGear, GetGearT, GetTranInfo } from '@/Scripts/Functions';
 
 let scene: THREE.Scene,
-    camera: THREE.PerspectiveCamera, 
-    renderer: THREE.WebGLRenderer,
-    orbit: OrbitControls;
+   camera: THREE.PerspectiveCamera, 
+   renderer: THREE.WebGLRenderer,
+   orbit: OrbitControls;
 const Shared = reactive({
-  PA_Deg: 25,
-  Depth: 15,
-  Gear: '1',
-  Gears: ['M', '0', '1', '2R', '2D']
+   PA_Deg: 25,
+   Depth: 15,
+   Gear: '1',
+   Gears: ['M', '0', '1', '2R', '2D']
 });
 const GearM = reactive({
-  Ratio: 8, 
+   Ratio: 8, 
 });
 const Gear1 = reactive({
-  N: 18,
-  R: 20,
+   N: 18,
+   R: 20,
 });
 const Gear2 = reactive({
-  RBN: 16,
-  RSN: 10,
-  Dist: .75,
+   RBN: 16,
+   RSN: 10,
+   Dist: .75,
 });
 const GearA = computed(() => 2 * Gear1.R / Gear1.N);
 const TGearInfo = computed(() => GetTranInfo(Gear2.RBN, Gear2.RSN, 2 * Gear1.R * Gear2.Dist));
 const Points = computed(() => {
-  switch(Shared.Gear) {
-    case 'M': return GetGear(GearM.Ratio * Gear1.N, GearM.Ratio * Gear1.R, Shared.PA_Deg, 7);
-    case '0': return GetGear(Gear1.N / 2, Gear1.R / 2, Shared.PA_Deg, 12); 
-    case '1': return GetGear(Gear1.N, Gear1.R, Shared.PA_Deg, 12);
-    case '2D': return GetGearT(Gear2.RBN, Gear2.RSN, 2 * Gear1.R * Gear2.Dist, Shared.PA_Deg, true, 12);
-    case '2R': return GetGearT(Gear2.RBN, Gear2.RSN, 2 * Gear1.R * Gear2.Dist, Shared.PA_Deg, false, 12);
-    default: return [];
-  };
+   switch(Shared.Gear) {
+   case 'M': return GetGear(GearM.Ratio * Gear1.N, GearM.Ratio * Gear1.R, Shared.PA_Deg, 7);
+   case '0': return GetGear(Gear1.N / 2, Gear1.R / 2, Shared.PA_Deg, 12); 
+   case '1': return GetGear(Gear1.N, Gear1.R, Shared.PA_Deg, 12);
+   case '2D': return GetGearT(Gear2.RBN, Gear2.RSN, 2 * Gear1.R * Gear2.Dist, Shared.PA_Deg, true, 12);
+   case '2R': return GetGearT(Gear2.RBN, Gear2.RSN, 2 * Gear1.R * Gear2.Dist, Shared.PA_Deg, false, 12);
+   default: return [];
+   };
 });
 const Max = computed(() => Math.max(...Points.value.flat()));
 const geometry = computed(() => {
-  const shape = new THREE.Shape(Points.value.map(x => new THREE.Vector2(x[0], x[1])));
-  const geometry = new THREE.ExtrudeGeometry(shape, { depth: Shared.Depth, bevelEnabled: false, steps: 1});
-  geometry.translate(0,0,-Shared.Depth / 2);
-  // const pos = geometry.getAttribute( 'position' );
-  // const npos = geometry.getAttribute( 'normal' );
-  // for( let i=0; i<pos.count; i++ ) {
-  //     const x = pos.getX(i), y = pos.getY(i), z = pos.getZ(i); // get the position
-  //     const nx = npos.getX(i), ny = npos.getY(i), nz = npos.getZ(i);	// get the normal vector
-  //     const theta = 2 * Math.abs(z) / Shared.Depth * (Math.PI / 12) * (Shared.Depth / Max.value);
-  //     const cos = Math.cos(theta), sin = Math.sin(theta);
-  //     pos.setXYZ(i, x*cos-y*sin, x*sin+y*cos, z);
-  //     npos.setXYZ(i, nx*cos-ny*sin, nx*sin+ny*cos, nz);
-  // }
-  // pos.needsUpdate = true;
-  // npos.needsUpdate = true;
-  return geometry;
+   const shape = new THREE.Shape(Points.value.map(x => new THREE.Vector2(x[0], x[1])));
+   const geometry = new THREE.ExtrudeGeometry(shape, { depth: Shared.Depth, bevelEnabled: false, steps: 1});
+   geometry.translate(0,0,-Shared.Depth / 2);
+   // const pos = geometry.getAttribute( 'position' );
+   // const npos = geometry.getAttribute( 'normal' );
+   // for( let i=0; i<pos.count; i++ ) {
+   //     const x = pos.getX(i), y = pos.getY(i), z = pos.getZ(i); // get the position
+   //     const nx = npos.getX(i), ny = npos.getY(i), nz = npos.getZ(i);	// get the normal vector
+   //     const theta = 2 * Math.abs(z) / Shared.Depth * (Math.PI / 12) * (Shared.Depth / Max.value);
+   //     const cos = Math.cos(theta), sin = Math.sin(theta);
+   //     pos.setXYZ(i, x*cos-y*sin, x*sin+y*cos, z);
+   //     npos.setXYZ(i, nx*cos-ny*sin, nx*sin+ny*cos, nz);
+   // }
+   // pos.needsUpdate = true;
+   // npos.needsUpdate = true;
+   return geometry;
 });
 onMounted(async () => {
-  const viewport = document.getElementById("viewport")!;
-  scene = new THREE.Scene()
-  camera = new THREE.PerspectiveCamera(50, viewport.clientWidth / viewport.clientHeight, 0.1, 2000);
-  renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-  renderer.setSize(viewport.clientWidth, viewport.clientHeight);
-  renderer.setAnimationLoop(() => renderer.render(scene, camera));
-  orbit = new OrbitControls(camera, renderer.domElement);
-  viewport.appendChild(renderer.domElement);
-  camera.position.z = Max.value * 3;
-  Init();
+   const viewport = document.getElementById("viewport")!;
+   scene = new THREE.Scene()
+   camera = new THREE.PerspectiveCamera(50, viewport.clientWidth / viewport.clientHeight, 0.1, 2000);
+   renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+   renderer.setSize(viewport.clientWidth, viewport.clientHeight);
+   renderer.setAnimationLoop(() => renderer.render(scene, camera));
+   orbit = new OrbitControls(camera, renderer.domElement);
+   viewport.appendChild(renderer.domElement);
+   camera.position.z = Max.value * 3;
+   Init();
 });
 onUnmounted(() => {
-  orbit.dispose();
-  renderer.dispose();
+   orbit.dispose();
+   renderer.dispose();
 });
 function GearChange() {
-  orbit.reset();
-  camera.position.z = Math.max(...Points.value.flat()) * 3;
-  Init();
+   orbit.reset();
+   camera.position.z = Math.max(...Points.value.flat()) * 3;
+   Init();
 };
 function Init() {
-  scene.clear();
-  const wireFrame = new THREE.WireframeGeometry(geometry.value);
-  const lineMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
-  const meshMaterial = new THREE.MeshStandardMaterial({ emissive: 0x999999 });
-  scene.add(new THREE.LineSegments(wireFrame, lineMaterial));
-  scene.add(new THREE.Mesh(geometry.value, meshMaterial));
+   scene.clear();
+   const wireFrame = new THREE.WireframeGeometry(geometry.value);
+   const lineMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
+   const meshMaterial = new THREE.MeshStandardMaterial({ emissive: 0x999999 });
+   scene.add(new THREE.LineSegments(wireFrame, lineMaterial));
+   scene.add(new THREE.Mesh(geometry.value, meshMaterial));
 };
 function Export() {
-  const exporter = new STLExporter();
-  const result = exporter.parse(new THREE.Mesh(geometry.value), { binary: true });
-  const blob = new Blob([result], { type : 'text/plain' });
-  const link = document.createElement('a');
-  link.style.display = 'none';
-  document.body.appendChild(link);
-  link.href = URL.createObjectURL(blob);
-  link.download = `Gear${Shared.Gear}.stl`;
-  link.click();
-  link.remove();
+   const exporter = new STLExporter();
+   const result = exporter.parse(new THREE.Mesh(geometry.value), { binary: true });
+   const blob = new Blob([result], { type : 'text/plain' });
+   const link = document.createElement('a');
+   link.style.display = 'none';
+   document.body.appendChild(link);
+   link.href = URL.createObjectURL(blob);
+   link.download = `Gear${Shared.Gear}.stl`;
+   link.click();
+   link.remove();
 };
 </script>

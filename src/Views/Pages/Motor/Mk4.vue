@@ -208,56 +208,56 @@ const Heads = [] as Container[];
 
 //ViewModel
 export default defineComponent({
-  components: { },
-    data: () => ({
+   components: { },
+   data: () => ({
       Start: Date.now(),
       SPR: 15,
       TotalR: 210,
       Crank: {
-        Arms: 23,
-        ArmLength: 60,
-        ArmWidth: 10,
-        TotalR: 28,
-        PitchR: 23,
-        PinR: 2,
+         Arms: 23,
+         ArmLength: 60,
+         ArmWidth: 10,
+         TotalR: 28,
+         PitchR: 23,
+         PinR: 2,
       },
       Rotor: {
-        Arms: 8,
-        Gap: 3,
+         Arms: 8,
+         Gap: 3,
       },
       Gears: {
-        N: 18,
-        RBN: 16,
-        RSN: 10,
-        PA_Deg: 25,
+         N: 18,
+         RBN: 16,
+         RSN: 10,
+         PA_Deg: 25,
       },
       Magnets: {
-        Width: 10,
-        Depth: 3,
-        Angle: Math.PI / 4,
+         Width: 10,
+         Depth: 3,
+         Angle: Math.PI / 4,
       },
-    }),
-    computed: {
+   }),
+   computed: {
       MainR: function () {
-        return this.Gear1R * this.Rotor.Arms;
+         return this.Gear1R * this.Rotor.Arms;
       },
       Gear1R: function () {
-        return this.TotalR / (2.5  + this.Rotor.Arms); // TotalR = 6x + 1x + 2(0.75x)
+         return this.TotalR / (2.5  + this.Rotor.Arms); // TotalR = 6x + 1x + 2(0.75x)
       },
       Angle: function () {
-        return 2 * Math.PI / this.Crank.Arms;
+         return 2 * Math.PI / this.Crank.Arms;
       },
       Scale: function () {
-        return .425 * Math.min(Surface.screen.width, Surface.screen.height) / this.TotalR;
+         return .425 * Math.min(Surface.screen.width, Surface.screen.height) / this.TotalR;
       },
       VS: function() {
-        const a = 4 * this.Gears.RSN - 4 * this.Gears.RBN;
-        const b = 2 * this.Gears.RBN - 6 * this.Gears.RSN;
-        const c = 2 * this.Gears.RBN;
-        return (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
+         const a = 4 * this.Gears.RSN - 4 * this.Gears.RBN;
+         const b = 2 * this.Gears.RBN - 6 * this.Gears.RSN;
+         const c = 2 * this.Gears.RBN;
+         return (-b - Math.sqrt(b * b - 4 * a * c)) / (2 * a);
       },
-    },
-    mounted: async function() {
+   },
+   mounted: async function() {
       const viewport = document.getElementById("viewport")!;
       await Surface.init({ backgroundAlpha: 0, antialias: true, resizeTo: viewport });
       viewport.appendChild(Surface.canvas);
@@ -265,161 +265,166 @@ export default defineComponent({
       Surface.stage.rotation = Math.PI;
       this.Init();
       Surface.ticker.add(this.Redraw);
-    },
-    methods: {
+   },
+   methods: {
       Init: function() {
-        Surface.stage.removeChildren();
-        GearM.removeChildren();
-        Rotor.removeChildren();
-        Arms.length = 0;
-        Gear1.length = 0;
-        Gear2.length = 0;
-        Heads.length = 0;
+         Surface.stage.removeChildren();
+         GearM.removeChildren();
+         Rotor.removeChildren();
+         Arms.length = 0;
+         Gear1.length = 0;
+         Gear2.length = 0;
+         Heads.length = 0;
         
-        const fill = 'hsl(215 8% 97.5%)';
-        const totalR = this.Scale * this.TotalR;
-        const mainR = this.Scale * this.MainR;
-        const gear1R = this.Scale * this.Gear1R;
-        const gear2R = this.Scale * this.Gear1R * 0.75;
-        const crankTotalR = this.Scale * this.Crank.TotalR;
-        const crankPitchR = this.Scale * this.Crank.PitchR;
-        const crankPinR = this.Scale * this.Crank.PinR
-        const crankArmLength = this.Scale * this.Crank.ArmLength;
-        const crankArmWidth = this.Scale * this.Crank.ArmWidth;
-        const magnetWidth = this.Scale * this.Magnets.Width;
-        const magnetDepth = this.Scale * this.Magnets.Depth;
-        const magnetWidthSin = magnetWidth * Math.sin(this.Magnets.Angle) / 2;
-        const magnetWidthCos = magnetWidth * Math.cos(this.Magnets.Angle) / 2;
-        const magnetDepthSin = magnetDepth * Math.sin(this.Magnets.Angle) / 2;
-        const magnetDepthCos = magnetDepth * Math.cos(this.Magnets.Angle) / 2;
-        const rotorGap = this.Scale * this.Rotor.Gap;
-        const rotorGapSin = (magnetDepth + rotorGap) * Math.sin(this.Magnets.Angle);
-        const rotorGapCos = (magnetDepth + rotorGap) * Math.cos(this.Magnets.Angle);
-        const rotorPitchR = totalR - crankPitchR - crankArmLength - crankArmWidth / 2 - magnetWidthCos - magnetDepthSin - 2 * this.Scale;
+         const fill = 'hsl(215 8% 97.5%)';
+         const totalR = this.Scale * this.TotalR;
+         const mainR = this.Scale * this.MainR;
+         const gear1R = this.Scale * this.Gear1R;
+         const gear2R = this.Scale * this.Gear1R * 0.75;
+         const crankTotalR = this.Scale * this.Crank.TotalR;
+         const crankPitchR = this.Scale * this.Crank.PitchR;
+         const crankPinR = this.Scale * this.Crank.PinR
+         const crankArmLength = this.Scale * this.Crank.ArmLength;
+         const crankArmWidth = this.Scale * this.Crank.ArmWidth;
+         const magnetWidth = this.Scale * this.Magnets.Width;
+         const magnetDepth = this.Scale * this.Magnets.Depth;
+         const magnetWidthSin = magnetWidth * Math.sin(this.Magnets.Angle) / 2;
+         const magnetWidthCos = magnetWidth * Math.cos(this.Magnets.Angle) / 2;
+         const magnetDepthSin = magnetDepth * Math.sin(this.Magnets.Angle) / 2;
+         const magnetDepthCos = magnetDepth * Math.cos(this.Magnets.Angle) / 2;
+         const rotorGap = this.Scale * this.Rotor.Gap;
+         const rotorGapSin = (magnetDepth + rotorGap) * Math.sin(this.Magnets.Angle);
+         const rotorGapCos = (magnetDepth + rotorGap) * Math.cos(this.Magnets.Angle);
+         const rotorPitchR = totalR - crankPitchR - crankArmLength - crankArmWidth / 2 - magnetWidthCos - magnetDepthSin - 2 * this.Scale;
 
-        // Static Body
-        const body = new Graphics();
-        body.circle(0, 0, totalR + crankTotalR); // Body
-        body.stroke({ width: 1, color: 0x000 });
-        Surface.stage.addChild(body);
+         // Static Body
+         const body = new Graphics();
+         body.circle(0, 0, totalR + crankTotalR); // Body
+         body.stroke({ width: 1, color: 0x000 });
+         Surface.stage.addChild(body);
 
-        // Main Gear
-        const gear = new Graphics();
-        gear.poly(GetGear(this.Gears.N * this.Rotor.Arms, mainR, this.Gears.PA_Deg, 5).map(x => Rotate(x, Math.PI / (this.Gears.N * this.Rotor.Arms))).flat()); // Gear Main        
-        gear.stroke({ width: 1, color: 0x000 });
-        GearM.addChild(gear);
-        Surface.stage.addChild(GearM);
+         // Main Gear
+         const gear = new Graphics();
+         gear.poly(GetGear(this.Gears.N * this.Rotor.Arms, mainR, this.Gears.PA_Deg, 5).map(x => Rotate(x, Math.PI / (this.Gears.N * this.Rotor.Arms))).flat()); // Gear Main        
+         gear.stroke({ width: 1, color: 0x000 });
+         GearM.addChild(gear);
+         Surface.stage.addChild(GearM);
 
-        // Crank Arms / Gear Train
-        for (let i = 0; i < this.Crank.Arms; i++) {
-          const crank = new Container();   
-          crank.rotation = i * this.Angle;
-          const gear1a = new Graphics();
-          gear1a.poly(GetGear(this.Gears.N, gear1R, this.Gears.PA_Deg, 5).flat()); // Gear 1A     
-          gear1a.stroke({ width: 1, color: 0x000 });
-          gear1a.y = mainR + gear1R;
-          Gear1.push(gear1a);
-          crank.addChild(gear1a);
-          const gear1b = new Graphics(); 
-          gear1b.poly(GetGearT(this.Gears.RBN, this.Gears.RSN, 2 * gear2R, this.Gears.PA_Deg, true, 2).flat()); // Gear 1B
-          gear1b.fill(fill).stroke({ width: 1, color: 0x000 });
-          gear1b.y = mainR + gear1R;
-          Gear1.push(gear1b);
-          crank.addChild(gear1b);
-          const gear2 = new Graphics();
-          gear2.poly(GetGearT(this.Gears.RBN, this.Gears.RSN, 2 * gear2R, this.Gears.PA_Deg, false, 2).flat()); // Gear 2
-          gear2.fill(fill).stroke({ width: 1, color: 0x000 });
-          gear2.y = totalR;
-          Gear2.push(gear2);
-          crank.addChild(gear2);
-          const crankBody = new Graphics();
-          crankBody.circle(0, 0, crankTotalR); // Crank Body
-          crankBody.stroke({ width: 1, color: 0x000 });
-          crankBody.y = totalR;
-          crank.addChild(crankBody);
-          const crankRail = new Graphics();
-          crankRail.poly([-crankPinR,  crankPitchR + 2 * crankPinR,
-                          -crankPinR, -crankPitchR - crankArmWidth / 2 - 3 * this.Scale - 2 * (magnetWidthCos + magnetDepthSin),
-                           crankPinR, -crankPitchR - crankArmWidth / 2 - 3 * this.Scale - 2 * (magnetWidthCos + magnetDepthSin),
-                           crankPinR,  crankPitchR + 2 * crankPinR]); // Crank Rail
-          crankRail.fill(fill).stroke({ width: 1, color: 0x000 });
-          crankRail.y = totalR  - crankArmLength;
-          crank.addChild(crankRail);
-          const crankHead = new Graphics();
-          crankHead.poly([-magnetWidthSin + magnetDepthCos,  magnetWidthCos + magnetDepthSin, 
-                           magnetWidthSin + magnetDepthCos, -magnetWidthCos + magnetDepthSin, 
-                           magnetWidthSin - magnetDepthCos, -magnetWidthCos - magnetDepthSin,
-                          -magnetWidthSin - magnetDepthCos,  magnetWidthCos - magnetDepthSin]); // Magnet
-          crankHead.poly([ magnetWidthSin + magnetDepthCos + 1 * this.Scale, -magnetWidthCos - magnetDepthSin - 1 * this.Scale, 
-                           magnetWidthSin + magnetDepthCos + 1 * this.Scale,  magnetWidthCos + magnetDepthSin + crankArmWidth / 2 + crankPinR * 2 + 2 * this.Scale, 
-                          -magnetWidthSin - magnetDepthCos - 1 * this.Scale,  magnetWidthCos + magnetDepthSin + crankArmWidth / 2 + crankPinR * 2 + 2 * this.Scale, 
-                          -magnetWidthSin - magnetDepthCos - 1 * this.Scale, -magnetWidthCos - magnetDepthSin - 1 * this.Scale]); // Magnet Housing
-          crankHead.poly([magnetWidthSin + magnetDepthCos + 1 * this.Scale,  magnetWidthCos + magnetDepthSin + 1 * this.Scale, 
-                         -magnetWidthSin - magnetDepthCos - 1 * this.Scale,  magnetWidthCos + magnetDepthSin + 1 * this.Scale]); // Arm Slot
-          crankHead.fill(fill).stroke({ width: 1, color: 0x000 });
-          Heads.push(crankHead);
-          crank.addChild(crankHead);
-          const crankArm = new Graphics();
-          crankArm.circle(0, 0, crankPinR); // Crank Pin
-          crankArm.roundRect(-crankArmWidth / 2, -crankArmLength - crankArmWidth / 2, crankArmWidth, crankArmLength + crankArmWidth, crankArmWidth / 2); // Crank Arm
-          crankArm.circle(0, -crankArmLength, crankPinR); // Crank Pin
-          crankArm.fill(fill).stroke({ width: 1, color: 0x000 });
-          crankArm.y = totalR;
-          Arms.push(crankArm);
-          crank.addChild(crankArm);
-          Surface.stage.addChild(crank);
-        }
+         // Crank Arms / Gear Train
+         for (let i = 0; i < this.Crank.Arms; i++) {
+            const crank = new Container();   
+            crank.rotation = i * this.Angle;
+            const gear1a = new Graphics();
+            gear1a.poly(GetGear(this.Gears.N, gear1R, this.Gears.PA_Deg, 5).flat()); // Gear 1A     
+            gear1a.stroke({ width: 1, color: 0x000 });
+            gear1a.y = mainR + gear1R;
+            Gear1.push(gear1a);
+            crank.addChild(gear1a);
+            const gear1b = new Graphics(); 
+            gear1b.poly(GetGearT(this.Gears.RBN, this.Gears.RSN, 2 * gear2R, this.Gears.PA_Deg, true, 2).flat()); // Gear 1B
+            gear1b.fill(fill).stroke({ width: 1, color: 0x000 });
+            gear1b.y = mainR + gear1R;
+            Gear1.push(gear1b);
+            crank.addChild(gear1b);
+            const gear2 = new Graphics();
+            gear2.poly(GetGearT(this.Gears.RBN, this.Gears.RSN, 2 * gear2R, this.Gears.PA_Deg, false, 2).flat()); // Gear 2
+            gear2.fill(fill).stroke({ width: 1, color: 0x000 });
+            gear2.y = totalR;
+            Gear2.push(gear2);
+            crank.addChild(gear2);
+            const crankBody = new Graphics();
+            crankBody.circle(0, 0, crankTotalR); // Crank Body
+            crankBody.stroke({ width: 1, color: 0x000 });
+            crankBody.y = totalR;
+            crank.addChild(crankBody);
+            const crankRail = new Graphics();
+            crankRail.poly([
+               -crankPinR,  crankPitchR + 2 * crankPinR,
+               -crankPinR, -crankPitchR - crankArmWidth / 2 - 3 * this.Scale - 2 * (magnetWidthCos + magnetDepthSin),
+               crankPinR, -crankPitchR - crankArmWidth / 2 - 3 * this.Scale - 2 * (magnetWidthCos + magnetDepthSin),
+               crankPinR,  crankPitchR + 2 * crankPinR]); // Crank Rail
+            crankRail.fill(fill).stroke({ width: 1, color: 0x000 });
+            crankRail.y = totalR  - crankArmLength;
+            crank.addChild(crankRail);
+            const crankHead = new Graphics();
+            crankHead.poly([
+               -magnetWidthSin + magnetDepthCos,  magnetWidthCos + magnetDepthSin, 
+               magnetWidthSin + magnetDepthCos, -magnetWidthCos + magnetDepthSin, 
+               magnetWidthSin - magnetDepthCos, -magnetWidthCos - magnetDepthSin,
+               -magnetWidthSin - magnetDepthCos,  magnetWidthCos - magnetDepthSin]); // Magnet
+            crankHead.poly([
+               magnetWidthSin + magnetDepthCos + 1 * this.Scale, -magnetWidthCos - magnetDepthSin - 1 * this.Scale, 
+               magnetWidthSin + magnetDepthCos + 1 * this.Scale,  magnetWidthCos + magnetDepthSin + crankArmWidth / 2 + crankPinR * 2 + 2 * this.Scale, 
+               -magnetWidthSin - magnetDepthCos - 1 * this.Scale,  magnetWidthCos + magnetDepthSin + crankArmWidth / 2 + crankPinR * 2 + 2 * this.Scale, 
+               -magnetWidthSin - magnetDepthCos - 1 * this.Scale, -magnetWidthCos - magnetDepthSin - 1 * this.Scale]); // Magnet Housing
+            crankHead.poly([
+               magnetWidthSin + magnetDepthCos + 1 * this.Scale,  magnetWidthCos + magnetDepthSin + 1 * this.Scale, 
+               -magnetWidthSin - magnetDepthCos - 1 * this.Scale,  magnetWidthCos + magnetDepthSin + 1 * this.Scale]); // Arm Slot
+            crankHead.fill(fill).stroke({ width: 1, color: 0x000 });
+            Heads.push(crankHead);
+            crank.addChild(crankHead);
+            const crankArm = new Graphics();
+            crankArm.circle(0, 0, crankPinR); // Crank Pin
+            crankArm.roundRect(-crankArmWidth / 2, -crankArmLength - crankArmWidth / 2, crankArmWidth, crankArmLength + crankArmWidth, crankArmWidth / 2); // Crank Arm
+            crankArm.circle(0, -crankArmLength, crankPinR); // Crank Pin
+            crankArm.fill(fill).stroke({ width: 1, color: 0x000 });
+            crankArm.y = totalR;
+            Arms.push(crankArm);
+            crank.addChild(crankArm);
+            Surface.stage.addChild(crank);
+         }
 
-        // Rotor
-        for (let i = 0; i < this.Rotor.Arms; i++) { 
-          const rotorBody = new Graphics();   
-          rotorBody.poly([0, 0, magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos + magnetDepthSin - rotorGapSin,
-              ...Rotate([-magnetWidthSin - magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos - magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms),
-              ...Rotate([-magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos + magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms),
-              ...Rotate([magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos + magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms)]); // Rotor Arm
-          rotorBody.fill(fill);
-          rotorBody.rotation = 2 * Math.PI * i / this.Rotor.Arms;
-          Rotor.addChild(rotorBody);
-        }        
-        for (let i = 0; i < this.Rotor.Arms; i++) { 
-          const rotorArm = new Graphics();   
-          rotorArm.poly([-magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos + magnetDepthSin - rotorGapSin, 
-                          magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos + magnetDepthSin - rotorGapSin, 
-                          magnetWidthSin - magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos - magnetDepthSin - rotorGapSin,
-                         -magnetWidthSin - magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos - magnetDepthSin - rotorGapSin]); // Magnet
-          rotorArm.poly([0, 0, magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos + magnetDepthSin - rotorGapSin,
-              ...Rotate([-magnetWidthSin - magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos - magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms)], false); // Rotor Arm
-          rotorArm.stroke({ width: 1, color: 0x000 });
-          rotorArm.rotation = 2 * Math.PI * i / this.Rotor.Arms;
-          Rotor.addChild(rotorArm);
-        }
-        Surface.stage.addChild(Rotor);
+         // Rotor
+         for (let i = 0; i < this.Rotor.Arms; i++) { 
+            const rotorBody = new Graphics();   
+            rotorBody.poly([0, 0, magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos + magnetDepthSin - rotorGapSin,
+               ...Rotate([-magnetWidthSin - magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos - magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms),
+               ...Rotate([-magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos + magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms),
+               ...Rotate([magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos + magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms)]); // Rotor Arm
+            rotorBody.fill(fill);
+            rotorBody.rotation = 2 * Math.PI * i / this.Rotor.Arms;
+            Rotor.addChild(rotorBody);
+         }        
+         for (let i = 0; i < this.Rotor.Arms; i++) { 
+            const rotorArm = new Graphics();   
+            rotorArm.poly([
+               -magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos + magnetDepthSin - rotorGapSin, 
+               magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos + magnetDepthSin - rotorGapSin, 
+               magnetWidthSin - magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos - magnetDepthSin - rotorGapSin,
+               -magnetWidthSin - magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos - magnetDepthSin - rotorGapSin]); // Magnet
+            rotorArm.poly([0, 0, magnetWidthSin + magnetDepthCos - rotorGapCos, rotorPitchR - magnetWidthCos + magnetDepthSin - rotorGapSin,
+               ...Rotate([-magnetWidthSin - magnetDepthCos - rotorGapCos, rotorPitchR + magnetWidthCos - magnetDepthSin - rotorGapSin], -2 * Math.PI / this.Rotor.Arms)], false); // Rotor Arm
+            rotorArm.stroke({ width: 1, color: 0x000 });
+            rotorArm.rotation = 2 * Math.PI * i / this.Rotor.Arms;
+            Rotor.addChild(rotorArm);
+         }
+         Surface.stage.addChild(Rotor);
       },
       Redraw: function () {
-        const rotation = (Date.now() - this.Start) / (1000 * this.SPR);
-        const totalR = this.Scale * this.TotalR;
-        const crankPitchR = this.Scale * this.Crank.PitchR;
-        const crankArmLength = this.Scale * this.Crank.ArmLength;
-        const crankArmWidth = this.Scale * this.Crank.ArmWidth;
-        const magnetWidth = this.Scale * this.Magnets.Width;
-        const magnetDepth = this.Scale * this.Magnets.Depth;
-        const magnetWidthCos = magnetWidth * Math.cos(this.Magnets.Angle) / 2;
-        const magnetDepthSin = magnetDepth * Math.sin(this.Magnets.Angle) / 2;
-        for(let i = 0; i < this.Crank.Arms; i++) {
-          let armRotation = this.Rotor.Arms * (rotation - i / this.Crank.Arms);
-          armRotation = armRotation - Math.floor(armRotation);
-          armRotation = armRotation <= this.VS ? armRotation / (this.VS * 2) : 0.5 + 0.5 * (armRotation - this.VS) / (1 - this.VS);
-          const crankAngle = armRotation * 2 * Math.PI;
-          const crankOffset = Rotate([0, crankPitchR], Math.PI + crankAngle);
-          Arms[i].rotation = -Math.asin(crankOffset[0] / crankArmLength);
-          Arms[i].position = { x: crankOffset[0], y: crankOffset[1] + totalR };
-          Gear1[2 * i].rotation = (i * this.Angle - rotation * 2 * Math.PI) * this.Rotor.Arms;
-          Gear1[2 * i + 1].rotation = (i * this.Angle - rotation * 2 * Math.PI) * this.Rotor.Arms;
-          Gear2[i].rotation = crankAngle;
-          Heads[i].y = totalR + crankOffset[1] - crankArmLength * Math.cos(Arms[i].rotation) - crankArmWidth / 2 - magnetWidthCos - magnetDepthSin - 2 * this.Scale;
-        }
-        GearM.rotation = Rotor.rotation = rotation * 2 * Math.PI;
+         const rotation = (Date.now() - this.Start) / (1000 * this.SPR);
+         const totalR = this.Scale * this.TotalR;
+         const crankPitchR = this.Scale * this.Crank.PitchR;
+         const crankArmLength = this.Scale * this.Crank.ArmLength;
+         const crankArmWidth = this.Scale * this.Crank.ArmWidth;
+         const magnetWidth = this.Scale * this.Magnets.Width;
+         const magnetDepth = this.Scale * this.Magnets.Depth;
+         const magnetWidthCos = magnetWidth * Math.cos(this.Magnets.Angle) / 2;
+         const magnetDepthSin = magnetDepth * Math.sin(this.Magnets.Angle) / 2;
+         for(let i = 0; i < this.Crank.Arms; i++) {
+            let armRotation = this.Rotor.Arms * (rotation - i / this.Crank.Arms);
+            armRotation = armRotation - Math.floor(armRotation);
+            armRotation = armRotation <= this.VS ? armRotation / (this.VS * 2) : 0.5 + 0.5 * (armRotation - this.VS) / (1 - this.VS);
+            const crankAngle = armRotation * 2 * Math.PI;
+            const crankOffset = Rotate([0, crankPitchR], Math.PI + crankAngle);
+            Arms[i].rotation = -Math.asin(crankOffset[0] / crankArmLength);
+            Arms[i].position = { x: crankOffset[0], y: crankOffset[1] + totalR };
+            Gear1[2 * i].rotation = (i * this.Angle - rotation * 2 * Math.PI) * this.Rotor.Arms;
+            Gear1[2 * i + 1].rotation = (i * this.Angle - rotation * 2 * Math.PI) * this.Rotor.Arms;
+            Gear2[i].rotation = crankAngle;
+            Heads[i].y = totalR + crankOffset[1] - crankArmLength * Math.cos(Arms[i].rotation) - crankArmWidth / 2 - magnetWidthCos - magnetDepthSin - 2 * this.Scale;
+         }
+         GearM.rotation = Rotor.rotation = rotation * 2 * Math.PI;
       }
-    }
+   }
 });
 </script>

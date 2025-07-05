@@ -27,40 +27,40 @@
 </template>
 
 <script lang="ts">
-    import { GetGroup } from '@/Scripts/Functions';
-    import { defineComponent } from 'vue';
-    export default defineComponent({
-        data: () => ({
-            Search: '' as string,
-            Icons: [] as string[],
-        }),
-        computed: {
-            Filtered: function (): string[] {
-                return !this.Search ? this.Icons : this.Icons.filter(x => this.Search.split(" ").every(s => x.toLowerCase().indexOf(s.toLowerCase()) + 1));
-            },
-        },
-        beforeMount: function () {
-            // Push CSSStyleRules into proper array
-            const rules: CSSStyleRule[] = [];
-            let cssRuleList: CSSRuleList;
-            for (let i = 0; i < document.styleSheets.length; i++) {
-                cssRuleList = document.styleSheets[i].cssRules;
-                for (let j = 0; j < cssRuleList.length; j++) {
-                    if (cssRuleList[j].type != 1) continue; // Check if this is actualy a CSSStyleRule
-                    rules.push(cssRuleList[j] as CSSStyleRule);
-                }
-            }
-            // Get Icon Prefixes
-            const prefixes: string[] = rules 
-                .map(x => GetGroup(/^i\[class\*=" (.+-)"\], i\[class\^="\1"\]$/, x.selectorText))
-                .filter(x => !!x) as string[];
-            //Set List of Icons
-            this.Icons = rules
-                .flatMap(x => x.selectorText.match(/\.([^:]+)::before/g))
-                .filter(x => !!x && prefixes.some(y => x.startsWith('.' + y)))
-                .map(x => GetGroup(/\.([^:]+)::before/g, x!))
-                .filter(x => !!x)
-                .sort() as string[];
-        },
-    });
+import { GetGroup } from '@/Scripts/Functions';
+import { defineComponent } from 'vue';
+export default defineComponent({
+   data: () => ({
+      Search: '' as string,
+      Icons: [] as string[],
+   }),
+   computed: {
+      Filtered: function (): string[] {
+         return !this.Search ? this.Icons : this.Icons.filter(x => this.Search.split(" ").every(s => x.toLowerCase().indexOf(s.toLowerCase()) + 1));
+      },
+   }, 
+   beforeMount: function () {
+      // Push CSSStyleRules into proper array
+      const rules: CSSStyleRule[] = [];
+      let cssRuleList: CSSRuleList;
+      for (let i = 0; i < document.styleSheets.length; i++) {
+         cssRuleList = document.styleSheets[i].cssRules;
+         for (let j = 0; j < cssRuleList.length; j++) {
+            if (cssRuleList[j].type != 1) continue; // Check if this is actualy a CSSStyleRule
+            rules.push(cssRuleList[j] as CSSStyleRule);
+         }
+      }
+      // Get Icon Prefixes
+      const prefixes: string[] = rules
+         .map(x => GetGroup(/^i\[class\*=" (.+-)"\], i\[class\^="\1"\]$/, x.selectorText))
+         .filter(x => !!x) as string[];
+      //Set List of Icons
+      this.Icons = rules
+         .flatMap(x => x.selectorText.match(/\.([^:]+)::before/g))
+         .filter(x => !!x && prefixes.some(y => x.startsWith('.' + y)))
+         .map(x => GetGroup(/\.([^:]+)::before/g, x!))
+         .filter(x => !!x)
+         .sort() as string[];
+   },
+});
 </script>

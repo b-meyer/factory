@@ -8,20 +8,20 @@
 </template>
 
 <script lang="ts">
-    import { defineComponent } from 'vue';
-    import { mapStores } from 'pinia';
-    import { mainStore } from '@/Scripts/Store';
-    import AppHeader from "./Header.vue";
-    import AppSidebar from "./Sidebar.vue";
-    import "@/Assets/tailwind.css"; 
+import { defineComponent } from 'vue';
+import { mapStores } from 'pinia';
+import { mainStore } from '@/Scripts/Store';
+import AppHeader from "./Header.vue";
+import AppSidebar from "./Sidebar.vue";
+import "@/Assets/tailwind.css"; 
 
-    export default defineComponent({
-        components: {
-            'app-header': AppHeader,
-            'app-sidebar': AppSidebar,
-        },
-        computed: {
-            ...mapStores(mainStore),
-        },
-    })
+export default defineComponent({
+   components: {
+      'app-header': AppHeader,
+      'app-sidebar': AppSidebar,
+   },
+   computed: {
+      ...mapStores(mainStore),
+   },
+})
 </script>

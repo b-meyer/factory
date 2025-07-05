@@ -1,8 +1,8 @@
 {
-    "globalHeaders": {
+   "globalHeaders": {
       "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'; font-src data: *; img-src data: *"
-    },
-    "navigationFallback": {
+   },
+   "navigationFallback": {
       "rewrite": "/index.html"
-    }
-  }
+   }
+}

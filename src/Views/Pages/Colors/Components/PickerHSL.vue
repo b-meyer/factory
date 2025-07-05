@@ -43,24 +43,24 @@ import { mapStores } from 'pinia';
 import { Color } from '../Scripts/Models';
 import { colorStore } from '../Scripts/Store';
 export default defineComponent({
-    props: {
-        Color: {
-            type: Object as PropType<Color>,
-            required: true,
-        },
-    },
-    emits: ['update:Color'],
-    computed: {
-        ...mapStores(colorStore),
-        _Color: {
-          get() {
+   props: {
+      Color: {
+         type: Object as PropType<Color>,
+         required: true,
+      },
+   },
+   emits: ['update:Color'],
+   computed: {
+      ...mapStores(colorStore),
+      _Color: {
+         get() {
             return this.Color;
-          },
-          set(value: Color) {
+         },
+         set(value: Color) {
             this.$emit('update:Color', value);
-          },
-        },
-    },
+         },
+      },
+   },
 });
 </script>
 

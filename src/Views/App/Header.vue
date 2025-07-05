@@ -9,13 +9,13 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent, } from 'vue'
-  import { mapStores, } from 'pinia'
-  import { mainStore } from '@/Scripts/Store';
-  export default defineComponent({
-      components: { },
-      computed: {
-          ...mapStores(mainStore),
-      },
-  });
+import { defineComponent, } from 'vue'
+import { mapStores, } from 'pinia'
+import { mainStore } from '@/Scripts/Store';
+export default defineComponent({
+   components: { },
+   computed: {
+      ...mapStores(mainStore),
+   },
+});
 </script>

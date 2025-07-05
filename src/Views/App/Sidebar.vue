@@ -47,51 +47,51 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { mapStores, } from 'pinia';
-  import { mainStore } from '@/Scripts/Store'
+import { defineComponent } from 'vue';
+import { mapStores, } from 'pinia';
+import { mainStore } from '@/Scripts/Store'
 
-  export enum MenuCategory {
+export enum MenuCategory {
     Colors = "Colors",
     Motor = "Motor",
   }
 
-  export default defineComponent({
-      data: () => ({
-          Active: null! as MenuCategory,
-          MenuCategory: MenuCategory,
-          Menu: [
-              {
-                  Category: MenuCategory.Colors,
-                  Icon: "bi-palette",
-                  Links: [
-                    { Text: 'Linux', Link: '/colors/linux' },
-                    { Text: 'Human', Link: '/colors/human' },
-                  ]
-              },
-              {
-                  Category: MenuCategory.Motor,
-                  Icon: "bi-gear",
-                  Links: [
-                    { Text: 'Gear', Link: '/motor/gear' },
-                    { Text: 'Gear T', Link: '/motor/geart' },
-                    { Text: 'STL', Link: '/motor/stl' },
-                    { Text: 'Mk4', Link: '/motor/mk4' },
-                  ]
-              },
-              [
-                  //{ Icon: "bi-journals", Text: 'Wishlist', Link: '/ProjectTracker' },
-                  { Icon: "bi-lightning-charge", Text: 'Icons', Link: '/Icons' },
-              ]
-          ]
-      }),
-      computed: {
-          ...mapStores(mainStore),
+export default defineComponent({
+   data: () => ({
+      Active: null! as MenuCategory,
+      MenuCategory: MenuCategory,
+      Menu: [
+         {
+            Category: MenuCategory.Colors,
+            Icon: "bi-palette",
+            Links: [
+               { Text: 'Linux', Link: '/colors/linux' },
+               { Text: 'Human', Link: '/colors/human' },
+            ]
+         },
+         {
+            Category: MenuCategory.Motor,
+            Icon: "bi-gear",
+            Links: [
+               { Text: 'Gear', Link: '/motor/gear' },
+               { Text: 'Gear T', Link: '/motor/geart' },
+               { Text: 'STL', Link: '/motor/stl' },
+               { Text: 'Mk4', Link: '/motor/mk4' },
+            ]
+         },
+         [
+            //{ Icon: "bi-journals", Text: 'Wishlist', Link: '/ProjectTracker' },
+            { Icon: "bi-lightning-charge", Text: 'Icons', Link: '/Icons' },
+         ]
+      ]
+   }),
+   computed: {
+      ...mapStores(mainStore),
+   },
+   methods: {
+      Select: function (category: MenuCategory) {
+         this.Active = this.Active === category ? null! : category;
       },
-      methods: {
-          Select: function (category: MenuCategory) {
-              this.Active = this.Active === category ? null! : category;
-          },
-      }
-  });
+   }
+});
 </script>
