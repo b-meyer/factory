@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import * as Models from './Models'
-import { UseLS } from '@/Scripts/Functions';
+import * as Models from './models'
+import { UseLS } from '@/scripts/functions';
 
 export const colorStore = defineStore('color', {
    state: () => ({

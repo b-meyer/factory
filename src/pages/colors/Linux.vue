@@ -97,7 +97,7 @@
 import { defineComponent } from 'vue';
 import { mapStores } from 'pinia';
 import PickerHSL from './Components/PickerHSL.vue';
-import { colorStore } from './Scripts/Store';
+import { colorStore } from './scripts/store';
 export default defineComponent({
    components: {
       'app-picker-hsl': PickerHSL,

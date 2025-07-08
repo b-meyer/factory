@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "./tailwind.theme.css";
+@import "./theme.css";
 
 @layer components {
    input[type='checkbox'] {

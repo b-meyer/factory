@@ -10,7 +10,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { mapStores } from 'pinia';
-import { mainStore } from '@/Scripts/Store';
+import { mainStore } from '@/scripts/store';
 import AppHeader from "./Header.vue";
 import AppSidebar from "./Sidebar.vue";
 import "@/Assets/tailwind.css"; 

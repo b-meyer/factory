@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { UseLS } from './Functions';
+import { UseLS } from './functions';
 
 export const mainStore = defineStore('main', {
    state: () => ({

@@ -195,7 +195,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { GetGear, GetGearT, Rotate } from '@/Scripts/Functions';
+import { GetGear, GetGearT, Rotate } from '@/scripts/functions';
 import { Application, Container, Graphics } from 'pixi.js';
 
 const Surface = new Application();

@@ -102,7 +102,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Application, Graphics } from 'pixi.js';
-import { GetDistance, GetGearT, GetIntersection, GetTooth, Rotate, RotateAt, Translate } from '@/Scripts/Functions';
+import { GetDistance, GetGearT, GetIntersection, GetTooth, Rotate, RotateAt, Translate } from '@/scripts/functions';
 
 const Surface = new Application();
 

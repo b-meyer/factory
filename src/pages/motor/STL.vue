@@ -300,7 +300,7 @@ import { computed, onMounted, onUnmounted, reactive } from 'vue';
 import * as THREE from 'three';
 import { STLExporter } from 'three/addons/exporters/STLExporter.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { GetGear, GetGearT, GetTranInfo } from '@/Scripts/Functions';
+import { GetGear, GetGearT, GetTranInfo } from '@/scripts/functions';
 
 let scene: THREE.Scene,
    camera: THREE.PerspectiveCamera, 

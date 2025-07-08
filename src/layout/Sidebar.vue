@@ -49,7 +49,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { mapStores, } from 'pinia';
-import { mainStore } from '@/Scripts/Store'
+import { mainStore } from '@/scripts/store'
 
 export enum MenuCategory {
     Colors = "Colors",

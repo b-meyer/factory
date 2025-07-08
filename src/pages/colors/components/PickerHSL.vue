@@ -40,8 +40,8 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import { mapStores } from 'pinia';
-import { Color } from '../Scripts/Models';
-import { colorStore } from '../Scripts/Store';
+import { Color } from '../scripts/models';
+import { colorStore } from '../scripts/store';
 export default defineComponent({
    props: {
       Color: {

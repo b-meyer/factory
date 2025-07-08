@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import { GetGroup } from '@/Scripts/Functions';
+import { GetGroup } from '@/scripts/functions';
 import { defineComponent } from 'vue';
 export default defineComponent({
    data: () => ({

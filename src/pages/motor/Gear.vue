@@ -62,7 +62,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Application, Graphics } from 'pixi.js';
-import { GetDistance, GetIntersection } from '@/Scripts/Functions';
+import { GetDistance, GetIntersection } from '@/scripts/functions';
 
 const Surface = new Application();
 
