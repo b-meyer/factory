@@ -86,7 +86,6 @@ const Init = () => {
    ], tooth = [rack];
    for (let i = 1; i < 1000; i++) { // Attempt 1000 steps until the rack clears
       const theta = i * TA.value / Steps.value;
-      //let theta = i * (Math.PI * 3 / 180); // 3 degree step
       const involute = theta * R.value;
       const sin = Math.sin(theta), cos = Math.cos(theta);
       const left = rack.map(x => [ // Rotate Left

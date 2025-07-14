@@ -66,7 +66,6 @@ const Menu = [
       ]
    },
    [
-      //{ Icon: "bi-journals", Text: 'Wishlist', Link: '/ProjectTracker' },
       { Icon: "bi-lightning-charge", Text: 'Icons', Link: '/Icons' },
    ]
 ];

@@ -2,8 +2,6 @@ import { RemovableRef, StorageSerializers, useLocalStorage, UseStorageOptions } 
 
 export const GetGroup = (regex: RegExp, value: string, index?: number): string | undefined => regex.exec(value || "")?.[index || 1];
 export const UseLS = <T>(id: string, defaultValue: T, options: UseStorageOptions<T> = { serializer: StorageSerializers.object }): RemovableRef<T> => useLocalStorage(id, defaultValue, options);
-
-
 export const Translate = (a: number[], ...b: number[][]) => [a[0] + b.reduce((x: number, y: number[]) => x + y[0], 0), a[1] + b.reduce((x: number, y: number[]) => x + y[1], 0)];
 export const Rotate = (x: number[], theta: number) => {
    const sin = Math.sin(theta), cos = Math.cos(theta);
@@ -30,12 +28,10 @@ export const GetIntersection = (a: number[], b: number[], c: number[], d: number
    return [a[0] + t * r[0], a[1] + t * r[1]]; // Intersection!
 }
 export const GetDistance = (a: number[], b: number[]) => Math.sqrt(Math.pow(b[0] - a[0], 2) + Math.pow(b[1] - a[1], 2));
-//export const GetAngle = (a: number[], b: number[], c: number[]) => Math.atan((a[0] - b[0])/(a[1] - b[1])) - Math.atan((c[0] - b[0])/(c[1] - b[1]));
 export const GetAngle = (a: number[], b: number[], c: number[]) => {
    const v = [a[0] - b[0], a[1] - b[1]];
    const w = [a[0] - c[0], a[1] - c[1]];
    return Math.acos((v[0] * w[0] + v[1] * w[1]) / (GetDistance([0, 0], v) * GetDistance([0, 0], w)))
-   //Math.atan((a[0] - b[0])/(a[1] - b[1])) - Math.atan((c[0] - b[0])/(c[1] - b[1]));
 }
 export const GetTooth = (N: number, R: number, PA_Deg: number, Steps: number) => {
    // Gear Constants
