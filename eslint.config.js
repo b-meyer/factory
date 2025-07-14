@@ -8,7 +8,7 @@ export default defineConfigWithVueTs(
    {
       rules: {
          "no-trailing-spaces": "error",
-         "indent": ["error", 3],
+         "indent": ["error", 3, { "SwitchCase": 1 }],
          "vue/html-closing-bracket-newline": ["error", { "singleline": "never", "multiline": "never" }],
          "vue/first-attribute-linebreak": ["error", { "singleline": "beside", "multiline": "beside" }],
          'vue/multi-word-component-names': 'off',

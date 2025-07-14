@@ -1,9 +1,4 @@
 {
-   "css.customData": [
-      ".vscode/css_tailwind.json"
-   ],
-   "css.format.newlineBetweenRules": false,
-   "css.format.newlineBetweenSelectors": false,
    "editor.mouseWheelZoom": true,
    "editor.tabSize": 3,
    "editor.detectIndentation": false,
@@ -19,10 +14,14 @@
       ".env": ".env.*, telerik-license.*",
       "package.json": "package-lock.json",
       "tsconfig.json": "tsconfig.*, env.d.ts",
-      "vite.config.*": "index.html, eslint*, .prettier*"
+      "vite.config.*": "index.html, eslint*"
    },
+   "files.associations": { "*.css": "tailwindcss", "*.json": "jsonc" },
    "json.format.keepLines": true,
    "html.format.extraLiners": "",
    "html.format.indentInnerHtml": true,
    "tailwindCSS.lint.cssConflict": "ignore",
+   "[jsonc]": { "editor.defaultFormatter": "vscode.json-language-features" },
+   "[tailwindcss]": { "editor.defaultFormatter": "bradlc.vscode-tailwindcss" },
+   "[vue]": { "editor.defaultFormatter": "Vue.volar" },
 }
