@@ -1,9 +1,10 @@
 <template>
-   <app-sidebar v-if="mainStore.SidebarVisible" />
-   <app-header />
-   <main class="absolute inset-0 top-50 bg-gray-50 overflow-auto" :class="{ 'md:left-220': mainStore.SidebarVisible }">
-      <router-view />
-   </main>
+  <app-sidebar v-if="mainStore.SidebarVisible" />
+  <app-header />
+  <main class="absolute inset-0 top-50 bg-gray-50 overflow-auto"
+        :class="{ 'md:left-220': mainStore.SidebarVisible }">
+    <router-view />
+  </main>
 </template>
 
 <script setup lang="ts">

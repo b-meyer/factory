@@ -1,162 +1,196 @@
 <template>
-   <div class="flex flex-col w-full min-h-full gap-20 p-20">
-      <div class="card flex flex-auto gap-20">
-         <div class="flex flex-col flex-auto max-w-[300px] px-40 py-20">
-            <div class="flex flex-col gap-8">
-               <div class="flex items-center justify-between">
-                  <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
-                     General
-                  </h2>
-                  <i class="bi-caret-down-fill" />
-               </div>
-               <div class="flex flex-col gap-8">
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>Total Arm Radius:</label>
-                     <div class="max-w-[75px]">
-                        <input v-model="TotalR" type="number" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>Magnet Length:</label>
-                     <div class="max-w-[75px]">
-                        <input v-model="Magnets.Width" type="number" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>Magnet Depth:</label>
-                     <div class="max-w-[75px]">
-                        <input v-model="Magnets.Depth" type="number" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-               </div>
-               <div class="flex items-center justify-between">
-                  <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
-                     Crank
-                  </h2>
-                  <i class="bi-caret-down-fill" />
-               </div>
-               <div class="flex flex-col gap-8">
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>Magnets:</label>
-                     <div class="max-w-[75px]">
-                        <input v-model="Crank.Arms" type="number" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>Arm Length:</label>
-                     <div class="max-w-[75px]">
-                        <input v-model="Crank.ArmLength" type="number" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>Arm Width:</label>
-                     <div class="max-w-[75px]">
-                        <input v-model="Crank.ArmWidth" type="number" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>Outer Radius:</label>
-                     <div class="max-w-[75px]">
-                        <input v-model="Crank.TotalR" type="number" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>Pitch Radius:</label>
-                     <div class="max-w-[75px]">
-                        <input v-model="Crank.PitchR" type="number" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>Pin Radius:</label>
-                     <div class="max-w-[75px]">
-                        <input v-model="Crank.PinR" type="number" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-               </div>
-               <div class="flex items-center justify-between">
-                  <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
-                     Rotor
-                  </h2>
-                  <i class="bi-caret-down-fill" />
-               </div>
-               <div class="flex flex-col gap-8">
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>Magnets:</label>
-                     <div class="max-w-[75px]">
-                        <input v-model="Rotor.Arms" type="number" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>Magnet Gap:</label>
-                     <div class="max-w-[75px]">
-                        <input v-model="Rotor.Gap" type="number" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-               </div>
-               <div class="flex items-center justify-between">
-                  <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
-                     Gears
-                  </h2>
-                  <i class="bi-caret-down-fill" />
-               </div>
-               <div class="flex flex-col gap-8">
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>GearM N:</label>
-                     <div class="w-75" v-text="Gears.N * Rotor.Arms" />
-                  </div>
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>GearM R:</label>
-                     <div class="w-75" v-text="MainR" />
-                  </div>
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>Gear1 N:</label>
-                     <div class="max-w-[75px]">
-                        <input v-model="Gears.N" type="number" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>Gear1 R:</label>
-                     <div class="w-75" v-text="Gear1R" />
-                  </div>
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>Gear2 RBN:</label>
-                     <div class="max-w-[75px]">
-                        <input v-model="Gears.RBN" type="number" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>Gear2 RSN:</label>
-                     <div class="max-w-[75px]">
-                        <input v-model="Gears.RSN" type="number" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-                  <div class="flex gap-8 items-center justify-between">
-                     <label>PA:</label>
-                     <div class="max-w-[75px]">
-                        <input v-model="Gears.PA_Deg" type="number" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-               </div>
+  <div class="flex flex-col w-full min-h-full gap-20 p-20">
+    <div class="card flex flex-auto gap-20">
+      <div class="flex flex-col flex-auto max-w-[300px] px-40 py-20">
+        <div class="flex flex-col gap-8">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
+              General
+            </h2>
+            <i class="bi-caret-down-fill" />
+          </div>
+          <div class="flex flex-col gap-8">
+            <div class="flex gap-8 items-center justify-between">
+              <label>Total Arm Radius:</label>
+              <div class="max-w-[75px]">
+                <input v-model="TotalR"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
             </div>
-         </div>
-         <div id="viewport" class="flex flex-auto" />
+            <div class="flex gap-8 items-center justify-between">
+              <label>Magnet Length:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Magnets.Width"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-8 items-center justify-between">
+              <label>Magnet Depth:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Magnets.Depth"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
+              Crank
+            </h2>
+            <i class="bi-caret-down-fill" />
+          </div>
+          <div class="flex flex-col gap-8">
+            <div class="flex gap-8 items-center justify-between">
+              <label>Magnets:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Crank.Arms"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-8 items-center justify-between">
+              <label>Arm Length:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Crank.ArmLength"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-8 items-center justify-between">
+              <label>Arm Width:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Crank.ArmWidth"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-8 items-center justify-between">
+              <label>Outer Radius:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Crank.TotalR"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-8 items-center justify-between">
+              <label>Pitch Radius:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Crank.PitchR"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-8 items-center justify-between">
+              <label>Pin Radius:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Crank.PinR"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
+              Rotor
+            </h2>
+            <i class="bi-caret-down-fill" />
+          </div>
+          <div class="flex flex-col gap-8">
+            <div class="flex gap-8 items-center justify-between">
+              <label>Magnets:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Rotor.Arms"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-8 items-center justify-between">
+              <label>Magnet Gap:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Rotor.Gap"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
+              Gears
+            </h2>
+            <i class="bi-caret-down-fill" />
+          </div>
+          <div class="flex flex-col gap-8">
+            <div class="flex gap-8 items-center justify-between">
+              <label>GearM N:</label>
+              <div class="w-75"
+                   v-text="Gears.N * Rotor.Arms" />
+            </div>
+            <div class="flex gap-8 items-center justify-between">
+              <label>GearM R:</label>
+              <div class="w-75"
+                   v-text="MainR" />
+            </div>
+            <div class="flex gap-8 items-center justify-between">
+              <label>Gear1 N:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Gears.N"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-8 items-center justify-between">
+              <label>Gear1 R:</label>
+              <div class="w-75"
+                   v-text="Gear1R" />
+            </div>
+            <div class="flex gap-8 items-center justify-between">
+              <label>Gear2 RBN:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Gears.RBN"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-8 items-center justify-between">
+              <label>Gear2 RSN:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Gears.RSN"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-8 items-center justify-between">
+              <label>PA:</label>
+              <div class="max-w-[75px]">
+                <input v-model="Gears.PA_Deg"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-   </div>
+      <div id="viewport"
+           class="flex flex-auto" />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

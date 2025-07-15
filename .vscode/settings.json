@@ -23,5 +23,5 @@
    "tailwindCSS.lint.cssConflict": "ignore",
    "[jsonc]": { "editor.defaultFormatter": "vscode.json-language-features" },
    "[tailwindcss]": { "editor.defaultFormatter": "bradlc.vscode-tailwindcss" },
-   "[vue]": { "editor.defaultFormatter": "Vue.volar" },
+   "[vue]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
 }

@@ -1,46 +1,62 @@
 <template>
-   <div class="flex flex-col w-full min-h-full gap-20 p-20">
-      <div class="card flex flex-auto gap-20">
-         <div class="flex flex-col flex-auto max-w-[300px] p-40 gap-30">
-            <div class="flex flex-col gap-10">
-               <div class="flex gap-10 items-center justify-between">
-                  <label>Teeth:</label>
-                  <div class="max-w-[75px]">
-                     <input v-model="N" type="number" class="border-input rounded h-32 w-full px-10" min="2"
-                        @input="Init">
-                  </div>
-               </div>
-               <div class="flex gap-10 items-center justify-between">
-                  <label>Angle:</label>
-                  <div class="max-w-[75px]">
-                     <input v-model="PA_Deg" type="number" class="border-input rounded h-32 w-full px-10" min="0"
-                        max="45" @input="Init">
-                  </div>
-               </div>
-               <div class="flex gap-10 items-center justify-between">
-                  <label>Steps:</label>
-                  <div class="max-w-[75px]">
-                     <input v-model="Steps" type="number" class="border-input rounded h-32 w-full px-10" min="1"
-                        max="100" @input="Init">
-                  </div>
-               </div>
-               <div class="flex gap-10 items-center justify-between">
-                  <label>Tooth Lines:</label>
-                  <div class="max-w-[75px]">
-                     <input v-model="ShowTooth" type="checkbox" @change="Init">
-                  </div>
-               </div>
-               <div class="flex gap-10 items-center justify-between">
-                  <label>Pitch Lines:</label>
-                  <div class="max-w-[75px]">
-                     <input v-model="ShowPitch" type="checkbox" @change="Init">
-                  </div>
-               </div>
+  <div class="flex flex-col w-full min-h-full gap-20 p-20">
+    <div class="card flex flex-auto gap-20">
+      <div class="flex flex-col flex-auto max-w-[300px] p-40 gap-30">
+        <div class="flex flex-col gap-10">
+          <div class="flex gap-10 items-center justify-between">
+            <label>Teeth:</label>
+            <div class="max-w-[75px]">
+              <input v-model="N"
+                     type="number"
+                     class="border-input rounded h-32 w-full px-10"
+                     min="2"
+                     @input="Init">
             </div>
-         </div>
-         <div id="viewport" class="flex flex-auto" />
+          </div>
+          <div class="flex gap-10 items-center justify-between">
+            <label>Angle:</label>
+            <div class="max-w-[75px]">
+              <input v-model="PA_Deg"
+                     type="number"
+                     class="border-input rounded h-32 w-full px-10"
+                     min="0"
+                     max="45"
+                     @input="Init">
+            </div>
+          </div>
+          <div class="flex gap-10 items-center justify-between">
+            <label>Steps:</label>
+            <div class="max-w-[75px]">
+              <input v-model="Steps"
+                     type="number"
+                     class="border-input rounded h-32 w-full px-10"
+                     min="1"
+                     max="100"
+                     @input="Init">
+            </div>
+          </div>
+          <div class="flex gap-10 items-center justify-between">
+            <label>Tooth Lines:</label>
+            <div class="max-w-[75px]">
+              <input v-model="ShowTooth"
+                     type="checkbox"
+                     @change="Init">
+            </div>
+          </div>
+          <div class="flex gap-10 items-center justify-between">
+            <label>Pitch Lines:</label>
+            <div class="max-w-[75px]">
+              <input v-model="ShowPitch"
+                     type="checkbox"
+                     @change="Init">
+            </div>
+          </div>
+        </div>
       </div>
-   </div>
+      <div id="viewport"
+           class="flex flex-auto" />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -79,11 +95,11 @@ const Init = () => {
 
    // Generate all racks for tooth
    const rack = [
-      [-TW.value / 2 - A.value * Math.sin(PA.value), R.value + A.value],
-      [-TW.value / 2 + A.value * Math.sin(PA.value), R.value - A.value],
-      [TW.value / 2 - A.value * Math.sin(PA.value), R.value - A.value],
-      [TW.value / 2 + A.value * Math.sin(PA.value), R.value + A.value]
-   ], tooth = [rack];
+         [-TW.value / 2 - A.value * Math.sin(PA.value), R.value + A.value],
+         [-TW.value / 2 + A.value * Math.sin(PA.value), R.value - A.value],
+         [TW.value / 2 - A.value * Math.sin(PA.value), R.value - A.value],
+         [TW.value / 2 + A.value * Math.sin(PA.value), R.value + A.value]
+      ], tooth = [rack];
    for (let i = 1; i < 1000; i++) { // Attempt 1000 steps until the rack clears
       const theta = i * TA.value / Steps.value;
       const involute = theta * R.value;

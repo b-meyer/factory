@@ -1,259 +1,298 @@
 <template>
-   <div class="flex flex-col w-full min-h-full gap-20 p-20">
-      <div class="relative card flex flex-auto gap-20">
-         <div class="flex flex-col flex-auto max-w-[300px] p-40 gap-30">
-            <div class="flex flex-col gap-10">
-               <div class="flex items-center justify-between">
-                  <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
-                     Shared
-                  </h2>
-                  <i class="bi-caret-down-fill" />
-               </div>
-               <div class="flex flex-col gap-10">
-                  <div class="flex gap-10 items-center justify-between">
-                     <label>Gear:</label>
-                     <div class="w-75">
-                        <select v-model="Shared.Gear" class="border-input rounded h-32 w-full px-10"
-                           @change="GearChange">
-                           <option v-for="gear in Shared.Gears" :key="gear" :value="gear" v-text="gear" />
-                        </select>
-                     </div>
-                  </div>
-                  <div class="flex gap-10 items-center justify-between">
-                     <label>PA:</label>
-                     <div class="w-75">
-                        <input v-model="Shared.PA_Deg" type="number" min="0" max="45"
-                           class="border-input rounded h-32 w-full px-10" @input="Init">
-                     </div>
-                  </div>
-                  <div class="flex gap-10 items-center justify-between">
-                     <label>Depth:</label>
-                     <div class="w-75">
-                        <input v-model="Shared.Depth" type="number" min="0"
-                           class="border-input rounded h-32 w-full px-10" @input="Init">
-                     </div>
-                  </div>
-               </div>
-               <div class="flex items-center justify-between">
-                  <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
-                     Gear M
-                  </h2>
-                  <i class="bi-caret-down-fill" />
-               </div>
-               <div class="flex flex-col gap-10">
-                  <div class="flex gap-10 items-center justify-between">
-                     <label>N:</label>
-                     <div class="w-75" v-text="GearM.Ratio * Gear1.N" />
-                  </div>
-                  <div class="flex gap-10 items-center justify-between">
-                     <label>R:</label>
-                     <div class="w-75" v-text="GearM.Ratio * Gear1.R" />
-                  </div>
-                  <div class="flex gap-10 items-center justify-between">
-                     <label>Ratio:</label>
-                     <div class="w-75">
-                        <input v-model="GearM.Ratio" type="number" min="1"
-                           class="border-input rounded h-32 w-full px-10" @input="Init">
-                     </div>
-                  </div>
-               </div>
-               <div class="flex items-center justify-between">
-                  <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
-                     Gear 1
-                  </h2>
-                  <i class="bi-caret-down-fill" />
-               </div>
-               <div class="flex flex-col gap-10">
-                  <div class="flex gap-10 items-center justify-between">
-                     <label>N:</label>
-                     <div class="w-75">
-                        <input v-model="Gear1.N" type="number" min="0" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-                  <div class="flex gap-10 items-center justify-between">
-                     <label>R:</label>
-                     <div class="w-75">
-                        <input v-model="Gear1.R" type="number" min="0" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-               </div>
-               <div class="flex items-center justify-between">
-                  <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
-                     Gear 2
-                  </h2>
-                  <i class="bi-caret-down-fill" />
-               </div>
-               <div class="flex flex-col gap-10">
-                  <div class="flex gap-10 items-center justify-between">
-                     <label>RBN:</label>
-                     <div class="w-75">
-                        <input v-model="Gear2.RBN" type="number" min="6" step="2"
-                           class="border-input rounded h-32 w-full px-10" @input="Init">
-                     </div>
-                  </div>
-                  <div class="flex gap-10 items-center justify-between">
-                     <label>RSB:</label>
-                     <div class="w-75">
-                        <input v-model="Gear2.RSN" type="number" min="4" step="2"
-                           class="border-input rounded h-32 w-full px-10" @input="Init">
-                     </div>
-                  </div>
-                  <div class="flex gap-10 items-center justify-between">
-                     <label>Dist:</label>
-                     <div class="w-75">
-                        <input v-model="Gear2.Dist" type="number" class="border-input rounded h-32 w-full px-10"
-                           @input="Init">
-                     </div>
-                  </div>
-               </div>
+  <div class="flex flex-col w-full min-h-full gap-20 p-20">
+    <div class="relative card flex flex-auto gap-20">
+      <div class="flex flex-col flex-auto max-w-[300px] p-40 gap-30">
+        <div class="flex flex-col gap-10">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
+              Shared
+            </h2>
+            <i class="bi-caret-down-fill" />
+          </div>
+          <div class="flex flex-col gap-10">
+            <div class="flex gap-10 items-center justify-between">
+              <label>Gear:</label>
+              <div class="w-75">
+                <select v-model="Shared.Gear"
+                        class="border-input rounded h-32 w-full px-10"
+                        @change="GearChange">
+                  <option v-for="gear in Shared.Gears"
+                          :key="gear"
+                          :value="gear"
+                          v-text="gear" />
+                </select>
+              </div>
             </div>
-         </div>
-         <div id="viewport" class="flex flex-auto" />
-         <button class="absolute top-15 right-15 flex items-center gap-5 h-30 px-10 btn-green" @click="Export">
-            Export
-         </button>
-         <div class="absolute bottom-15 right-15">
-            <div v-if="Shared.Gear == '0'" class="flex flex-col gap-5">
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     0 Pitch D+
-                  </div>
-                  <div v-text="((Gear1.R / 2 + GearA) * 2).toFixed(2)" />
-               </div>
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     0 Pitch D
-                  </div>
-                  <div v-text="((Gear1.R / 2) * 2).toFixed(2)" />
-               </div>
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     0 Pitch D-
-                  </div>
-                  <div v-text="((Gear1.R / 2 - GearA) * 2).toFixed(2)" />
-               </div>
+            <div class="flex gap-10 items-center justify-between">
+              <label>PA:</label>
+              <div class="w-75">
+                <input v-model="Shared.PA_Deg"
+                       type="number"
+                       min="0"
+                       max="45"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
             </div>
-            <div v-else-if="Shared.Gear == '1'" class="flex flex-col gap-5">
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     1 Pitch D+
-                  </div>
-                  <div v-text="((Gear1.R + GearA) * 2).toFixed(2)" />
-               </div>
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     1 Pitch D
-                  </div>
-                  <div v-text="((Gear1.R) * 2).toFixed(2)" />
-               </div>
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     1 Pitch D-
-                  </div>
-                  <div v-text="((Gear1.R - GearA) * 2).toFixed(2)" />
-               </div>
+            <div class="flex gap-10 items-center justify-between">
+              <label>Depth:</label>
+              <div class="w-75">
+                <input v-model="Shared.Depth"
+                       type="number"
+                       min="0"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
             </div>
-            <div v-else-if="Shared.Gear == 'M'" class="flex flex-col gap-5">
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     M Pitch D+
-                  </div>
-                  <div v-text="((Gear1.R * GearM.Ratio + GearA) * 2).toFixed(2)" />
-               </div>
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     M Pitch D
-                  </div>
-                  <div v-text="((Gear1.R * GearM.Ratio) * 2).toFixed(2)" />
-               </div>
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     M Pitch D-
-                  </div>
-                  <div v-text="((Gear1.R * GearM.Ratio - GearA) * 2).toFixed(2)" />
-               </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
+              Gear M
+            </h2>
+            <i class="bi-caret-down-fill" />
+          </div>
+          <div class="flex flex-col gap-10">
+            <div class="flex gap-10 items-center justify-between">
+              <label>N:</label>
+              <div class="w-75"
+                   v-text="GearM.Ratio * Gear1.N" />
             </div>
-            <div v-else-if="Shared.Gear == '2D'" class="flex flex-col gap-5">
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     DBR Pitch D+
-                  </div>
-                  <div v-text="((TGearInfo.DBR + TGearInfo.A) * 2).toFixed(2)" />
-               </div>
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     DBR Pitch D
-                  </div>
-                  <div v-text="((TGearInfo.DBR) * 2).toFixed(2)" />
-               </div>
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     DBR Pitch D-
-                  </div>
-                  <div v-text="((TGearInfo.DBR - TGearInfo.A) * 2).toFixed(2)" />
-               </div>
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     DSR Pitch D+
-                  </div>
-                  <div v-text="((TGearInfo.DSR + TGearInfo.A) * 2).toFixed(2)" />
-               </div>
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     DSR Pitch D
-                  </div>
-                  <div v-text="((TGearInfo.DSR) * 2).toFixed(2)" />
-               </div>
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     DSR Pitch D-
-                  </div>
-                  <div v-text="((TGearInfo.DSR - TGearInfo.A) * 2).toFixed(2)" />
-               </div>
+            <div class="flex gap-10 items-center justify-between">
+              <label>R:</label>
+              <div class="w-75"
+                   v-text="GearM.Ratio * Gear1.R" />
             </div>
-            <div v-else-if="Shared.Gear == '2R'" class="flex flex-col gap-5">
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     RBR Pitch D+
-                  </div>
-                  <div v-text="((TGearInfo.RBR + TGearInfo.A) * 2).toFixed(2)" />
-               </div>
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     RBR Pitch D
-                  </div>
-                  <div v-text="((TGearInfo.RBR) * 2).toFixed(2)" />
-               </div>
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     RBR Pitch D-
-                  </div>
-                  <div v-text="((TGearInfo.RBR - TGearInfo.A) * 2).toFixed(2)" />
-               </div>
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     RSR Pitch D+
-                  </div>
-                  <div v-text="((TGearInfo.RSR + TGearInfo.A) * 2).toFixed(2)" />
-               </div>
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     RSR Pitch D
-                  </div>
-                  <div v-text="((TGearInfo.RSR) * 2).toFixed(2)" />
-               </div>
-               <div class="flex gap-5">
-                  <div class="w-100">
-                     RSR Pitch D-
-                  </div>
-                  <div v-text="((TGearInfo.RSR - TGearInfo.A) * 2).toFixed(2)" />
-               </div>
+            <div class="flex gap-10 items-center justify-between">
+              <label>Ratio:</label>
+              <div class="w-75">
+                <input v-model="GearM.Ratio"
+                       type="number"
+                       min="1"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
             </div>
-         </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
+              Gear 1
+            </h2>
+            <i class="bi-caret-down-fill" />
+          </div>
+          <div class="flex flex-col gap-10">
+            <div class="flex gap-10 items-center justify-between">
+              <label>N:</label>
+              <div class="w-75">
+                <input v-model="Gear1.N"
+                       type="number"
+                       min="0"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-10 items-center justify-between">
+              <label>R:</label>
+              <div class="w-75">
+                <input v-model="Gear1.R"
+                       type="number"
+                       min="0"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">
+              Gear 2
+            </h2>
+            <i class="bi-caret-down-fill" />
+          </div>
+          <div class="flex flex-col gap-10">
+            <div class="flex gap-10 items-center justify-between">
+              <label>RBN:</label>
+              <div class="w-75">
+                <input v-model="Gear2.RBN"
+                       type="number"
+                       min="6"
+                       step="2"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-10 items-center justify-between">
+              <label>RSB:</label>
+              <div class="w-75">
+                <input v-model="Gear2.RSN"
+                       type="number"
+                       min="4"
+                       step="2"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+            <div class="flex gap-10 items-center justify-between">
+              <label>Dist:</label>
+              <div class="w-75">
+                <input v-model="Gear2.Dist"
+                       type="number"
+                       class="border-input rounded h-32 w-full px-10"
+                       @input="Init">
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-   </div>
+      <div id="viewport"
+           class="flex flex-auto" />
+      <button class="absolute top-15 right-15 flex items-center gap-5 h-30 px-10 btn-green"
+              @click="Export">
+        Export
+      </button>
+      <div class="absolute bottom-15 right-15">
+        <div v-if="Shared.Gear == '0'"
+             class="flex flex-col gap-5">
+          <div class="flex gap-5">
+            <div class="w-100">
+              0 Pitch D+
+            </div>
+            <div v-text="((Gear1.R / 2 + GearA) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              0 Pitch D
+            </div>
+            <div v-text="((Gear1.R / 2) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              0 Pitch D-
+            </div>
+            <div v-text="((Gear1.R / 2 - GearA) * 2).toFixed(2)" />
+          </div>
+        </div>
+        <div v-else-if="Shared.Gear == '1'"
+             class="flex flex-col gap-5">
+          <div class="flex gap-5">
+            <div class="w-100">
+              1 Pitch D+
+            </div>
+            <div v-text="((Gear1.R + GearA) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              1 Pitch D
+            </div>
+            <div v-text="((Gear1.R) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              1 Pitch D-
+            </div>
+            <div v-text="((Gear1.R - GearA) * 2).toFixed(2)" />
+          </div>
+        </div>
+        <div v-else-if="Shared.Gear == 'M'"
+             class="flex flex-col gap-5">
+          <div class="flex gap-5">
+            <div class="w-100">
+              M Pitch D+
+            </div>
+            <div v-text="((Gear1.R * GearM.Ratio + GearA) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              M Pitch D
+            </div>
+            <div v-text="((Gear1.R * GearM.Ratio) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              M Pitch D-
+            </div>
+            <div v-text="((Gear1.R * GearM.Ratio - GearA) * 2).toFixed(2)" />
+          </div>
+        </div>
+        <div v-else-if="Shared.Gear == '2D'"
+             class="flex flex-col gap-5">
+          <div class="flex gap-5">
+            <div class="w-100">
+              DBR Pitch D+
+            </div>
+            <div v-text="((TGearInfo.DBR + TGearInfo.A) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              DBR Pitch D
+            </div>
+            <div v-text="((TGearInfo.DBR) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              DBR Pitch D-
+            </div>
+            <div v-text="((TGearInfo.DBR - TGearInfo.A) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              DSR Pitch D+
+            </div>
+            <div v-text="((TGearInfo.DSR + TGearInfo.A) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              DSR Pitch D
+            </div>
+            <div v-text="((TGearInfo.DSR) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              DSR Pitch D-
+            </div>
+            <div v-text="((TGearInfo.DSR - TGearInfo.A) * 2).toFixed(2)" />
+          </div>
+        </div>
+        <div v-else-if="Shared.Gear == '2R'"
+             class="flex flex-col gap-5">
+          <div class="flex gap-5">
+            <div class="w-100">
+              RBR Pitch D+
+            </div>
+            <div v-text="((TGearInfo.RBR + TGearInfo.A) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              RBR Pitch D
+            </div>
+            <div v-text="((TGearInfo.RBR) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              RBR Pitch D-
+            </div>
+            <div v-text="((TGearInfo.RBR - TGearInfo.A) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              RSR Pitch D+
+            </div>
+            <div v-text="((TGearInfo.RSR + TGearInfo.A) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              RSR Pitch D
+            </div>
+            <div v-text="((TGearInfo.RSR) * 2).toFixed(2)" />
+          </div>
+          <div class="flex gap-5">
+            <div class="w-100">
+              RSR Pitch D-
+            </div>
+            <div v-text="((TGearInfo.RSR - TGearInfo.A) * 2).toFixed(2)" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -1,17 +1,27 @@
 <template>
-   <div class="flex flex-col w-full min-h-full gap-20 p-20 m-auto">
-      <div class="flex flex-col flex-auto card p-20 gap-10">
-         <div ref="panel" class="flex flex-auto justify-end items-end pb-10 pr-10 h-0"
-            :style="{ backgroundColor: BgColor, color: TextColor }" v-text="BgColor" />
-         <div v-if="width" ref="picker" class="relative flex flex-auto h-0" @mousemove="UpdatePos"
-            @mousedown="UpdatePos" @touchstart="UpdatePos" @touchmove="UpdatePos">
-            <div v-for="i in width" v-once :key="i" class="w-1 h-full"
-               :style="{ backgroundImage: Grad(1 + 9 * i / (width - 1)) }" />
-            <div class="absolute rounded-full bg-blue-500 w-14 h-14"
-               :style="{ top: `calc(${100 * pos.y}% - 7px)`, left: `calc(${100 * pos.x}% - 7px)` }" />
-         </div>
+  <div class="flex flex-col w-full min-h-full gap-20 p-20 m-auto">
+    <div class="flex flex-col flex-auto card p-20 gap-10">
+      <div ref="panel"
+           class="flex flex-auto justify-end items-end pb-10 pr-10 h-0"
+           :style="{ backgroundColor: BgColor, color: TextColor }"
+           v-text="BgColor" />
+      <div v-if="width"
+           ref="picker"
+           class="relative flex flex-auto h-0"
+           @mousemove="UpdatePos"
+           @mousedown="UpdatePos"
+           @touchstart="UpdatePos"
+           @touchmove="UpdatePos">
+        <div v-for="i in width"
+             v-once
+             :key="i"
+             class="w-1 h-full"
+             :style="{ backgroundImage: Grad(1 + 9 * i / (width - 1)) }" />
+        <div class="absolute rounded-full bg-blue-500 w-14 h-14"
+             :style="{ top: `calc(${100 * pos.y}% - 7px)`, left: `calc(${100 * pos.x}% - 7px)` }" />
       </div>
-   </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

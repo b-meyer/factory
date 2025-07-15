@@ -1,75 +1,102 @@
 <template>
-   <div class="flex flex-col w-full min-h-full gap-20 p-20">
-      <div class="card flex flex-auto gap-20">
-         <div class="flex flex-col w-275 p-40 gap-30">
-            <div class="flex flex-col gap-10">
-               <div class="flex gap-10 items-center justify-between">
-                  <label>RB Teeth:</label>
-                  <div class="w-75">
-                     <input v-model="RBN" type="number" class="border-input rounded h-32 w-full px-10" step="2" min="6"
-                        @input="RBN_Input">
-                  </div>
-               </div>
-               <div class="flex gap-10 items-center justify-between">
-                  <label>RS Teeth:</label>
-                  <div class="w-75">
-                     <input v-model="RSN" type="number" class="border-input rounded h-32 w-full px-10" step="2" min="2"
-                        @input="RSN_Input">
-                  </div>
-               </div>
-               <div class="flex gap-10 items-center justify-between">
-                  <label>DB Teeth:</label>
-                  <div class="w-75" v-text="DBN.toFixed(3)" />
-               </div>
-               <div class="flex gap-10 items-center justify-between">
-                  <label>DS Teeth:</label>
-                  <div class="w-75" v-text="DSN.toFixed(3)" />
-               </div>
-               <div class="flex gap-10 items-center justify-between">
-                  <label>VS:</label>
-                  <div class="w-75" v-text="VS.toFixed(3)" />
-               </div>
-               <div class="flex gap-10 items-center justify-between">
-                  <label>PA:</label>
-                  <div class="w-75" v-text="(180 * TPA / Math.PI).toFixed(3)" />
-               </div>
-               <div class="flex gap-10 items-center justify-between">
-                  <label>Angle:</label>
-                  <div class="max-w-[75px]">
-                     <input v-model="PA_Deg" type="number" class="border-input rounded h-32 w-full px-10" min="0"
-                        max="45" @input="Init">
-                  </div>
-               </div>
-               <div class="flex gap-10 items-center justify-between">
-                  <label>Steps:</label>
-                  <div class="w-75">
-                     <input v-model="Steps" type="number" class="border-input rounded h-32 w-full px-10" min="1"
-                        max="100" @input="Init">
-                  </div>
-               </div>
-               <div class="flex gap-10 items-center justify-between">
-                  <label>Driver:</label>
-                  <div class="w-75">
-                     <input v-model="Driver" type="checkbox" @change="Init">
-                  </div>
-               </div>
-               <div class="flex gap-10 items-center justify-between">
-                  <label>Tooth Lines:</label>
-                  <div class="w-75">
-                     <input v-model="ShowTooth" type="checkbox" @change="Init">
-                  </div>
-               </div>
-               <div class="flex gap-10 items-center justify-between">
-                  <label>Pitch Lines:</label>
-                  <div class="w-75">
-                     <input v-model="ShowPitch" type="checkbox" @change="Init">
-                  </div>
-               </div>
+  <div class="flex flex-col w-full min-h-full gap-20 p-20">
+    <div class="card flex flex-auto gap-20">
+      <div class="flex flex-col w-275 p-40 gap-30">
+        <div class="flex flex-col gap-10">
+          <div class="flex gap-10 items-center justify-between">
+            <label>RB Teeth:</label>
+            <div class="w-75">
+              <input v-model="RBN"
+                     type="number"
+                     class="border-input rounded h-32 w-full px-10"
+                     step="2"
+                     min="6"
+                     @input="RBN_Input">
             </div>
-         </div>
-         <div id="viewport" class="flex flex-auto" />
+          </div>
+          <div class="flex gap-10 items-center justify-between">
+            <label>RS Teeth:</label>
+            <div class="w-75">
+              <input v-model="RSN"
+                     type="number"
+                     class="border-input rounded h-32 w-full px-10"
+                     step="2"
+                     min="2"
+                     @input="RSN_Input">
+            </div>
+          </div>
+          <div class="flex gap-10 items-center justify-between">
+            <label>DB Teeth:</label>
+            <div class="w-75"
+                 v-text="DBN.toFixed(3)" />
+          </div>
+          <div class="flex gap-10 items-center justify-between">
+            <label>DS Teeth:</label>
+            <div class="w-75"
+                 v-text="DSN.toFixed(3)" />
+          </div>
+          <div class="flex gap-10 items-center justify-between">
+            <label>VS:</label>
+            <div class="w-75"
+                 v-text="VS.toFixed(3)" />
+          </div>
+          <div class="flex gap-10 items-center justify-between">
+            <label>PA:</label>
+            <div class="w-75"
+                 v-text="(180 * TPA / Math.PI).toFixed(3)" />
+          </div>
+          <div class="flex gap-10 items-center justify-between">
+            <label>Angle:</label>
+            <div class="max-w-[75px]">
+              <input v-model="PA_Deg"
+                     type="number"
+                     class="border-input rounded h-32 w-full px-10"
+                     min="0"
+                     max="45"
+                     @input="Init">
+            </div>
+          </div>
+          <div class="flex gap-10 items-center justify-between">
+            <label>Steps:</label>
+            <div class="w-75">
+              <input v-model="Steps"
+                     type="number"
+                     class="border-input rounded h-32 w-full px-10"
+                     min="1"
+                     max="100"
+                     @input="Init">
+            </div>
+          </div>
+          <div class="flex gap-10 items-center justify-between">
+            <label>Driver:</label>
+            <div class="w-75">
+              <input v-model="Driver"
+                     type="checkbox"
+                     @change="Init">
+            </div>
+          </div>
+          <div class="flex gap-10 items-center justify-between">
+            <label>Tooth Lines:</label>
+            <div class="w-75">
+              <input v-model="ShowTooth"
+                     type="checkbox"
+                     @change="Init">
+            </div>
+          </div>
+          <div class="flex gap-10 items-center justify-between">
+            <label>Pitch Lines:</label>
+            <div class="w-75">
+              <input v-model="ShowPitch"
+                     type="checkbox"
+                     @change="Init">
+            </div>
+          </div>
+        </div>
       </div>
-   </div>
+      <div id="viewport"
+           class="flex flex-auto" />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
