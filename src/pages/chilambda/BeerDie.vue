@@ -9,7 +9,7 @@
              @click="ActiveSeason = category"
              v-text="category" />
       </div>
-      <div class="flex flex-col flex-auto">
+      <div class="flex flex-col flex-auto min-w-650">
         <div class="flex">
           <div v-for="category in Object.values(BeerDieTabs)"
                :key="category"
