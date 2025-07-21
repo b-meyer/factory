@@ -37,7 +37,7 @@
                  class="*:not-last:border-r">
               <div v-text="game.date" />
               <div v-text="game.player" />
-              <div v-text="game.win ? 'Yes' : 'No'" />
+              <div v-text="typeof game.win == 'string' ? game.win : game.win ? 'Yes' : 'No'" />
               <div v-text="game.points" />
               <div v-text="game.sinks" />
               <div v-text="game.doublebody" />
@@ -74,6 +74,7 @@ import { BeerDieTabs, BeerDieSeasons, BeerDiePlayers } from './scripts/enums';
 const ActiveSeason = ref(BeerDieSeasons.Summer2025);
 const ActiveTab = ref(BeerDieTabs.Games);
 const Games = [
+   { date: 'Round 1', player: '', win: '', points: '', sinks: '', doublebody: '' },
    { date: '06/14/25', player: BeerDiePlayers.Vixson, win: true, points: 6, sinks: 0, doublebody: 0 },
    { date: '06/14/25', player: BeerDiePlayers.Yasso, win: true, points: 2, sinks: 1, doublebody: 0 },
    { date: '06/14/25', player: BeerDiePlayers.Gil,  win: false, points: 2, sinks: 0, doublebody: 0 },
@@ -107,6 +108,7 @@ const Games = [
    { date: '06/27/25', player: BeerDiePlayers.Duff,  win: true, points: 1, sinks: 1, doublebody: 0 },
    { date: '06/27/25', player: BeerDiePlayers.Dolph, win: true, points: 6, sinks: 0, doublebody: 0 },
    { date: '06/27/25', player: BeerDiePlayers.Jaws, win: false, points: 5, sinks: 0, doublebody: 0 },
+   { date: 'Round 2', player: '', win: '', points: '', sinks: '', doublebody: '' },
    { date: '07/20/25', player: BeerDiePlayers.Bean,  win: true, points: 2, sinks: 4, doublebody: 0 },
    { date: '07/20/25', player: BeerDiePlayers.Gene, win: true, points: 7, sinks: 0, doublebody: 0 },
    { date: '07/20/25', player: BeerDiePlayers.Duff, win: false, points: 4, sinks: 7, doublebody: 1 },
