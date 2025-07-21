@@ -46,3 +46,8 @@
 @utility border-input {
    &:not(.border-input .border-input) { @apply !border !border-gray-300 hover:!border-gray-400/75 focus-within:!ring-1 focus-within:!ring-gray-400/20 !shadow-sm !outline-none; }
 }
+@utility scrollbar {
+   & *::-webkit-scrollbar { @apply w-3 h-3 rounded-[10px] }
+   & *::-webkit-scrollbar-track { @apply rounded-[10px] }
+   & *::-webkit-scrollbar-thumb { @apply h-3 bg-gray-150/50 rounded-[10px] }
+}

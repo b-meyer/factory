@@ -53,6 +53,7 @@ import { ref } from 'vue';
 enum MenuCategory {
    Colors = "Colors",
    Motor = "Motor",
+   ChiLambda = "Chi Lambda",
 }
 /// Setup
 const mainStore = useMainStore();
@@ -60,11 +61,11 @@ const mainStore = useMainStore();
 const Active = ref<MenuCategory>(null!);
 const Menu = [
    {
-      Category: MenuCategory.Colors,
-      Icon: "bi-palette",
+      Category: MenuCategory.ChiLambda,
+      Icon: "md-beer-outline",
       Links: [
-         { Text: 'Linux', Link: '/colors/linux' },
-         { Text: 'Human', Link: '/colors/human' },
+         { Text: 'Beer Die', Link: '/chilambda/beerdie' },
+         { Text: 'FFL', Link: '/chilambda/ffl' },
       ]
    },
    {
@@ -75,6 +76,14 @@ const Menu = [
          { Text: 'Gear T', Link: '/motor/geart' },
          { Text: 'STL', Link: '/motor/stl' },
          { Text: 'Mk4', Link: '/motor/mk4' },
+      ]
+   },
+   {
+      Category: MenuCategory.Colors,
+      Icon: "bi-palette",
+      Links: [
+         { Text: 'Linux', Link: '/colors/linux' },
+         { Text: 'Human', Link: '/colors/human' },
       ]
    },
    [

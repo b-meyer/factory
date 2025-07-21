@@ -11,6 +11,9 @@ export const router = createRouter({
       { path: '/motor/geart', component: () => import('@/pages/motor/GearT.vue') },
       { path: '/motor/mk4', component: () => import('@/pages/motor/Mk4.vue') },
       { path: '/motor/stl', component: () => import('@/pages/motor/STL.vue') },
+      // Chi Lambda
+      { path: '/chilambda/ffl', component: () => import('@/pages/chilambda/FFL.vue') },
+      { path: '/chilambda/beerdie', component: () => import('@/pages/chilambda/BeerDie.vue') },
       // Maintenance
       { path: '/Icons', component: () => import('@/pages/maintenance/Icons.vue') },
    ],
