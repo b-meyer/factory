@@ -2,6 +2,7 @@ export enum BeerDieTabs {
    Bracket = "Bracket",
    Games = "Games",
    Stats = "Stats",
+   Rules = "Rules",
 }
 export enum BeerDieSeasons {
    Summer2025 = "Summer 2025",
