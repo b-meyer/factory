@@ -12,21 +12,21 @@
                     :value="i"
                     v-text="theme.Name" />
           </select>
-          <button class="flex items-center gap-5 px-5 h-32 btn"
+          <!-- <button class="flex items-center gap-5 px-5 h-32 btn"
                   type="button"
                   @click="colorStore.AddTheme"
                   v-text="'Add'" />
           <button class="flex items-center gap-5 px-5 h-32 btn"
                   type="button"
                   @click="colorStore.DeleteTheme"
-                  v-text="'Delete'" />
+                  v-text="'Delete'" /> -->
         </div>
-        <div class="flex items-center justify-start gap-15">
+        <!-- <div class="flex items-center justify-start gap-15">
           <div class="w-100"
                v-text="'Name:'" />
           <input v-model="colorStore.Selected.Name"
                  class="border-input rounded w-150 h-34 px-10">
-        </div>
+        </div> -->
         <div class="flex items-center justify-start gap-15">
           <div class="w-100"
                v-text="'Primary Hue:'" />
@@ -75,9 +75,12 @@
                :style="{ backgroundColor: Background_D, borderColor: Border_L, color: Foreground_L }">
             <div>bmeyer@windows</div>
             <div>---------------------</div>
-            <div>OS: Windows 10</div>
-            <div>Host: HP ZBook Fury</div>
-            <div>Kernal: 21H2</div>
+            <div>OS: Windows 11</div>
+            <div>Host: HP ZBook Power G10A</div>
+            <div>Kernal: 24H2</div>
+            <div>CPU: Ryzen 7940HS</div>
+            <div>GPU: Radeon 780M</div>
+            <div>RAM: 64GB</div>
             <div class="flex">
               <div v-for="color in colorStore.Selected.ColorsDark"
                    :key="`${color.H}${color.S}${color.L}`"
