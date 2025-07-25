@@ -5,7 +5,7 @@ import { UseLS } from '@/scripts/functions';
 
 export const useColorStore = defineStore('color', () => {
    /// State
-   const SelectedIndex = UseLS<number>('LinuxTheme_Color_SelectedIndex', null!);
+   const SelectedIndex = UseLS<number>('LinuxTheme_Color_SelectedIndex', 0); // null!
    //const Themes = UseLS<Models.Theme[]>('LinuxTheme_Color_Themes', []);
    const Themes = ref<Models.Theme[]>([
       { "Name": "Blue", "PrimaryHue": 210, "ColorsDark": [{ "H": 0, "S": 10, "L": 5, "Primary": true }, { "H": 0, "S": 60, "L": 50, "Primary": false }, { "H": 60, "S": 100, "L": 60, "Primary": false }, { "H": 120, "S": 60, "L": 50, "Primary": false }, { "H": 180, "S": 60, "L": 50, "Primary": false }, { "H": 240, "S": 60, "L": 50, "Primary": false }, { "H": 300, "S": 60, "L": 50, "Primary": false }, { "H": 0, "S": 10, "L": 80, "Primary": true }], "ColorsLight": [{ "H": 0, "S": 10, "L": 20, "Primary": true }, { "H": 0, "S": 60, "L": 25, "Primary": false }, { "H": 60, "S": 60, "L": 50, "Primary": false }, { "H": 120, "S": 60, "L": 25, "Primary": false }, { "H": 180, "S": 60, "L": 25, "Primary": false }, { "H": 240, "S": 60, "L": 25, "Primary": false }, { "H": 300, "S": 60, "L": 25, "Primary": false }, { "H": 0, "S": 10, "L": 95, "Primary": true }], "ColorBackground": [{ "H": 0, "S": 25, "L": 10, "Primary": true }, { "H": 0, "S": 25, "L": 20, "Primary": true }], "ColorForeground": [{ "H": 0, "S": 25, "L": 73, "Primary": true }, { "H": 0, "S": 25, "L": 90, "Primary": true }], "ColorBorder": [{ "H": 0, "S": 25, "L": 38, "Primary": true }, { "H": 0, "S": 25, "L": 55, "Primary": true }], "ColorHighlight": [{ "H": 0, "S": 0, "L": 0, "Primary": false }, { "H": 0, "S": 0, "L": 0, "Primary": false }], "OffsetHue": 0 },
