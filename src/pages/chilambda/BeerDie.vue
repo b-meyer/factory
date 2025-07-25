@@ -17,50 +17,50 @@
              @click="ActiveTab = category"
              v-text="category" />
       </div>
-      <div class="flex-auto card shadow-none rounded-l-none overflow-auto *:min-w-450">
+      <div class="flex-auto card shadow-none rounded-l-none overflow-x-auto *:min-w-450">
         <div v-if="ActiveTab == BeerDieTabs.Bracket"
-             class="h-full flex p-20 gap-60 overflow-auto">
+             class="h-full flex p-20 gap-60 overflow-x-auto">
           <div class="flex flex-col gap-30">
             <div>Winners</div>
             <div class="flex gap-38">
               <div class="flex flex-col gap-5 *:relative *:flex *:w-150 *:md:w-180 *:h-26 *:md:h-30 *:border-input *:items-center *:justify-between *:rounded *:py-2 *:px-10 *:even:mb-5">
                 <div :class="{'text-gray-400': (Bracket[0].TeamAScore ?? 0) < (Bracket[0].TeamBScore ?? 0) }">
-                  <div v-text="Team(Bracket[0].TeamA!)" />
+                  <div v-text="TeamName(Bracket[0].TeamA!)" />
                   <div v-text="Bracket[0].TeamAScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[0].TeamAScore ?? 0) > (Bracket[0].TeamBScore ?? 0) }">
-                  <div v-text="Team(Bracket[0].TeamB!)" />
+                  <div v-text="TeamName(Bracket[0].TeamB!)" />
                   <div v-text="Bracket[0].TeamBScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[1].TeamAScore ?? 0) < (Bracket[1].TeamBScore ?? 0) }">
-                  <div v-text="Team(Bracket[1].TeamA!)" />
+                  <div v-text="TeamName(Bracket[1].TeamA!)" />
                   <div v-text="Bracket[1].TeamAScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[1].TeamAScore ?? 0) > (Bracket[1].TeamBScore ?? 0) }">
-                  <div v-text="Team(Bracket[1].TeamB!)" />
+                  <div v-text="TeamName(Bracket[1].TeamB!)" />
                   <div v-text="Bracket[1].TeamBScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[2].TeamAScore ?? 0) < (Bracket[2].TeamBScore ?? 0) }">
-                  <div v-text="Team(Bracket[2].TeamA!)" />
+                  <div v-text="TeamName(Bracket[2].TeamA!)" />
                   <div v-text="Bracket[2].TeamAScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[2].TeamAScore ?? 0) > (Bracket[2].TeamBScore ?? 0) }">
-                  <div v-text="Team(Bracket[2].TeamB!)" />
+                  <div v-text="TeamName(Bracket[2].TeamB!)" />
                   <div v-text="Bracket[2].TeamBScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[3].TeamAScore ?? 0) < (Bracket[3].TeamBScore ?? 0) }">
-                  <div v-text="Team(Bracket[3].TeamA!)" />
+                  <div v-text="TeamName(Bracket[3].TeamA!)" />
                   <div v-text="Bracket[3].TeamAScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[3].TeamAScore ?? 0) > (Bracket[3].TeamBScore ?? 0) }">
-                  <div v-text="Team(Bracket[3].TeamB!)" />
+                  <div v-text="TeamName(Bracket[3].TeamB!)" />
                   <div v-text="Bracket[3].TeamBScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
@@ -69,28 +69,28 @@
                 <div :class="{'text-gray-400': (Bracket[4].TeamAScore ?? 0) < (Bracket[4].TeamBScore ?? 0) }">
                   <div class="absolute h-1 w-20 -left-20 bg-gray-300" />
                   <div class="absolute h-32 md:h-36 w-1 -left-20 bg-gray-300" />
-                  <div v-text="Team(Bracket[4].TeamA!)" />
+                  <div v-text="TeamName(Bracket[4].TeamA!)" />
                   <div v-text="Bracket[4].TeamAScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[4].TeamAScore ?? 0) > (Bracket[4].TeamBScore ?? 0) }">
                   <div class="absolute h-1 w-20 -left-20 bg-gray-300" />
                   <div class="absolute h-32 md:h-36 w-1 -left-20 bg-gray-300" />
-                  <div v-text="Team(Bracket[4].TeamB!)" />
+                  <div v-text="TeamName(Bracket[4].TeamB!)" />
                   <div v-text="Bracket[4].TeamBScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[5].TeamAScore ?? 0) < (Bracket[5].TeamBScore ?? 0) }">
                   <div class="absolute h-1 w-20 -left-20 bg-gray-300" />
                   <div class="absolute h-32 md:h-36 w-1 -left-20 bg-gray-300" />
-                  <div v-text="Team(Bracket[5].TeamA!)" />
+                  <div v-text="TeamName(Bracket[5].TeamA!)" />
                   <div v-text="Bracket[5].TeamAScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[5].TeamAScore ?? 0) > (Bracket[5].TeamBScore ?? 0) }">
                   <div class="absolute h-1 w-20 -left-20 bg-gray-300" />
                   <div class="absolute h-32 md:h-36 w-1 -left-20 bg-gray-300" />
-                  <div v-text="Team(Bracket[5].TeamB!)" />
+                  <div v-text="TeamName(Bracket[5].TeamB!)" />
                   <div v-text="Bracket[5].TeamBScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
@@ -99,14 +99,14 @@
                 <div :class="{'text-gray-400': (Bracket[8].TeamAScore ?? 0) < (Bracket[8].TeamBScore ?? 0) }">
                   <div class="absolute h-1 w-20 -left-20 bg-gray-300" />
                   <div class="absolute h-68 md:h-76 w-1 -left-20 bg-gray-300" />
-                  <div v-text="Team(Bracket[8].TeamA!)" />
+                  <div v-text="TeamName(Bracket[8].TeamA!)" />
                   <div v-text="Bracket[8].TeamAScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[8].TeamAScore ?? 0) > (Bracket[8].TeamBScore ?? 0) }">
                   <div class="absolute h-1 w-20 -left-20 bg-gray-300" />
                   <div class="absolute h-68 md:h-76 w-1 -left-20 bg-gray-300" />
-                  <div v-text="Team(Bracket[8].TeamB!)" />
+                  <div v-text="TeamName(Bracket[8].TeamB!)" />
                   <div v-text="Bracket[8].TeamBScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
@@ -115,7 +115,7 @@
                 <div>
                   <div class="absolute h-1 w-20 -left-20 bg-gray-300" />
                   <div class="absolute h-135 md:h-151 w-1 -left-20 bg-gray-300" />
-                  <div v-text="Team(Bracket[12].TeamA!)" />
+                  <div v-text="TeamName(Bracket[12].TeamA!)" />
                 </div>
               </div>
             </div>
@@ -123,22 +123,22 @@
             <div class="flex gap-38">
               <div class="flex flex-col gap-5 *:relative *:flex *:w-150 *:md:w-180 *:h-26 *:md:h-30 *:border-input *:items-center *:justify-between *:rounded *:py-2 *:px-10 *:even:mb-5">
                 <div :class="{'text-gray-400': (Bracket[6].TeamAScore ?? 0) < (Bracket[6].TeamBScore ?? 0) }">
-                  <div v-text="Team(Bracket[6].TeamA!)" />
+                  <div v-text="TeamName(Bracket[6].TeamA!)" />
                   <div v-text="Bracket[6].TeamAScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[6].TeamAScore ?? 0) > (Bracket[6].TeamBScore ?? 0) }">
-                  <div v-text="Team(Bracket[6].TeamB!)" />
+                  <div v-text="TeamName(Bracket[6].TeamB!)" />
                   <div v-text="Bracket[6].TeamBScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[7].TeamAScore ?? 0) < (Bracket[7].TeamBScore ?? 0) }">
-                  <div v-text="Team(Bracket[7].TeamA!)" />
+                  <div v-text="TeamName(Bracket[7].TeamA!)" />
                   <div v-text="Bracket[7].TeamAScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[7].TeamAScore ?? 0) > (Bracket[7].TeamBScore ?? 0) }">
-                  <div v-text="Team(Bracket[7].TeamB!)" />
+                  <div v-text="TeamName(Bracket[7].TeamB!)" />
                   <div v-text="Bracket[7].TeamBScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
@@ -147,24 +147,24 @@
                 <div :class="{'text-gray-400': (Bracket[9].TeamAScore ?? 0) < (Bracket[9].TeamBScore ?? 0) }">
                   <div class="absolute h-1 w-20 -left-20 bg-gray-300" />
                   <div class="absolute h-32 md:h-36 w-1 -left-20 bg-gray-300" />
-                  <div v-text="Team(Bracket[9].TeamA!)" />
+                  <div v-text="TeamName(Bracket[9].TeamA!)" />
                   <div v-text="Bracket[9].TeamAScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[9].TeamAScore ?? 0) > (Bracket[9].TeamBScore ?? 0) }">
                   <div class="absolute h-1 w-20 -left-20 bg-gray-300" />
                   <div class="absolute h-32 md:h-36 w-1 -left-20 bg-gray-300" />
-                  <div v-text="Team(Bracket[9].TeamB!)" />
+                  <div v-text="TeamName(Bracket[9].TeamB!)" />
                   <div v-text="Bracket[9].TeamBScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[10].TeamAScore ?? 0) < (Bracket[10].TeamBScore ?? 0) }">
-                  <div v-text="Team(Bracket[10].TeamA!)" />
+                  <div v-text="TeamName(Bracket[10].TeamA!)" />
                   <div v-text="Bracket[10].TeamAScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[10].TeamAScore ?? 0) > (Bracket[10].TeamBScore ?? 0) }">
-                  <div v-text="Team(Bracket[10].TeamB!)" />
+                  <div v-text="TeamName(Bracket[10].TeamB!)" />
                   <div v-text="Bracket[10].TeamBScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
@@ -173,14 +173,14 @@
                 <div :class="{'text-gray-400': (Bracket[11].TeamAScore ?? 0) < (Bracket[11].TeamBScore ?? 0) }">
                   <div class="absolute h-1 w-20 -left-20 bg-gray-300" />
                   <div class="absolute h-68 md:h-76 w-1 -left-20 bg-gray-300" />
-                  <div v-text="Team(Bracket[11].TeamA!)" />
+                  <div v-text="TeamName(Bracket[11].TeamA!)" />
                   <div v-text="Bracket[11].TeamAScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
                 <div :class="{'text-gray-400': (Bracket[11].TeamAScore ?? 0) > (Bracket[11].TeamBScore ?? 0) }">
                   <div class="absolute h-1 w-20 -left-20 bg-gray-300" />
                   <div class="absolute h-68 md:h-76 w-1 -left-20 bg-gray-300" />
-                  <div v-text="Team(Bracket[11].TeamB!)" />
+                  <div v-text="TeamName(Bracket[11].TeamB!)" />
                   <div v-text="Bracket[11].TeamBScore ?? ''" />
                   <div class="absolute h-1 w-20 -right-20 bg-gray-300" />
                 </div>
@@ -189,7 +189,7 @@
                 <div>
                   <div class="absolute h-1 w-20 -left-20 bg-gray-300" />
                   <div class="absolute h-135 md:h-151 w-1 -left-20 bg-gray-300" />
-                  <div v-text="Team(Bracket[12].TeamA!)" />
+                  <div v-text="TeamName(Bracket[12].TeamA!)" />
                 </div>
               </div>
             </div>
@@ -228,7 +228,7 @@
           </div>
         </div>
         <div v-if="ActiveTab == BeerDieTabs.Stats"
-             class="h-full flex flex-col *:grid *:grid-cols-5 *:border-b **:border-gray-400 *:w-full *:text-center">
+             class="h-full flex flex-col *:grid *:grid-cols-5 *:border-b **:border-gray-400 *:w-full *:text-center -mb-1">
           <div class="*:not-last:border-r !border-b-black">
             <div v-text="'Player'" />
             <div v-text="'Win Loss'" />
@@ -343,5 +343,5 @@ const Stats = computed(() => Object.values(BeerDiePlayers).map(p => {
       doublebody: `${doublebody} (${Math.round((total ? doublebody / total : 0) * 100 | 0) / 100})`
    };
 }));
-const Team = (team: number) => team != null ? `${Teams[team][0]} / ${Teams[team][1]}` : '';
+const TeamName = (team: number) => team != null ? `${Teams[team][0]} / ${Teams[team][1]}` : '';
 </script>
