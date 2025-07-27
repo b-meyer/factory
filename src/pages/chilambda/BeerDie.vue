@@ -202,8 +202,8 @@
             <div>4.</div>
             <div>5.</div>
             <div>5.</div>
-            <div>6.</div>
-            <div>6.</div>
+            <div>6. {{ TeamName(5) }}</div>
+            <div>6. {{ TeamName(3) }}</div>
           </div>
         </div>
         <div v-if="ActiveTab == BeerDieTabs.Games"
@@ -276,10 +276,10 @@ const Bracket = [
    { TeamA: 6, ScoreA: 2, TeamB: 7, ScoreB: 0 },
    { TeamA: 0, ScoreA: 0, TeamB: 2, ScoreB: 2 },
    { TeamA: 4, ScoreA: null, TeamB: 6, ScoreB: null },
-   { TeamA: 1, ScoreA: null, TeamB: 3, ScoreB: null },
-   { TeamA: 5, ScoreA: null, TeamB: 7, ScoreB: null },
+   { TeamA: 1, ScoreA: 2, TeamB: 3, ScoreB: 1 },
+   { TeamA: 5, ScoreA: 0, TeamB: 7, ScoreB: 2 },
    { TeamA: 2, ScoreA: null, TeamB: null, ScoreB: null },
-   { TeamA: null, ScoreA: null, TeamB: null, ScoreB: null },
+   { TeamA: 1, ScoreA: null, TeamB: 7, ScoreB: null },
    { TeamA: 0, ScoreA: null, TeamB: null, ScoreB: null },
    { TeamA: null, ScoreA: null, TeamB: null, ScoreB: null },
    { TeamA: null, ScoreA: null, TeamB: null, ScoreB: null },
@@ -328,6 +328,23 @@ const Games = [
    { date: '07/20/25', player: BeerDiePlayers.Gene, win: true, points: 4, sinks: 1, doublebody: 0 },
    { date: '07/20/25', player: BeerDiePlayers.Duff, win: false, points: 6, sinks: 3, doublebody: 0 },
    { date: '07/20/25', player: BeerDiePlayers.Dolph, win: false, points: 2, sinks: 2, doublebody: 0 },
+   { date: '07/27/25', player: BeerDiePlayers.Gil,  win: false, points: 6, sinks: 0, doublebody: 0 },
+   { date: '07/27/25', player: BeerDiePlayers.Snoop, win: false, points: 2, sinks: 0, doublebody: 0 },
+   { date: '07/27/25', player: BeerDiePlayers.Pug, win: true, points: 5, sinks: 0, doublebody: 0 },
+   { date: '07/27/25', player: BeerDiePlayers.Cedar, win: true, points: 5, sinks: 0, doublebody: 0 },
+   { date: '07/27/25', player: BeerDiePlayers.Gil,  win: false, points: 2, sinks: 1, doublebody: 0 },
+   { date: '07/27/25', player: BeerDiePlayers.Snoop, win: false, points: 0, sinks: 1, doublebody: 0 },
+   { date: '07/27/25', player: BeerDiePlayers.Pug, win: true, points: 5, sinks: 0, doublebody: 0 },
+   { date: '07/27/25', player: BeerDiePlayers.Cedar, win: true, points: 2, sinks: 0, doublebody: 0 },
+   { date: '07/27/25', player: BeerDiePlayers.Rusty, win: true, points: 2, sinks: 0, doublebody: 0 },
+   { date: '07/27/25', player: BeerDiePlayers.Peel, win: true, points: 5, sinks: 0, doublebody: 0 },
+   { date: '07/27/25', player: BeerDiePlayers.Jaws, win: false, points: 1, sinks: 0, doublebody: 0 },
+   { date: '07/27/25', player: BeerDiePlayers.Rusty, win: true, points: 0, sinks: 1, doublebody: 0 },
+   { date: '07/27/25', player: BeerDiePlayers.Peel, win: true, points: 2, sinks: 0, doublebody: 0 },
+   { date: '07/27/25', player: BeerDiePlayers.Jaws, win: false, points: 2, sinks: 0, doublebody: 0 },
+   { date: '07/27/25', player: BeerDiePlayers.Rusty, win: true, points: 1, sinks: 0, doublebody: 0 },
+   { date: '07/27/25', player: BeerDiePlayers.Peel, win: true, points: 6, sinks: 2, doublebody: 0 },
+   { date: '07/27/25', player: BeerDiePlayers.Jaws, win: false, points: 5, sinks: 1, doublebody: 0 },
 ];
 const Stats = computed(() => Object.values(BeerDiePlayers).map(p => {
    const games = Games.filter(x => x.player == p), total = games.length;
