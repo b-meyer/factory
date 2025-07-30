@@ -5,8 +5,8 @@ export enum BeerDieTabs {
    Rules = "Rules",
 }
 export enum BeerDieSeasons {
-   Summer2025 = "Summer 2025",
    //Winter2025 = "Winter 2025",
+   Summer2025 = "Summer 2025",
 }
 export enum BeerDiePlayers {
    Dolph = "Dolph",
@@ -25,4 +25,13 @@ export enum BeerDiePlayers {
    Gene = "Gene",
    Peel = "Peel",
    Rusty = "Rusty",
+}
+export enum FFLSeasons {
+   //Season2025 = "2025",
+   Season2024 = "2024",
+}
+export enum FFLTabs {
+   Games = "Games",
+   Stats = "Stats",
+   Rules = "Rules",
 }

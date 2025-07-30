@@ -1,19 +1,19 @@
 <template>
   <div class="flex flex-col w-full min-w-385 min-h-full p-20 shadow max-md:text-12">
     <div class="relative flex">
-      <div v-for="category in Object.values(BeerDieTabs)"
-           :key="category"
+      <div v-for="tab in Object.values(BeerDieTabs)"
+           :key="tab"
            class="tab"
-           :class="{'active': ActiveTab == category}"
-           @click="ActiveTab = category"
-           v-text="category" />
+           :class="{'active': ActiveTab == tab}"
+           @click="ActiveTab = tab"
+           v-text="tab" />
       <select v-model="ActiveSeason"
               name="ActiveSeason"
               class="absolute -top-7 right-0 w-120 md:w-150">
-        <option v-for="category in Object.values(BeerDieSeasons)"
-                :key="category"
-                :value="category"
-                v-text="category" />
+        <option v-for="season in Object.values(BeerDieSeasons)"
+                :key="season"
+                :value="season"
+                v-text="season" />
       </select>
     </div>
     <div class="flex-auto card rounded-l-none overflow-x-auto">

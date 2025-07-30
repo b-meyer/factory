@@ -15,10 +15,11 @@
 
 /* Utilities */
 @utility link {
-   &a { @apply text-blue-500 hover:text-blue-600 underline; }
+   @apply text-blue-500 hover:text-blue-600 underline;
+   &:visited { @apply text-purple-500 hover:text-purple-600; }
 }
 @utility required {
-   &label { @apply !-ml-8 before:!pr-1 before:!text-red-500 before:!content-['*']; }
+   @apply !-ml-8 before:!pr-1 before:!text-red-500 before:!content-['*'];
 }
 @utility card {
    @apply bg-gray-25 shadow overflow-hidden rounded text-gray-900 border border-gray-200;
