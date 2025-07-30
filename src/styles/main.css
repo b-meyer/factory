@@ -5,6 +5,12 @@
    input[type='checkbox'] { @apply h-14 w-14 appearance-none rounded-sm shadow-sm flex justify-center items-center enabled:cursor-pointer disabled:opacity-70; }
    input[type='checkbox']:checked { @apply bg-blue-500 enabled:hover:bg-blue-550 font-['bootstrap-icons'] before:content-['\f26e'] before:text-white before:text-18 before:leading-none; }
    input[type='checkbox']:not(:checked) { @apply bg-white border border-gray-200 enabled:hover:border-gray-400/75; }
+
+   select { @apply h-30 px-10 outline-none card flex justify-between items-center enabled:cursor-pointer disabled:opacity-70 hover:bg-gray-50; appearance: base-select; }
+   ::picker(select) { @apply shadow rounded border-none; appearance: base-select; background: none; }
+   select::picker-icon { @apply text-gray-800 m-0 w-14 text-12 flex justify-center; }
+   option { @apply h-30 px-10 flex justify-between border border-gray-200 bg-gray-25 text-gray-800 first:rounded-t last:rounded-b not-last:border-b-0 hover:bg-gray-50 checked:font-bold; }
+   option::checkmark { @apply order-1 font-['bootstrap-icons'] content-['\f26e'] w-14 text-14; } 
 }
 
 /* Utilities */

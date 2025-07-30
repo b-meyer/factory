@@ -6,6 +6,7 @@ export enum BeerDieTabs {
 }
 export enum BeerDieSeasons {
    Summer2025 = "Summer 2025",
+   //Winter2025 = "Winter 2025",
 }
 export enum BeerDiePlayers {
    Dolph = "Dolph",

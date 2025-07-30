@@ -42,11 +42,11 @@ export const GetTooth = (N: number, R: number, PA_Deg: number, Steps: number) =>
 
    // Generate all racks for tooth
    const rack = [
-      [-TW / 2 - A * Math.sin(PA), R + A],
-      [-TW / 2 + A * Math.sin(PA), R - A],
-      [TW / 2 - A * Math.sin(PA), R - A],
-      [TW / 2 + A * Math.sin(PA), R + A]
-   ], tooth = [rack];
+         [-TW / 2 - A * Math.sin(PA), R + A],
+         [-TW / 2 + A * Math.sin(PA), R - A],
+         [TW / 2 - A * Math.sin(PA), R - A],
+         [TW / 2 + A * Math.sin(PA), R + A]
+      ], tooth = [rack];
    for (let i = 1; i < 1000; i++) { // Attempt 1000 steps until the rack clears
       const theta = i * TA / Steps;
       //let theta = i * (Math.PI * 3 / 180); // 3 degree step
