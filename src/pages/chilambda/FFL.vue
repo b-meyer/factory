@@ -45,7 +45,7 @@
     <div class="flex-auto card rounded-l-none"
          :class="{'h-0': ActiveTab == FFLTabs.Rules}">
       <div v-if="ActiveTab == FFLTabs.Games"
-           class="h-full flex flex-col *:grid *:grid-cols-6 *:border-b **:border-gray-400 *:w-full *:text-center -mb-1">
+           class="h-full flex flex-col *:grid *:grid-cols-6 *:border-b **:border-gray-400 *:even:bg-gray-50 *:w-full *:text-center -mb-1">
         <div class="*:not-last:border-r !border-b-black">
           <div v-text="'Week'" />
           <div v-text="'Team'" />
@@ -54,7 +54,7 @@
           <div v-text="'Projected'" />
           <div v-text="'Points'" />
         </div>
-        <div v-for="(player, i) in filtered"
+        <div v-for="(player, i) in Filtered"
              :key="i"
              class="*:not-last:border-r">
           <div class="px-3 truncate"
@@ -72,14 +72,14 @@
         </div>
       </div>
       <div v-if="ActiveTab == FFLTabs.Stats"
-           class="h-full flex flex-col *:grid *:grid-cols-4 *:border-b **:border-gray-400 *:w-full *:text-center -mb-1">
+           class="h-full flex flex-col *:grid *:grid-cols-4 *:border-b **:border-gray-400 *:even:bg-gray-50 *:w-full *:text-center -mb-1">
         <div class="*:not-last:border-r !border-b-black">
           <div v-text="'Team'" />
           <div v-text="'Projected'" />
           <div v-text="'Points'" />
           <div v-text="'Zeros'" />
         </div>
-        <div v-for="(stat, i) in stats"
+        <div v-for="(stat, i) in Stats"
              :key="i"
              class="*:not-last:border-r">
           <div class="px-3 truncate"
@@ -108,18 +108,7 @@ const ActiveScoringPeriod = ref(null);
 const ActiveTeam = ref(null);
 const ActiveTab = ref(FFLTabs.Games);
 const Zeros = ref(false);
-
-// const grouped = computed(() => players.reduce((obj: any, x) => {
-//    ((obj[x.SPD_ScoringPeriod_FK] ||= {})[x.TEM_Team_FK] ||= []).push(x);
-//    return obj
-// }, {}));
-const filtered = computed(() => players.filter(x =>
-   (ActiveSeason.value == x.SEA_Season_FK) &&
-   (ActiveScoringPeriod.value == null || ActiveScoringPeriod.value == x.SPD_ScoringPeriod_FK) &&
-   (ActiveTeam.value == null || ActiveTeam.value == x.TEM_Team_FK) &&
-   (!Zeros.value || x.PYR_Points == 0 && x.PYP_PlayerPosition_FK != 20 && x.PYP_PlayerPosition_FK != 21)
-));
-const stats = computed(() => teams.map(team => {
+const Stats = teams.map(team => {
    const _players = players.filter(x => x.TEM_Team_FK == team.TEM_Team_PK && x.PYP_PlayerPosition_FK != 20 && x.PYP_PlayerPosition_FK != 21 && x.SPD_ScoringPeriod_FK < 15);
    const periods = new Set(_players.map(x => x.SPD_ScoringPeriod_FK)).size;
    return {
@@ -128,9 +117,14 @@ const stats = computed(() => teams.map(team => {
       PYR_Points: _players.reduce((a, b) => a + b.PYR_Points, 0) / periods,
       PYR_Zeros: _players.reduce((a, b) => a + (b.PYR_Points == 0 ? 1 : 0), 0),
    };
-}));
+});
+const Filtered = computed(() => players.filter(x =>
+   (ActiveSeason.value == x.SEA_Season_FK) &&
+   (ActiveScoringPeriod.value == null || ActiveScoringPeriod.value == x.SPD_ScoringPeriod_FK) &&
+   (ActiveTeam.value == null || ActiveTeam.value == x.TEM_Team_FK) &&
+   (!Zeros.value || x.PYR_Points == 0 && x.PYP_PlayerPosition_FK != 20 && x.PYP_PlayerPosition_FK != 21)
+));
 const scoringPeriodName = (id: number) => scoringPeriods.find(x => x.SPD_ScoringPeriod_PK == id)?.SPD_Name || "";
-//const divisionName = (id: number) => divisions.find(x => x.DIV_Division_PK == id)?.DIV_Name || "";
 const teamName = (id: number) => teams.find(x => x.TEM_Team_PK == id)?.TEM_Name || "";
 const positionName = (id: number) => positions.find(x => x.PYP_PlayerPosition_PK == id)?.PYP_Name || "";
 </script>

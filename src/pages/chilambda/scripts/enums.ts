@@ -26,10 +26,6 @@ export enum BeerDiePlayers {
    Peel = "Peel",
    Rusty = "Rusty",
 }
-export enum FFLSeasons {
-   //Season2025 = "2025",
-   Season2024 = "2024",
-}
 export enum FFLTabs {
    Games = "Games",
    Stats = "Stats",

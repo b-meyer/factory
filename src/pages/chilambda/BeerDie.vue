@@ -206,7 +206,7 @@
         </div>
       </div>
       <div v-if="ActiveTab == BeerDieTabs.Games"
-           class="h-full flex flex-col *:grid *:grid-cols-6 *:border-b **:border-gray-400 *:w-full *:text-center -mb-1">
+           class="h-full flex flex-col *:grid *:grid-cols-6 *:border-b **:border-gray-400 *:even:bg-gray-50 *:w-full *:text-center -mb-1">
         <div class="*:not-last:border-r !border-b-black">
           <div v-text="'Date'" />
           <div v-text="'Player'" />
@@ -227,7 +227,7 @@
         </div>
       </div>
       <div v-if="ActiveTab == BeerDieTabs.Stats"
-           class="h-full flex flex-col *:grid *:grid-cols-5 *:border-b **:border-gray-400 *:w-full *:text-center -mb-1">
+           class="h-full flex flex-col *:grid *:grid-cols-5 *:border-b **:border-gray-400 *:even:bg-gray-50 *:w-full *:text-center -mb-1">
         <div class="*:not-last:border-r !border-b-black">
           <div v-text="'Player'" />
           <div v-text="'Win Loss'" />
