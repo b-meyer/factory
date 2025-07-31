@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full min-w-385 min-h-full p-20 shadow max-md:text-12">
+  <div class="flex flex-col w-full min-w-560 min-h-full p-20 shadow max-md:text-12">
     <div class="relative flex">
       <div v-for="tab in Object.values(FFLTabs)"
            :key="tab"
@@ -7,22 +7,89 @@
            :class="{'active': ActiveTab == tab}"
            @click="ActiveTab = tab"
            v-text="tab" />
-      <select v-model="ActiveSeason"
-              name="ActiveSeason"
-              class="absolute -top-7 right-0 w-120 md:w-150">
-        <option v-for="season in Object.values(FFLSeasons)"
-                :key="season"
-                :value="season"
-                v-text="season" />
-      </select>
+      <div class="absolute -top-7 right-0 flex gap-10">
+        <select v-model="ActiveSeason"
+                name="ActiveSeason"
+                class="w-70 md:w-80">
+          <option v-for="season in seasons"
+                  :key="season.SEA_Season_PK"
+                  :value="season.SEA_Season_PK"
+                  v-text="season.SEA_Season_PK" />
+        </select>
+        <select v-model="ActiveScoringPeriod"
+                name="ActiveScoringPeriod"
+                class="w-90 md:w-105">
+          <option :value="null">
+            All
+          </option>
+          <option v-for="scoringPeriod in scoringPeriods"
+                  :key="scoringPeriod.SPD_ScoringPeriod_PK"
+                  :value="scoringPeriod.SPD_ScoringPeriod_PK"
+                  v-text="scoringPeriod.SPD_Name" />
+        </select>
+        <select v-model="ActiveTeam"
+                name="ActiveTeam"
+                class="w-170 md:w-220">
+          <option :value="null">
+            All
+          </option>
+          <option v-for="team in teams"
+                  :key="team.TEM_Team_PK"
+                  :value="team.TEM_Team_PK"
+                  v-text="team.TEM_Name" />
+        </select>
+      </div>
     </div>
-    <div class="flex-auto card rounded-l-none overflow-x-auto h-0">
+    <div class="flex-auto card rounded-l-none"
+         :class="{'h-0': ActiveTab == FFLTabs.Rules}">
       <div v-if="ActiveTab == FFLTabs.Games"
-           class="h-full flex justify-center items-center"
-           v-text="'Coming Soon&trade;'" />
+           class="h-full flex flex-col *:grid *:grid-cols-6 *:border-b **:border-gray-400 *:w-full *:text-center -mb-1">
+        <div class="*:not-last:border-r !border-b-black">
+          <div v-text="'Week'" />
+          <div v-text="'Team'" />
+          <div v-text="'Player'" />
+          <div v-text="'Projected'" />
+          <div v-text="'Points'" />
+          <div v-text="'Lineup'" />
+        </div>
+        <div v-for="(player, i) in filtered"
+             :key="i"
+             class="*:not-last:border-r">
+          <div class="px-3 truncate"
+               v-text="scoringPeriodName(player.SPD_ScoringPeriod_FK)" />
+          <div class="px-3 truncate"
+               v-text="teamName(player.TEM_Team_FK)" />
+          <div class="px-3 truncate"
+               v-text="player.PYR_Name" />
+          <div class="px-3 truncate"
+               v-text="Math.round(player.PYR_Projected * 100) / 100" />
+          <div class="px-3 truncate"
+               v-text="Math.round(player.PYR_Points * 100) / 100" />
+          <div class="px-3 truncate"
+               v-text="player.PYP_PlayerPosition_FK" />
+        </div>
+      </div>
       <div v-if="ActiveTab == FFLTabs.Stats"
-           class="h-full flex justify-center items-center"
-           v-text="'Coming Soon&trade;'" />
+           class="h-full flex flex-col *:grid *:grid-cols-4 *:border-b **:border-gray-400 *:w-full *:text-center -mb-1">
+        <div class="*:not-last:border-r !border-b-black">
+          <div v-text="'Team'" />
+          <div v-text="'Projected'" />
+          <div v-text="'Points'" />
+          <div v-text="'Zeros'" />
+        </div>
+        <div v-for="(stat, i) in stats"
+             :key="i"
+             class="*:not-last:border-r">
+          <div class="px-3 truncate"
+               v-text="stat.TEM_Name" />
+          <div class="px-3 truncate"
+               v-text="Math.round(stat.PYR_Projected * 100) / 100" />
+          <div class="px-3 truncate"
+               v-text="Math.round(stat.PYR_Points * 100) / 100" />
+          <div class="px-3 truncate"
+               v-text="stat.PYR_Zeros" />
+        </div>
+      </div>
       <div v-else-if="ActiveTab == FFLTabs.Rules"
            class="h-full flex justify-center items-center"
            v-text="'Coming Soon&trade;'" />
@@ -31,8 +98,34 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { FFLTabs, FFLSeasons } from './scripts/enums';
-const ActiveSeason = ref(FFLSeasons.Season2024);
+import { ref, computed } from 'vue';
+import { FFLTabs } from './scripts/enums';
+import { scoringPeriods, seasons, teams, players } from './scripts/data';
+const ActiveSeason = ref(2024);
+const ActiveScoringPeriod = ref(null);
+const ActiveTeam = ref(null);
 const ActiveTab = ref(FFLTabs.Games);
+
+// const grouped = computed(() => players.reduce((obj: any, x) => {
+//    ((obj[x.SPD_ScoringPeriod_FK] ||= {})[x.TEM_Team_FK] ||= []).push(x);
+//    return obj
+// }, {}));
+const filtered = computed(() => players.filter(x =>
+   (ActiveSeason.value == x.SEA_Season_FK) &&
+   (ActiveScoringPeriod.value == null || ActiveScoringPeriod.value == x.SPD_ScoringPeriod_FK) &&
+   (ActiveTeam.value == null || ActiveTeam.value == x.TEM_Team_FK)
+));
+const stats = computed(() => teams.map(team => {
+   const _players = players.filter(x => x.TEM_Team_FK == team.TEM_Team_PK && x.PYP_PlayerPosition_FK != 20 && x.PYP_PlayerPosition_FK != 21);
+   const periods = new Set(_players.map(x => x.SPD_ScoringPeriod_FK)).size;
+   return {
+      TEM_Name: team.TEM_Name,
+      PYR_Projected: _players.reduce((a, b) => a + b.PYR_Projected, 0) / periods,
+      PYR_Points: _players.reduce((a, b) => a + b.PYR_Points, 0) / periods,
+      PYR_Zeros: _players.reduce((a, b) => a + (b.PYR_Points == 0 ? 1 : 0), 0),
+   };
+}));
+const scoringPeriodName = (id: number) => scoringPeriods.find(x => x.SPD_ScoringPeriod_PK == id)?.SPD_Name || "";
+//const divisionName = (id: number) => divisions.find(x => x.DIV_Division_PK == id)?.DIV_Name || "";
+const teamName = (id: number) => teams.find(x => x.TEM_Team_PK == id)?.TEM_Name || "";
 </script>
