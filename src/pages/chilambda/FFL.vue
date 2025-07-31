@@ -25,7 +25,7 @@
             All
           </option>
           <option v-for="scoringPeriod in scoringPeriods"
-                  :key="scoringPeriod.SPD_ScoringPeriod_PK"
+                  :key="`${scoringPeriod.SPD_ScoringPeriod_PK}|${scoringPeriod.SPD_Name}`"
                   :value="scoringPeriod.SPD_ScoringPeriod_PK"
                   v-text="scoringPeriod.SPD_Name" />
         </select>
@@ -36,7 +36,7 @@
             All
           </option>
           <option v-for="team in teams"
-                  :key="team.TEM_Team_PK"
+                  :key="`${team.TEM_Team_PK}|${team.TEM_Name}`"
                   :value="team.TEM_Team_PK"
                   v-text="team.TEM_Name" />
         </select>
@@ -54,8 +54,8 @@
           <div v-text="'Projected'" />
           <div v-text="'Points'" />
         </div>
-        <div v-for="(player, i) in Filtered"
-             :key="i">
+        <div v-for="player in Filtered"
+             :key="`${player.SPD_ScoringPeriod_FK}|${player.PYR_Player_PK}`">
           <div v-text="scoringPeriodName(player.SPD_ScoringPeriod_FK)" />
           <div v-text="teamName(player.TEM_Team_FK)" />
           <div v-text="player.PYR_Name" />
@@ -72,8 +72,8 @@
           <div v-text="'Points'" />
           <div v-text="'Zeros'" />
         </div>
-        <div v-for="(stat, i) in Stats"
-             :key="i">
+        <div v-for="stat in Stats"
+             :key="`${stat.TEM_Team_PK}|${stat.TEM_Name}`">
           <div v-text="stat.TEM_Name" />
           <div v-text="Math.round(stat.PYR_Projected * 100) / 100" />
           <div v-text="Math.round(stat.PYR_Points * 100) / 100" />
@@ -100,6 +100,7 @@ const Stats = teams.map(team => {
    const _players = players.filter(x => x.TEM_Team_FK == team.TEM_Team_PK && x.PYP_PlayerPosition_FK != 20 && x.PYP_PlayerPosition_FK != 21 && x.SPD_ScoringPeriod_FK < 15);
    const periods = new Set(_players.map(x => x.SPD_ScoringPeriod_FK)).size;
    return {
+      TEM_Team_PK: team.TEM_Team_PK,
       TEM_Name: team.TEM_Name,
       PYR_Projected: _players.reduce((a, b) => a + b.PYR_Projected, 0) / periods,
       PYR_Points: _players.reduce((a, b) => a + b.PYR_Points, 0) / periods,

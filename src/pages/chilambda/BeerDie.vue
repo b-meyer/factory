@@ -234,8 +234,8 @@
           <div v-text="'Sinks'" />
           <div v-text="'Double Body'" />
         </div>
-        <div v-for="(stat, i) in Stats"
-             :key="i">
+        <div v-for="stat in Stats"
+             :key="stat.player">
           <div v-text="stat.player" />
           <div v-text="stat.winloss" />
           <div v-text="stat.points" />
