@@ -17,7 +17,7 @@
       </select>
     </div>
     <div class="flex-auto card rounded-l-none overflow-x-auto">
-      <div v-if="ActiveTab == BeerDieTabs.Bracket"
+      <div v-show="ActiveTab == BeerDieTabs.Bracket"
            class="h-full flex p-20 gap-60 overflow-x-auto">
         <div class="flex flex-col gap-30">
           <div>Winners</div>
@@ -205,7 +205,7 @@
           <div>6. {{ TeamName(3) }}</div>
         </div>
       </div>
-      <div v-if="ActiveTab == BeerDieTabs.Games"
+      <div v-show="ActiveTab == BeerDieTabs.Games"
            class="h-full grid-table *:grid-cols-6">
         <div>
           <div v-text="'Date'" />
@@ -225,7 +225,7 @@
           <div v-text="game.doublebody" />
         </div>
       </div>
-      <div v-if="ActiveTab == BeerDieTabs.Stats"
+      <div v-show="ActiveTab == BeerDieTabs.Stats"
            class="h-full grid-table *:grid-cols-5">
         <div>
           <div v-text="'Player'" />
@@ -243,7 +243,7 @@
           <div v-text="stat.doublebody" />
         </div>
       </div>
-      <div v-if="ActiveTab == BeerDieTabs.Rules"
+      <div v-show="ActiveTab == BeerDieTabs.Rules"
            class="p-20"
            v-text="'1. Don\'t be a bitch'" />
     </div>

@@ -44,7 +44,7 @@
     </div>
     <div class="flex-auto card rounded-l-none"
          :class="{'h-0': ActiveTab == FFLTabs.Rules}">
-      <div v-if="ActiveTab == FFLTabs.Games"
+      <div v-show="ActiveTab == FFLTabs.Games"
            class="h-full grid-table *:grid-cols-6">
         <div>
           <div v-text="'Week'" />
@@ -64,7 +64,7 @@
           <div v-text="Math.round(player.PYR_Points * 100) / 100" />
         </div>
       </div>
-      <div v-if="ActiveTab == FFLTabs.Stats"
+      <div v-show="ActiveTab == FFLTabs.Stats"
            class="h-full grid-table *:grid-cols-4">
         <div>
           <div v-text="'Team'" />
@@ -80,7 +80,7 @@
           <div v-text="stat.PYR_Zeros" />
         </div>
       </div>
-      <div v-else-if="ActiveTab == FFLTabs.Rules"
+      <div v-show="ActiveTab == FFLTabs.Rules"
            class="h-full flex justify-center items-center"
            v-text="'Coming Soon&trade;'" />
     </div>
