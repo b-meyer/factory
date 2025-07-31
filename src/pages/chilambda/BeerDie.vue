@@ -253,6 +253,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { BeerDieTabs, BeerDieSeasons, BeerDiePlayers } from './scripts/enums';
+/// Data
 const ActiveSeason = ref(BeerDieSeasons.Summer2025);
 const ActiveTab = ref(BeerDieTabs.Bracket);
 const Teams = [
@@ -342,6 +343,7 @@ const Games = [
    { date: '07/27/25', player: BeerDiePlayers.Peel, win: false, points: 6, sinks: 2, doublebody: 0 },
    { date: '07/27/25', player: BeerDiePlayers.Jaws, win: true, points: 5, sinks: 1, doublebody: 0 },
 ];
+/// Computed
 const Stats = computed(() => Teams.flatMap(x => x).map(p => {
    const games = Games.filter(x => x.player == p), total = games.length;
    const wins = games.filter(x => x.win).length;
@@ -356,5 +358,6 @@ const Stats = computed(() => Teams.flatMap(x => x).map(p => {
       doublebody: `${doublebody} (${Math.round((total ? doublebody / total : 0) * 100 | 0) / 100})`
    };
 }));
+/// Methods
 const TeamName = (team: number) => team != null ? `${Teams[team][0]} / ${Teams[team][1]}` : '';
 </script>

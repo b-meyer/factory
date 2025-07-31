@@ -91,6 +91,7 @@
 import { ref, computed } from 'vue';
 import { FFLTabs } from './scripts/enums';
 import { scoringPeriods, seasons, teams, positions, players } from './scripts/data';
+/// Data
 const ActiveSeason = ref(2024);
 const ActiveScoringPeriod = ref(null);
 const ActiveTeam = ref(null);
@@ -107,12 +108,14 @@ const Stats = teams.map(team => {
       PYR_Zeros: _players.reduce((a, b) => a + (b.PYR_Points == 0 ? 1 : 0), 0),
    };
 });
+/// Computed
 const Filtered = computed(() => players.filter(x =>
    (ActiveSeason.value == x.SEA_Season_FK) &&
    (ActiveScoringPeriod.value == null || ActiveScoringPeriod.value == x.SPD_ScoringPeriod_FK) &&
    (ActiveTeam.value == null || ActiveTeam.value == x.TEM_Team_FK) &&
    (!Zeros.value || x.PYR_Points == 0 && x.PYP_PlayerPosition_FK != 20 && x.PYP_PlayerPosition_FK != 21)
 ));
+/// Methods
 const scoringPeriodName = (id: number) => scoringPeriods.find(x => x.SPD_ScoringPeriod_PK == id)?.SPD_Name || "";
 const teamName = (id: number) => teams.find(x => x.TEM_Team_PK == id)?.TEM_Name || "";
 const positionName = (id: number) => positions.find(x => x.PYP_PlayerPosition_PK == id)?.PYP_Name || "";
