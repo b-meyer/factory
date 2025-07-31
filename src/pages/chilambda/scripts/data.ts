@@ -38,6 +38,19 @@ export const teams = [
    {"TEM_Team_PK":11,"DIV_Division_FK":0,"SEA_Season_FK":2024,"TEM_Name":"Gil\u0027s Gang of Goons","TEM_Abbreviation":"Gil"},
    {"TEM_Team_PK":12,"DIV_Division_FK":1,"SEA_Season_FK":2024,"TEM_Name":"Daywalker Collective","TEM_Abbreviation":"GUP"}
 ];
+export const positions = [
+   {"PYP_PlayerPosition_PK":0,"PYP_Name":"QB"},
+   {"PYP_PlayerPosition_PK":2,"PYP_Name":"RB"},
+   {"PYP_PlayerPosition_PK":4,"PYP_Name":"WR"},
+   {"PYP_PlayerPosition_PK":6,"PYP_Name":"TE"},
+   {"PYP_PlayerPosition_PK":10,"PYP_Name":"LB"},
+   {"PYP_PlayerPosition_PK":11,"PYP_Name":"DL"},
+   {"PYP_PlayerPosition_PK":14,"PYP_Name":"DB"},
+   {"PYP_PlayerPosition_PK":17,"PYP_Name":"K"},
+   {"PYP_PlayerPosition_PK":20,"PYP_Name":"Bench"},
+   {"PYP_PlayerPosition_PK":21,"PYP_Name":"IR"},
+   {"PYP_PlayerPosition_PK":23,"PYP_Name":"Flex"}
+];
 export const players = [
    {"PYR_Player_PK":4427366,"SEA_Season_FK":2024,"TEM_Team_FK":1,"SPD_ScoringPeriod_FK":1,"PYP_PlayerPosition_FK":2,"PYR_Name":"Breece Hall","PYR_Projected":15.56808902,"PYR_Points":15.8,"PYR_PassingAttempts":0,"PYR_PassingCompletions":0,"PYR_PassingYards":0,"PYR_PassingTouchdowns":0,"PYR_PassingInterceptions":0,"PYR_RushingAttempts":16.0,"PYR_RushingYards":54.0,"PYR_RushingTouchdowns":1.0,"PYR_ReceivingYards":39.0,"PYR_ReceivingTouchdowns":0,"PYR_ReceivingReceptions":5.0,"PYR_ReceivingTargets":6.0,"PYR_RushingFumbles":1.0},
    {"PYR_Player_PK":4429160,"SEA_Season_FK":2024,"TEM_Team_FK":1,"SPD_ScoringPeriod_FK":1,"PYP_PlayerPosition_FK":23,"PYR_Name":"De\u0027Von Achane","PYR_Projected":12.44981968,"PYR_Points":19.5,"PYR_PassingAttempts":0,"PYR_PassingCompletions":0,"PYR_PassingYards":0,"PYR_PassingTouchdowns":0,"PYR_PassingInterceptions":0,"PYR_RushingAttempts":10.0,"PYR_RushingYards":24.0,"PYR_RushingTouchdowns":1.0,"PYR_ReceivingYards":76.0,"PYR_ReceivingTouchdowns":0,"PYR_ReceivingReceptions":7.0,"PYR_ReceivingTargets":7.0,"PYR_RushingFumbles":0},

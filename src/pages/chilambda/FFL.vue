@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full min-w-560 min-h-full p-20 shadow max-md:text-12">
+  <div class="flex flex-col w-full min-w-580 min-h-full p-20 shadow max-md:text-12">
     <div class="relative flex">
       <div v-for="tab in Object.values(FFLTabs)"
            :key="tab"
@@ -7,7 +7,9 @@
            :class="{'active': ActiveTab == tab}"
            @click="ActiveTab = tab"
            v-text="tab" />
-      <div class="absolute -top-7 right-0 flex gap-10">
+      <div class="absolute -top-7 right-0 flex items-center gap-10">
+        <input v-model="Zeros"
+               type="checkbox">
         <select v-model="ActiveSeason"
                 name="ActiveSeason"
                 class="w-70 md:w-80">
@@ -48,9 +50,9 @@
           <div v-text="'Week'" />
           <div v-text="'Team'" />
           <div v-text="'Player'" />
+          <div v-text="'Position'" />
           <div v-text="'Projected'" />
           <div v-text="'Points'" />
-          <div v-text="'Lineup'" />
         </div>
         <div v-for="(player, i) in filtered"
              :key="i"
@@ -62,11 +64,11 @@
           <div class="px-3 truncate"
                v-text="player.PYR_Name" />
           <div class="px-3 truncate"
+               v-text="positionName(player.PYP_PlayerPosition_FK)" />
+          <div class="px-3 truncate"
                v-text="Math.round(player.PYR_Projected * 100) / 100" />
           <div class="px-3 truncate"
                v-text="Math.round(player.PYR_Points * 100) / 100" />
-          <div class="px-3 truncate"
-               v-text="player.PYP_PlayerPosition_FK" />
         </div>
       </div>
       <div v-if="ActiveTab == FFLTabs.Stats"
@@ -100,11 +102,12 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { FFLTabs } from './scripts/enums';
-import { scoringPeriods, seasons, teams, players } from './scripts/data';
+import { scoringPeriods, seasons, teams, positions, players } from './scripts/data';
 const ActiveSeason = ref(2024);
 const ActiveScoringPeriod = ref(null);
 const ActiveTeam = ref(null);
 const ActiveTab = ref(FFLTabs.Games);
+const Zeros = ref(false);
 
 // const grouped = computed(() => players.reduce((obj: any, x) => {
 //    ((obj[x.SPD_ScoringPeriod_FK] ||= {})[x.TEM_Team_FK] ||= []).push(x);
@@ -113,10 +116,11 @@ const ActiveTab = ref(FFLTabs.Games);
 const filtered = computed(() => players.filter(x =>
    (ActiveSeason.value == x.SEA_Season_FK) &&
    (ActiveScoringPeriod.value == null || ActiveScoringPeriod.value == x.SPD_ScoringPeriod_FK) &&
-   (ActiveTeam.value == null || ActiveTeam.value == x.TEM_Team_FK)
+   (ActiveTeam.value == null || ActiveTeam.value == x.TEM_Team_FK) &&
+   (!Zeros.value || x.PYR_Points == 0 && x.PYP_PlayerPosition_FK != 20 && x.PYP_PlayerPosition_FK != 21)
 ));
 const stats = computed(() => teams.map(team => {
-   const _players = players.filter(x => x.TEM_Team_FK == team.TEM_Team_PK && x.PYP_PlayerPosition_FK != 20 && x.PYP_PlayerPosition_FK != 21);
+   const _players = players.filter(x => x.TEM_Team_FK == team.TEM_Team_PK && x.PYP_PlayerPosition_FK != 20 && x.PYP_PlayerPosition_FK != 21 && x.SPD_ScoringPeriod_FK < 15);
    const periods = new Set(_players.map(x => x.SPD_ScoringPeriod_FK)).size;
    return {
       TEM_Name: team.TEM_Name,
@@ -128,4 +132,5 @@ const stats = computed(() => teams.map(team => {
 const scoringPeriodName = (id: number) => scoringPeriods.find(x => x.SPD_ScoringPeriod_PK == id)?.SPD_Name || "";
 //const divisionName = (id: number) => divisions.find(x => x.DIV_Division_PK == id)?.DIV_Name || "";
 const teamName = (id: number) => teams.find(x => x.TEM_Team_PK == id)?.TEM_Name || "";
+const positionName = (id: number) => positions.find(x => x.PYP_PlayerPosition_PK == id)?.PYP_Name || "";
 </script>
