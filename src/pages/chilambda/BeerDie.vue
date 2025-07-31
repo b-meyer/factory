@@ -206,8 +206,8 @@
         </div>
       </div>
       <div v-if="ActiveTab == BeerDieTabs.Games"
-           class="h-full flex flex-col *:grid *:grid-cols-6 *:border-b **:border-gray-400 *:even:bg-gray-50 *:w-full *:text-center -mb-1">
-        <div class="*:not-last:border-r !border-b-black">
+           class="h-full grid-table *:grid-cols-6">
+        <div>
           <div v-text="'Date'" />
           <div v-text="'Player'" />
           <div v-text="'Win'" />
@@ -216,8 +216,7 @@
           <div v-text="'Double Body'" />
         </div>
         <div v-for="(game, i) in Games"
-             :key="i"
-             class="*:not-last:border-r">
+             :key="i">
           <div v-text="game.date" />
           <div v-text="game.player" />
           <div v-text="typeof game.win == 'boolean' ? (game.win ? 'Yes' : 'No') : ''" />
@@ -227,8 +226,8 @@
         </div>
       </div>
       <div v-if="ActiveTab == BeerDieTabs.Stats"
-           class="h-full flex flex-col *:grid *:grid-cols-5 *:border-b **:border-gray-400 *:even:bg-gray-50 *:w-full *:text-center -mb-1">
-        <div class="*:not-last:border-r !border-b-black">
+           class="h-full grid-table *:grid-cols-5">
+        <div>
           <div v-text="'Player'" />
           <div v-text="'Win Loss'" />
           <div v-text="'Points'" />
@@ -236,8 +235,7 @@
           <div v-text="'Double Body'" />
         </div>
         <div v-for="(stat, i) in Stats"
-             :key="i"
-             class="*:not-last:border-r">
+             :key="i">
           <div v-text="stat.player" />
           <div v-text="stat.winloss" />
           <div v-text="stat.points" />

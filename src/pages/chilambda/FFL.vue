@@ -45,8 +45,8 @@
     <div class="flex-auto card rounded-l-none"
          :class="{'h-0': ActiveTab == FFLTabs.Rules}">
       <div v-if="ActiveTab == FFLTabs.Games"
-           class="h-full flex flex-col *:grid *:grid-cols-6 *:border-b **:border-gray-400 *:even:bg-gray-50 *:w-full *:text-center -mb-1">
-        <div class="*:not-last:border-r !border-b-black">
+           class="h-full grid-table *:grid-cols-6">
+        <div>
           <div v-text="'Week'" />
           <div v-text="'Team'" />
           <div v-text="'Player'" />
@@ -55,41 +55,29 @@
           <div v-text="'Points'" />
         </div>
         <div v-for="(player, i) in Filtered"
-             :key="i"
-             class="*:not-last:border-r">
-          <div class="px-3 truncate"
-               v-text="scoringPeriodName(player.SPD_ScoringPeriod_FK)" />
-          <div class="px-3 truncate"
-               v-text="teamName(player.TEM_Team_FK)" />
-          <div class="px-3 truncate"
-               v-text="player.PYR_Name" />
-          <div class="px-3 truncate"
-               v-text="positionName(player.PYP_PlayerPosition_FK)" />
-          <div class="px-3 truncate"
-               v-text="Math.round(player.PYR_Projected * 100) / 100" />
-          <div class="px-3 truncate"
-               v-text="Math.round(player.PYR_Points * 100) / 100" />
+             :key="i">
+          <div v-text="scoringPeriodName(player.SPD_ScoringPeriod_FK)" />
+          <div v-text="teamName(player.TEM_Team_FK)" />
+          <div v-text="player.PYR_Name" />
+          <div v-text="positionName(player.PYP_PlayerPosition_FK)" />
+          <div v-text="Math.round(player.PYR_Projected * 100) / 100" />
+          <div v-text="Math.round(player.PYR_Points * 100) / 100" />
         </div>
       </div>
       <div v-if="ActiveTab == FFLTabs.Stats"
-           class="h-full flex flex-col *:grid *:grid-cols-4 *:border-b **:border-gray-400 *:even:bg-gray-50 *:w-full *:text-center -mb-1">
-        <div class="*:not-last:border-r !border-b-black">
+           class="h-full grid-table *:grid-cols-4">
+        <div>
           <div v-text="'Team'" />
           <div v-text="'Projected'" />
           <div v-text="'Points'" />
           <div v-text="'Zeros'" />
         </div>
         <div v-for="(stat, i) in Stats"
-             :key="i"
-             class="*:not-last:border-r">
-          <div class="px-3 truncate"
-               v-text="stat.TEM_Name" />
-          <div class="px-3 truncate"
-               v-text="Math.round(stat.PYR_Projected * 100) / 100" />
-          <div class="px-3 truncate"
-               v-text="Math.round(stat.PYR_Points * 100) / 100" />
-          <div class="px-3 truncate"
-               v-text="stat.PYR_Zeros" />
+             :key="i">
+          <div v-text="stat.TEM_Name" />
+          <div v-text="Math.round(stat.PYR_Projected * 100) / 100" />
+          <div v-text="Math.round(stat.PYR_Points * 100) / 100" />
+          <div v-text="stat.PYR_Zeros" />
         </div>
       </div>
       <div v-else-if="ActiveTab == FFLTabs.Rules"
