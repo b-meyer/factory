@@ -1,5 +1,23 @@
 import { RemovableRef, StorageSerializers, useLocalStorage, UseStorageOptions } from '@vueuse/core';
 
+declare global {
+   interface Array<T> {
+      sum(selector: (item: T) => number): number;
+      avg(selector: (item: T) => number, count?: number): number;
+      groupBy(selector: (item: T) => any): object;
+   }
+}
+
+Array.prototype.sum = function (selector) {
+   return this.reduce((sum, item) => sum + selector(item), 0);
+}
+Array.prototype.avg = function (selector, count) {
+   return Math.round(this.sum(selector) / (count || this.length) * 100) / 100;
+}
+Array.prototype.groupBy = function (selector) {
+   return this.reduce((obj, item) => {(obj[selector(item)] ||= []).push(item); return obj}, {});
+}
+
 export const GetGroup = (regex: RegExp, value: string, index?: number): string | undefined => regex.exec(value || "")?.[index || 1];
 export const UseLS = <T>(id: string, defaultValue: T, options: UseStorageOptions<T> = { serializer: StorageSerializers.object }): RemovableRef<T> => useLocalStorage(id, defaultValue, options);
 export const Translate = (a: number[], ...b: number[][]) => [a[0] + b.reduce((x: number, y: number[]) => x + y[0], 0), a[1] + b.reduce((x: number, y: number[]) => x + y[1], 0)];

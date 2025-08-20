@@ -43,13 +43,13 @@ export const positions = [
    {"PYP_PlayerPosition_PK":2,"PYP_Name":"RB"},
    {"PYP_PlayerPosition_PK":4,"PYP_Name":"WR"},
    {"PYP_PlayerPosition_PK":6,"PYP_Name":"TE"},
+   {"PYP_PlayerPosition_PK":23,"PYP_Name":"Flex"},
    {"PYP_PlayerPosition_PK":10,"PYP_Name":"LB"},
    {"PYP_PlayerPosition_PK":11,"PYP_Name":"DL"},
    {"PYP_PlayerPosition_PK":14,"PYP_Name":"DB"},
    {"PYP_PlayerPosition_PK":17,"PYP_Name":"K"},
    {"PYP_PlayerPosition_PK":20,"PYP_Name":"Bench"},
    {"PYP_PlayerPosition_PK":21,"PYP_Name":"IR"},
-   {"PYP_PlayerPosition_PK":23,"PYP_Name":"Flex"}
 ];
 export const players = [
    {"PYR_Player_PK":2577417,"SEA_Season_FK":2024,"TEM_Team_FK":1,"SPD_ScoringPeriod_FK":1,"PYP_PlayerPosition_FK":0,"PYR_Name":"Dak Prescott","PYR_Projected":16.79208929,"PYR_Points":11.46},

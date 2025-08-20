@@ -28,6 +28,7 @@ export enum BeerDiePlayers {
 }
 export enum FFLTabs {
    Games = "Games",
-   Stats = "Stats",
+   Points = "Points",
+   //Stats = "Stats",
    Rules = "Rules",
 }

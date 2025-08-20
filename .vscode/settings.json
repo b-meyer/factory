@@ -16,14 +16,15 @@
       "tsconfig.json": "tsconfig.*, env.d.ts",
       "vite.config.*": "index.html, eslint*"
    },
-   "files.associations": { "*.css": "tailwindcss", "*.json": "jsonc" },
+   "files.associations": { "*.css": "tailwindcss" },
    "json.format.keepLines": true,
    "html.format.extraLiners": "",
    "html.format.indentInnerHtml": true,
    "tailwindCSS.lint.cssConflict": "ignore",
+   "[json]": { "editor.defaultFormatter": "vscode.json-language-features" },
    "[jsonc]": { "editor.defaultFormatter": "vscode.json-language-features" },
    "[tailwindcss]": { "editor.defaultFormatter": "bradlc.vscode-tailwindcss" },
    "[javascript]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
    "[typescript]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
-   "[vue]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+   "[vue]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" }
 }
