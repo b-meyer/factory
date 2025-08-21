@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col w-full min-h-full p-20 shadow max-md:text-12"
-       :class="[ ActiveTab == FFLTabs.Games ? 'min-w-580' : 'min-w-400' ]">
+  <div class="flex flex-col w-full min-h-full p-20 shadow pointer-coarse:text-12"
+       :class="[ ActiveTab == FFLTabs.Games ? 'min-w-575' : 'min-w-400' ]">
     <div class="relative flex">
       <div v-for="tab in Object.values(FFLTabs)"
            :key="tab"
@@ -14,7 +14,7 @@
                type="checkbox">
         <select v-model="ActiveTeam"
                 name="ActiveTeam"
-                class="w-170 md:w-220"
+                class="pointer-coarse:w-160 w-220"
                 :class="{ 'hidden': ActiveTab == FFLTabs.Points || ActiveTab == FFLTabs.Rules }">
           <option :value="null">
             All
@@ -26,7 +26,7 @@
         </select>
         <select v-model="ActiveScoringPeriod"
                 name="ActiveScoringPeriod"
-                class="w-90 md:w-105"
+                class="pointer-coarse:w-90 w-105"
                 :class="{ 'hidden': ActiveTab == FFLTabs.Rules }">
           <option :value="null">
             All
@@ -38,7 +38,7 @@
         </select>
         <select v-model="ActiveSeason"
                 name="ActiveSeason"
-                class="w-70 md:w-80">
+                class="pointer-coarse:w-70 w-80">
           <option v-for="season in seasons"
                   :key="season.SEA_Season_PK"
                   :value="season.SEA_Season_PK"
