@@ -15,7 +15,7 @@ export enum BeerDiePlayers {
    Foreman = "Foreman",
    Snoop = "Snoop",
    Gil = "Gil",
-   Vixson = "Vixson",
+   Vixen = "Vixen",
    Yasso = "Yasso",
    Dugo = "Dugo",
    Ringo = "Ringo",

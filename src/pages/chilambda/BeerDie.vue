@@ -261,7 +261,7 @@ const Teams = [
    [BeerDiePlayers.Jaws, BeerDiePlayers.Foreman], // 1
    [BeerDiePlayers.Bean, BeerDiePlayers.Gene], // 2
    [BeerDiePlayers.Rusty, BeerDiePlayers.Peel], // 3
-   [BeerDiePlayers.Vixson, BeerDiePlayers.Yasso], // 4
+   [BeerDiePlayers.Vixen, BeerDiePlayers.Yasso], // 4
    [BeerDiePlayers.Snoop, BeerDiePlayers.Gil], // 5
    [BeerDiePlayers.Dugo, BeerDiePlayers.Ringo], // 6
    [BeerDiePlayers.Cedar, BeerDiePlayers.Pug], // 7
@@ -283,11 +283,11 @@ const Bracket = [
 ];
 const Games = [
    { date: 'Round 1', player: null, win: null, points: null, sinks: null, doublebody: null },
-   { date: '06/14/25', player: BeerDiePlayers.Vixson, win: true, points: 6, sinks: 0, doublebody: 0 },
+   { date: '06/14/25', player: BeerDiePlayers.Vixen, win: true, points: 6, sinks: 0, doublebody: 0 },
    { date: '06/14/25', player: BeerDiePlayers.Yasso, win: true, points: 2, sinks: 1, doublebody: 0 },
    { date: '06/14/25', player: BeerDiePlayers.Gil,  win: false, points: 2, sinks: 0, doublebody: 0 },
    { date: '06/14/25', player: BeerDiePlayers.Snoop, win: false, points: 4, sinks: 0, doublebody: 0 },
-   { date: '06/14/25', player: BeerDiePlayers.Vixson, win: true, points: 3, sinks: 1, doublebody: 0 },
+   { date: '06/14/25', player: BeerDiePlayers.Vixen, win: true, points: 3, sinks: 1, doublebody: 0 },
    { date: '06/14/25', player: BeerDiePlayers.Yasso, win: true, points: 4, sinks: 0, doublebody: 0 },
    { date: '06/14/25', player: BeerDiePlayers.Gil,  win: false, points: 2, sinks: 0, doublebody: 0 },
    { date: '06/14/25', player: BeerDiePlayers.Snoop, win: false, points: 1, sinks: 1, doublebody: 0 },
@@ -342,15 +342,15 @@ const Games = [
    { date: '07/27/25', player: BeerDiePlayers.Rusty, win: false, points: 1, sinks: 0, doublebody: 0 },
    { date: '07/27/25', player: BeerDiePlayers.Peel, win: false, points: 6, sinks: 2, doublebody: 0 },
    { date: '07/27/25', player: BeerDiePlayers.Jaws, win: true, points: 5, sinks: 1, doublebody: 0 },
-   { date: '07/31/25', player: BeerDiePlayers.Vixson, win: false, points: 2, sinks: 0, doublebody: 0 },
+   { date: '07/31/25', player: BeerDiePlayers.Vixen, win: false, points: 2, sinks: 0, doublebody: 0 },
    { date: '07/31/25', player: BeerDiePlayers.Yasso, win: false, points: 1, sinks: 0, doublebody: 0 },
    { date: '07/31/25', player: BeerDiePlayers.Dugo,  win: true, points: 3, sinks: 1, doublebody: 0 },
    { date: '07/31/25', player: BeerDiePlayers.Ringo,  win: true, points: 4, sinks: 0, doublebody: 0 },
-   { date: '07/31/25', player: BeerDiePlayers.Vixson, win: true, points: 6, sinks: 2, doublebody: 0 },
+   { date: '07/31/25', player: BeerDiePlayers.Vixen, win: true, points: 6, sinks: 2, doublebody: 0 },
    { date: '07/31/25', player: BeerDiePlayers.Yasso, win: true, points: 1, sinks: 0, doublebody: 0 },
    { date: '07/31/25', player: BeerDiePlayers.Dugo,  win: false, points: 1, sinks: 2, doublebody: 0 },
    { date: '07/31/25', player: BeerDiePlayers.Ringo,  win: false, points: 2, sinks: 0, doublebody: 0 },
-   { date: '07/31/25', player: BeerDiePlayers.Vixson, win: true, points: 3, sinks: 1, doublebody: 0 },
+   { date: '07/31/25', player: BeerDiePlayers.Vixen, win: true, points: 3, sinks: 1, doublebody: 0 },
    { date: '07/31/25', player: BeerDiePlayers.Yasso, win: true, points: 4, sinks: 2, doublebody: 0 },
    { date: '07/31/25', player: BeerDiePlayers.Dugo,  win: false, points: 0, sinks: 1, doublebody: 0 },
    { date: '07/31/25', player: BeerDiePlayers.Ringo,  win: false, points: 1, sinks: 0, doublebody: 0 },
