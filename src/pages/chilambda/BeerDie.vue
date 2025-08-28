@@ -278,7 +278,7 @@ const Bracket = [
    { TeamA: 2, ScoreA: null, TeamB: 4, ScoreB: null }, // Winners 3A
    { TeamA: 1, ScoreA: null, TeamB: 7, ScoreB: null }, // Losers 2A
    { TeamA: 0, ScoreA: 1, TeamB: 6, ScoreB: 2 }, // Losers 2B
-   { TeamA: null, ScoreA: null, TeamB: null, ScoreB: null }, // Losers 3A
+   { TeamA: null, ScoreA: null, TeamB: 6, ScoreB: null }, // Losers 3A
    { TeamA: null, ScoreA: null, TeamB: null, ScoreB: null }, // 1st + 3rd
 ];
 const Games = [
