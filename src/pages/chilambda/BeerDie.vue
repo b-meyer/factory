@@ -188,19 +188,19 @@
               <div>
                 <div class="absolute h-1 w-20 -left-20 bg-gray-300" />
                 <div class="absolute h-135 md:h-151 w-1 -left-20 bg-gray-300" />
-                <div v-text="TeamName(Bracket[12].TeamA!)" />
+                <div v-text="TeamName(Bracket[12].TeamB!)" />
               </div>
             </div>
           </div>
         </div>
         <div class="flex flex-col gap-10 *:w-120 *:md:w-150">
           <div>Results</div>
-          <div>1.</div>
-          <div>2.</div>
-          <div>3.</div>
-          <div>4.</div>
-          <div>5.</div>
+          <div>1. {{ TeamName(4) }}</div>
+          <div>2. {{ TeamName(2) }}</div>
+          <div>3. {{ TeamName(1) }}</div>
+          <div>4. {{ TeamName(6) }}</div>
           <div>5. {{ TeamName(0) }}</div>
+          <div>5. {{ TeamName(7) }}</div>
           <div>6. {{ TeamName(5) }}</div>
           <div>6. {{ TeamName(3) }}</div>
         </div>
@@ -275,11 +275,11 @@ const Bracket = [
    { TeamA: 4, ScoreA: 2, TeamB: 6, ScoreB: 1 },  // Winners 2B
    { TeamA: 1, ScoreA: 2, TeamB: 3, ScoreB: 1 }, // Losers 1A
    { TeamA: 5, ScoreA: 0, TeamB: 7, ScoreB: 2 },// Losers 1B
-   { TeamA: 2, ScoreA: null, TeamB: 4, ScoreB: null }, // Winners 3A
-   { TeamA: 1, ScoreA: null, TeamB: 7, ScoreB: null }, // Losers 2A
+   { TeamA: 2, ScoreA: 1, TeamB: 4, ScoreB: 2 }, // Winners 3A
+   { TeamA: 1, ScoreA: 2, TeamB: 7, ScoreB: 0 }, // Losers 2A
    { TeamA: 0, ScoreA: 1, TeamB: 6, ScoreB: 2 }, // Losers 2B
-   { TeamA: null, ScoreA: null, TeamB: 6, ScoreB: null }, // Losers 3A
-   { TeamA: null, ScoreA: null, TeamB: null, ScoreB: null }, // 1st + 3rd
+   { TeamA: 1, ScoreA: 2, TeamB: 6, ScoreB: 1 }, // Losers 3A
+   { TeamA: 4, ScoreA: null, TeamB: 1, ScoreB: null }, // 1st + 3rd
 ];
 const Games = [
    { date: 'Round 1', player: null, win: null, points: null, sinks: null, doublebody: null },
@@ -367,6 +367,30 @@ const Games = [
    { date: '08/27/25', player: BeerDiePlayers.Dolph, win: false, points: 1, sinks: 1, doublebody: 0 },
    { date: '08/27/25', player: BeerDiePlayers.Dugo,  win: true, points: 3, sinks: 1, doublebody: 0 },
    { date: '08/27/25', player: BeerDiePlayers.Ringo,  win: true, points: 4, sinks: 1, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Dugo,  win: true, points: 3, sinks: 1, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Ringo,  win: true, points: 4, sinks: 0, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Foreman, win: false, points: 3, sinks: 0, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Jaws, win: false, points: 1, sinks: 0, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Dugo,  win: false, points: 1, sinks: 1, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Ringo,  win: false, points: 3, sinks: 1, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Foreman, win: true, points: 3, sinks: 0, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Jaws, win: true, points: 4, sinks: 0, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Dugo,  win: false, points: 0, sinks: 2, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Ringo,  win: false, points: 1, sinks: 0, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Foreman, win: true, points: 4, sinks: 0, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Jaws, win: true, points: 3, sinks: 0, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Vixen,  win: true, points: 5, sinks: 0, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Yasso,  win: true, points: 2, sinks: 1, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Bean, win: false, points: 3, sinks: 0, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Gene, win: false, points: 0, sinks: 1, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Vixen,  win: false, points: 1, sinks: 1, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Yasso,  win: false, points: 1, sinks: 1, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Bean, win: true, points: 1, sinks: 0, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Gene, win: true, points: 6, sinks: 0, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Vixen,  win: true, points: 5, sinks: 0, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Yasso,  win: true, points: 2, sinks: 0, doublebody: 1 },
+   { date: '09/19/25', player: BeerDiePlayers.Bean, win: false, points: 3, sinks: 1, doublebody: 0 },
+   { date: '09/19/25', player: BeerDiePlayers.Gene, win: false, points: 2, sinks: 0, doublebody: 0 },
 ];
 /// Computed
 const Stats = computed(() => Teams.flatMap(x => x).map(p => {
