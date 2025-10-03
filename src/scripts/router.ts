@@ -14,6 +14,7 @@ export const router = createRouter({
       // Chi Lambda
       { path: '/chilambda/ffl', component: () => import('@/pages/chilambda/FFL.vue') },
       { path: '/chilambda/beerdie', component: () => import('@/pages/chilambda/BeerDie.vue') },
+      { path: '/chilambda/playercards', component: () => import('@/pages/chilambda/PlayerCards.vue') },
       // Maintenance
       { path: '/Icons', component: () => import('@/pages/maintenance/Icons.vue') },
    ],

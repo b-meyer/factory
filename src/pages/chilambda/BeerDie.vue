@@ -201,8 +201,8 @@
           <div>4. {{ TeamName(6) }}</div>
           <div>5. {{ TeamName(0) }}</div>
           <div>5. {{ TeamName(7) }}</div>
-          <div>6. {{ TeamName(5) }}</div>
           <div>6. {{ TeamName(3) }}</div>
+          <div>6. {{ TeamName(5) }}</div>
         </div>
       </div>
       <div v-show="ActiveTab == BeerDieTabs.Games"

@@ -61,3 +61,6 @@
 @utility grid-table {
    @apply flex flex-col *:grid *:border-b **:border-gray-400 *:first:!border-b-gray-900 *:even:bg-gray-50 *:text-center *:*:not-last:border-r *:*:px-3 *:*:truncate -mb-1;
 }
+@utility x-XA {
+   @apply before:content-['\03A7\039b'] before:text-14 not-italic;
+}
