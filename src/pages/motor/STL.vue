@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col w-full min-h-full gap-20 p-20">
     <div class="relative card flex flex-auto gap-20">
-      <div class="flex flex-col flex-auto max-w-[300px] p-40 gap-30">
+      <div class="flex flex-col flex-auto max-w-300 p-40 gap-30">
         <div class="flex flex-col gap-10">
           <div class="flex items-center justify-between">
             <h2 class="text-xl font-bold text-gray-900 sm:text-2xl sm:truncate">

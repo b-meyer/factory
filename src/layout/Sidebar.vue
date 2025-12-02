@@ -3,11 +3,11 @@
     <div class="flex items-center justify-center h-50 bg-primary-750 relative">
       <a class=""
          href="/">
-        <i class="text-[24px] fa-city" />
+        <i class="text-24 fa-city" />
       </a>
       <div class="absolute right-0 flex items-center justify-center w-50 h-50 md:hidden"
            @click="mainStore.SidebarVisible = false">
-        <i class="bi-x text-[35px]" />
+        <i class="bi-x text-35" />
       </div>
     </div>
     <div class="flex flex-col flex-auto">
@@ -17,7 +17,7 @@
            :key="l_i"
            class="flex items-center gap-15 p-15 h-45 hover:bg-primary-650"
            :href="link.Link">
-          <i class="text-[15px]"
+          <i class="text-15"
              :class="link.Icon" />
           <div v-text="link.Text" />
         </a>
@@ -25,16 +25,16 @@
              class="flex items-center gap-15 p-15 h-45 hover:bg-primary-650"
              :class="{ 'bg-primary-675': Active === section.Category }"
              @click="Select(section.Category)">
-          <i class="text-[15px]"
+          <i class="text-15"
              :class="section.Icon" />
           <div v-text="section.Category" />
-          <i class="text-[12px] ml-auto"
+          <i class="text-12 ml-auto"
              :class="['bi-chevron-' + (Active == section.Category ? 'down' : 'left')]" />
         </div>
         <a v-for="(link, l_i) in (section as any).Links"
            v-show="Active == (section as any).Category"
            :key="l_i"
-           class="flex items-center gap-15 p-15 h-45 bg-primary-675 text-[14px] hover:bg-primary-650"
+           class="flex items-center gap-15 p-15 h-45 bg-primary-675 text-14 hover:bg-primary-650"
            :href="link.Link">
           <div class="pl-30"
                v-text="link.Text" />

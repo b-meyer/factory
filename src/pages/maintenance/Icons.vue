@@ -6,7 +6,7 @@
       </h1>
       <div class="relative flex-auto max-sm:hidden">
         <div class="absolute inset-0 pl-15 flex items-center pointer-events-none">
-          <i class="bi-search text-[16px]" />
+          <i class="bi-search text-16" />
         </div>
         <input v-model="Search"
                class="border-input rounded h-32 w-full pl-40 pr-10"

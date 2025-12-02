@@ -1,11 +1,11 @@
 <template>
   <div class="flex flex-col w-full min-h-full gap-20 p-20">
     <div class="card flex flex-auto gap-20">
-      <div class="flex flex-col flex-auto max-w-[300px] p-40 gap-30">
+      <div class="flex flex-col flex-auto max-w-300 p-40 gap-30">
         <div class="flex flex-col gap-10">
           <div class="flex gap-10 items-center justify-between">
             <label>Teeth:</label>
-            <div class="max-w-[75px]">
+            <div class="max-w-75">
               <input v-model="N"
                      type="number"
                      class="border-input rounded h-32 w-full px-10"
@@ -15,7 +15,7 @@
           </div>
           <div class="flex gap-10 items-center justify-between">
             <label>Angle:</label>
-            <div class="max-w-[75px]">
+            <div class="max-w-75">
               <input v-model="PA_Deg"
                      type="number"
                      class="border-input rounded h-32 w-full px-10"
@@ -26,7 +26,7 @@
           </div>
           <div class="flex gap-10 items-center justify-between">
             <label>Steps:</label>
-            <div class="max-w-[75px]">
+            <div class="max-w-75">
               <input v-model="Steps"
                      type="number"
                      class="border-input rounded h-32 w-full px-10"
@@ -37,7 +37,7 @@
           </div>
           <div class="flex gap-10 items-center justify-between">
             <label>Tooth Lines:</label>
-            <div class="max-w-[75px]">
+            <div class="max-w-75">
               <input v-model="ShowTooth"
                      type="checkbox"
                      @change="Init">
@@ -45,7 +45,7 @@
           </div>
           <div class="flex gap-10 items-center justify-between">
             <label>Pitch Lines:</label>
-            <div class="max-w-[75px]">
+            <div class="max-w-75">
               <input v-model="ShowPitch"
                      type="checkbox"
                      @change="Init">

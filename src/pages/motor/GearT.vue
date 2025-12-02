@@ -47,7 +47,7 @@
           </div>
           <div class="flex gap-10 items-center justify-between">
             <label>Angle:</label>
-            <div class="max-w-[75px]">
+            <div class="max-w-75">
               <input v-model="PA_Deg"
                      type="number"
                      class="border-input rounded h-32 w-full px-10"
