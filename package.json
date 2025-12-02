@@ -9,27 +9,27 @@
       "build": "npm run test && vite build"
    },
    "dependencies": {
-      "@vueuse/core": "^13.8.0",
-      "pinia": "^3.0.3",
-      "pixi.js": "^8.12.0",
-      "three": "^0.179.1",
-      "vue": "^3.5.20",
-      "vue-router": "^4.5.1"
+      "@vueuse/core": "^14.1.0",
+      "pinia": "^3.0.4",
+      "pixi.js": "^8.14.3",
+      "three": "^0.181.2",
+      "vue": "^3.5.25",
+      "vue-router": "^4.6.3"
    },
    "devDependencies": {
-      "@tailwindcss/vite": "^4.1.12",
-      "@tsconfig/node22": "^22.0.2",
-      "@types/three": "^0.179.0",
+      "@tailwindcss/vite": "^4.1.17",
+      "@tsconfig/node22": "^22.0.5",
+      "@types/three": "^0.181.0",
       "@types/node": "^22.17.1",
-      "@vitejs/plugin-vue": "^6.0.1",
+      "@vitejs/plugin-vue": "^6.0.2",
       "@vue/eslint-config-typescript": "^14.6.0",
       "@vue/tsconfig": "^0.8.1",
-      "eslint": "^9.34.0",
-      "eslint-plugin-vue": "^10.4.0",
-      "tailwindcss": "^4.1.12",
-      "typescript": "^5.9.2",
+      "eslint": "^9.39.1",
+      "eslint-plugin-vue": "^10.6.2",
+      "tailwindcss": "^4.1.17",
+      "typescript": "^5.9.3",
       "vite": "npm:rolldown-vite@latest",
-      "vue-tsc": "^3.0.6"
+      "vue-tsc": "^3.1.5"
    },
    "engines": {
       "node": "^22"
