@@ -148,6 +148,7 @@
               @click="Export">
         Export
       </button>
+      <!-- Pitch diameter info panel: D+ = outer (addendum) diameter, D = pitch diameter, D- = root (dedendum) diameter -->
       <div class="absolute bottom-15 right-15">
         <div v-if="Shared.Gear == '0'"
              class="flex flex-col gap-5">
@@ -296,6 +297,10 @@
 </template>
 
 <script setup lang="ts">
+/// 3D Gear Viewer and STL Exporter
+/// Converts 2D gear profiles (from GetGear/GetGearT) into extruded 3D geometry using Three.js.
+/// Supports viewing all gear types from the motor assembly (M, 0, 1, 2D, 2R) and exporting as binary STL files.
+/// Uses OrbitControls for interactive 3D rotation/zoom/pan.
 import { computed, onMounted, onUnmounted, reactive } from 'vue';
 import * as THREE from 'three';
 import { STLExporter } from 'three/addons/exporters/STLExporter.js';
@@ -306,42 +311,50 @@ let scene: THREE.Scene,
    camera: THREE.PerspectiveCamera,
    renderer: THREE.WebGLRenderer,
    orbit: OrbitControls;
+// Shared parameters across all gear types
 const Shared = reactive({
-   PA_Deg: 25,
-   Depth: 15,
-   Gear: '1',
-   Gears: ['M', '0', '1', '2R', '2D']
+   PA_Deg: 25, // Pressure angle in degrees
+   Depth: 15,  // Extrusion depth (gear thickness)
+   Gear: '1',  // Currently selected gear type
+   Gears: ['M', '0', '1', '2R', '2D'] // Available gear types for dropdown
 });
+// Main gear: multiplied version of Gear1
 const GearM = reactive({
-   Ratio: 8,
+   Ratio: 8, // Tooth/radius multiplier (GearM has Ratio × Gear1 teeth)
 });
+// Base gear: direct parameters for the standard spur gear
 const Gear1 = reactive({
-   N: 18,
-   R: 20,
+   N: 18, // Tooth count
+   R: 20, // Pitch radius (in model units, determines physical size for STL export)
 });
+// Compound gear parameters
 const Gear2 = reactive({
-   RBN: 16,
-   RSN: 10,
-   Dist: .75,
+   RBN: 16,    // Receiver big tooth count
+   RSN: 10,    // Receiver small tooth count
+   Dist: .75,  // Distance multiplier (fraction of 2 × Gear1.R)
 });
+
 /// Computed
-const GearA = computed(() => 2 * Gear1.R / Gear1.N);
-const TGearInfo = computed(() => GetTranInfo(Gear2.RBN, Gear2.RSN, 2 * Gear1.R * Gear2.Dist));
+const GearA = computed(() => 2 * Gear1.R / Gear1.N); // Addendum height
+const TGearInfo = computed(() => GetTranInfo(Gear2.RBN, Gear2.RSN, 2 * Gear1.R * Gear2.Dist)); // Full compound gear parameters
+// Generate 2D gear profile points based on selected gear type
 const Points = computed(() => {
    switch (Shared.Gear) {
-      case 'M': return GetGear(GearM.Ratio * Gear1.N, GearM.Ratio * Gear1.R, Shared.PA_Deg, 7);
-      case '0': return GetGear(Gear1.N / 2, Gear1.R / 2, Shared.PA_Deg, 12);
-      case '1': return GetGear(Gear1.N, Gear1.R, Shared.PA_Deg, 12);
-      case '2D': return GetGearT(Gear2.RBN, Gear2.RSN, 2 * Gear1.R * Gear2.Dist, Shared.PA_Deg, true, 12);
-      case '2R': return GetGearT(Gear2.RBN, Gear2.RSN, 2 * Gear1.R * Gear2.Dist, Shared.PA_Deg, false, 12);
+      case 'M': return GetGear(GearM.Ratio * Gear1.N, GearM.Ratio * Gear1.R, Shared.PA_Deg, 7); // Main gear (scaled up)
+      case '0': return GetGear(Gear1.N / 2, Gear1.R / 2, Shared.PA_Deg, 12); // Half gear (driven gear 0)
+      case '1': return GetGear(Gear1.N, Gear1.R, Shared.PA_Deg, 12); // Standard Gear1
+      case '2D': return GetGearT(Gear2.RBN, Gear2.RSN, 2 * Gear1.R * Gear2.Dist, Shared.PA_Deg, true, 12); // Driver compound
+      case '2R': return GetGearT(Gear2.RBN, Gear2.RSN, 2 * Gear1.R * Gear2.Dist, Shared.PA_Deg, false, 12); // Receiver compound
       default: return [];
    };
 });
-const Max = computed(() => Math.max(...Points.value.flat()));
+const Max = computed(() => Math.max(...Points.value.flat())); // Maximum extent (for camera positioning)
+// Convert 2D profile to 3D extruded geometry
 const geometry = computed(() => {
    const shape = new THREE.Shape(Points.value.map(x => new THREE.Vector2(x[0], x[1])));
    const geometry = new THREE.ExtrudeGeometry(shape, { depth: Shared.Depth, bevelEnabled: false, steps: 1 });
-   geometry.translate(0, 0, -Shared.Depth / 2);
+   geometry.translate(0, 0, -Shared.Depth / 2); // Center extrusion on Z=0
+   // Commented out: helical gear modification (rotates tooth profile along Z-axis for helical teeth)
    // const pos = geometry.getAttribute( 'position' );
    // const npos = geometry.getAttribute( 'normal' );
    // for( let i=0; i<pos.count; i++ ) {
@@ -357,23 +370,28 @@ const geometry = computed(() => {
    return geometry;
 });
 /// Methods
+// Reset camera and orbit when switching gear types
 const GearChange = () => {
    orbit.reset();
-   camera.position.z = Math.max(...Points.value.flat()) * 3;
+   camera.position.z = Math.max(...Points.value.flat()) * 3; // Distance based on gear size
    Init();
 };
+// Rebuild the 3D scene with current gear geometry
 const Init = () => {
    scene.clear();
+   // Wireframe overlay: black edges for visibility
    const wireFrame = new THREE.WireframeGeometry(geometry.value);
    const lineMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
-   const meshMaterial = new THREE.MeshStandardMaterial({ emissive: 0x999999 });
+   const meshMaterial = new THREE.MeshStandardMaterial({ emissive: 0x999999 }); // Self-lit gray surface
    scene.add(new THREE.LineSegments(wireFrame, lineMaterial));
    scene.add(new THREE.Mesh(geometry.value, meshMaterial));
 };
+// Export current gear as a binary STL file for 3D printing
 const Export = () => {
    const exporter = new STLExporter();
    const result = exporter.parse(new THREE.Mesh(geometry.value), { binary: true });
    const blob = new Blob([result], { type: 'text/plain' });
+   // Create a temporary download link and trigger the download
    const link = document.createElement('a');
    link.style.display = 'none';
    document.body.appendChild(link);
@@ -385,16 +403,18 @@ const Export = () => {
 /// Lifecycle
 onMounted(async () => {
    const viewport = document.getElementById("viewport")!;
+   // Initialize Three.js scene, camera, and renderer
    scene = new THREE.Scene()
    camera = new THREE.PerspectiveCamera(50, viewport.clientWidth / viewport.clientHeight, 0.1, 2000);
-   renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+   renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true }); // Transparent background
    renderer.setSize(viewport.clientWidth, viewport.clientHeight);
-   renderer.setAnimationLoop(() => renderer.render(scene, camera));
-   orbit = new OrbitControls(camera, renderer.domElement);
+   renderer.setAnimationLoop(() => renderer.render(scene, camera)); // Continuous render for orbit controls
+   orbit = new OrbitControls(camera, renderer.domElement); // Interactive rotation/zoom/pan
    viewport.appendChild(renderer.domElement);
-   camera.position.z = Max.value * 3;
+   camera.position.z = Max.value * 3; // Initial camera distance based on gear size
    Init();
 });
+// Clean up Three.js resources to prevent memory leaks
 onUnmounted(() => {
    orbit.dispose();
    renderer.dispose();
