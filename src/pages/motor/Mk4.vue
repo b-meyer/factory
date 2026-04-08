@@ -215,6 +215,7 @@ const Crank = reactive({
    TotalR: 28,
    PitchR: 23,
    PinR: 2,
+   RailR: 1.5,
 });
 const Rotor = reactive({
    Arms: 8,
@@ -260,6 +261,7 @@ const Init = () => {
    const crankTotalR = Scale.value * Crank.TotalR;
    const crankPitchR = Scale.value * Crank.PitchR;
    const crankPinR = Scale.value * Crank.PinR
+   const crankRailR = Scale.value * Crank.RailR
    const crankArmLength = Scale.value * Crank.ArmLength;
    const crankArmWidth = Scale.value * Crank.ArmWidth;
    const magnetWidth = Scale.value * Magnets.Width;
@@ -315,10 +317,10 @@ const Init = () => {
       crank.addChild(crankBody);
       const crankRail = new Graphics();
       crankRail.poly([
-         -crankPinR, crankPitchR + 2 * crankPinR,
-         -crankPinR, -crankPitchR - crankArmWidth / 2 - 3 * Scale.value - 2 * (magnetWidthCos + magnetDepthSin),
-         crankPinR, -crankPitchR - crankArmWidth / 2 - 3 * Scale.value - 2 * (magnetWidthCos + magnetDepthSin),
-         crankPinR, crankPitchR + 2 * crankPinR]); // Crank Rail
+         -crankRailR, crankPitchR + 2 * crankRailR,
+         -crankRailR, -crankPitchR - crankArmWidth / 2 - 3 * Scale.value - 2 * (magnetWidthCos + magnetDepthSin),
+         crankRailR, -crankPitchR - crankArmWidth / 2 - 3 * Scale.value - 2 * (magnetWidthCos + magnetDepthSin),
+         crankRailR, crankPitchR + 2 * crankRailR]); // Crank Rail
       crankRail.fill(fill).stroke({ width: 1, color: 0x000 });
       crankRail.y = totalR - crankArmLength;
       crank.addChild(crankRail);

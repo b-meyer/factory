@@ -8,15 +8,15 @@ declare global {
    }
 }
 
-Array.prototype.sum = function (selector) {
-   return this.reduce((sum, item) => sum + selector(item), 0);
-}
-Array.prototype.avg = function (selector, count) {
+Object.defineProperty(Array.prototype, 'sum', { value(selector: (item: any) => number) {
+   return this.reduce((sum: number, item: any) => sum + selector(item), 0);
+}});
+Object.defineProperty(Array.prototype, 'avg', { value(selector: (item: any) => number, count?: number) {
    return Math.round(this.sum(selector) / (count || this.length) * 100) / 100;
-}
-Array.prototype.groupBy = function (selector) {
-   return this.reduce((obj, item) => {(obj[selector(item)] ||= []).push(item); return obj}, {});
-}
+}});
+Object.defineProperty(Array.prototype, 'groupBy', { value(selector: (item: any) => any) {
+   return this.reduce((obj: any, item: any) => {(obj[selector(item)] ||= []).push(item); return obj}, {});
+}});
 
 export const GetGroup = (regex: RegExp, value: string, index?: number): string | undefined => regex.exec(value || "")?.[index || 1];
 export const UseLS = <T>(id: string, defaultValue: T, options: UseStorageOptions<T> = { serializer: StorageSerializers.object }): RemovableRef<T> => useLocalStorage(id, defaultValue, options);
